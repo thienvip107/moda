@@ -175,36 +175,43 @@ const Home = () => {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
             {[
               {
-                title: "Đá Lợp Mái",
-                desc: "Mái ngói đá đen tự nhiên - biểu tượng trường tồn của các công trình cổ điển và biệt thự cao cấp.",
+                title: "Đá Đen Lợp Mái",
+                desc: "Ngói đá đen tự nhiên hình vảy cá, chữ nhật, mũi hài... bền bỉ vĩnh cửu ngoài trời.",
                 img: "/assets/img/roofing_slate.jpg",
-                path: "/products/roofing-slate"
+                filter: "da-den-lop-mai"
               },
               {
-                title: "Đá Ốp Tường",
-                desc: "Đá thẻ, đá ghép tự nhiên tạo nên những bức vách nghệ thuật đầy chiều sâu và cảm xúc tự nhiên.",
-                img: "/assets/img/wall_cladding.jpg",
-                path: "/products/wall-cladding"
-              },
-              {
-                title: "Đá Lát Sân Vườn",
-                desc: "Chống trơn trượt tuyệt đối, độ bền cơ học cao cho sân vườn, lối đi và khu vực quanh hồ bơi.",
+                title: "Đá Đen Ốp Lát",
+                desc: "Đá lát nền sân vườn chống trơn và đá quy cách ốp tường trang trí đẳng cấp.",
                 img: "/assets/img/paving_slate.jpg",
-                path: "/products/paving-slate"
+                filter: "da-den-op-lat"
               },
               {
-                title: "Đá Đa Sắc",
-                desc: "Sự pha trộn tự nhiên ngẫu hứng giữa sắc vàng rỉ sét, đồng và xám đen độc bản duy nhất.",
+                title: "Đá Đa Sắc Lợp Mái",
+                desc: "Ngói phối sắc tự nhiên rực rỡ, mang phong cách lâu đài biệt thự Châu Âu cổ kính.",
                 img: "/assets/img/multicolor_slate.jpg",
-                path: "/products/multicolor-slate"
+                filter: "da-da-sac-lop-mai"
+              },
+              {
+                title: "Đá Đa Sắc Ốp Lát",
+                desc: "Đá lát sân vườn & ốp tường mặt tiền phối màu đa sắc sinh động dưới nắng.",
+                img: "/assets/img/wall_cladding.jpg",
+                filter: "da-da-sac-op-lat"
+              },
+              {
+                title: "Đá Trang Trí",
+                desc: "Đá rối tự do, đá ghép 3D tạo điểm nhấn mộc mạc nghệ thuật cho tiểu cảnh sân vườn.",
+                img: "/assets/img/project_1.jpg",
+                filter: "da-trang-tri"
               }
             ].map((cat, idx) => (
               <Link 
                 key={idx} 
-                to={cat.path}
+                to="/products"
+                state={{ filter: cat.filter }}
                 className="group bg-surface border border-muted p-4 rounded-sm shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col h-full"
               >
                 <div className="aspect-[4/3] overflow-hidden mb-6 rounded-xs relative">
@@ -217,10 +224,10 @@ const Home = () => {
                 </div>
                 <div className="flex-grow flex flex-col justify-between">
                   <div>
-                    <h3 className="text-xl font-heading font-bold text-primary mb-3 group-hover:text-accent transition-colors">
+                    <h3 className="text-lg font-heading font-bold text-primary mb-3 group-hover:text-accent transition-colors">
                       {cat.title}
                     </h3>
-                    <p className="font-body text-sm text-secondary/80 leading-relaxed mb-6">
+                    <p className="font-body text-xs text-secondary/80 leading-relaxed mb-6">
                       {cat.desc}
                     </p>
                   </div>

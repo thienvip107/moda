@@ -42,6 +42,7 @@ const Footer = () => {
               <li><Link to="/products" className="hover:text-accent transition-colors duration-300">{t('products')}</Link></li>
               <li><Link to="/projects" className="hover:text-accent transition-colors duration-300">{t('projects')}</Link></li>
               <li><Link to="/capabilities" className="hover:text-accent transition-colors duration-300">{t('capabilities')}</Link></li>
+              <li><Link to="/news" className="hover:text-accent transition-colors duration-300">{t('news')}</Link></li>
             </ul>
           </div>
 

@@ -8,6 +8,9 @@ import Products from './pages/Products';
 import Projects from './pages/Projects';
 import Capabilities from './pages/Capabilities';
 import Contact from './pages/Contact';
+import ProductDetail from './pages/ProductDetail';
+import News from './pages/News';
+import NewsDetail from './pages/NewsDetail';
 
 import { useTranslation } from 'react-i18next';
 
@@ -36,9 +39,12 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/products" element={<Products />} />
+        <Route path="/products/:productId" element={<ProductDetail />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/capabilities" element={<Capabilities />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/news" element={<News />} />
+        <Route path="/news/:newsId" element={<NewsDetail />} />
       </Routes>
       <Footer />
     </Router>

@@ -1,109 +1,20 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Shield, Sparkles, MoveRight, PhoneCall, FileText } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { productsList, filters } from '../data/products';
 
 const Products = () => {
   const { t } = useTranslation();
+  const location = useLocation();
   const [activeFilter, setActiveFilter] = useState('all');
 
   React.useEffect(() => {
     document.title = "Sản phẩm | HT STONE - Đá Tự Nhiên Lai Châu";
-  }, []);
-
-  const productsList = [
-    {
-      id: 'roofing-black',
-      category: 'roofing',
-      title: 'Ngói Đá Đen Lợp Mái Lai Châu',
-      engTitle: 'Classic Black Roofing Slate',
-      desc: 'Mái ngói đá đen tự nhiên - biểu tượng trường tồn của các công trình cổ điển và biệt thự cao cấp. Không phai màu, không hấp thụ nhiệt.',
-      img: '/assets/img/roofing_slate.jpg',
-      specs: {
-        origin: 'Lai Châu, Việt Nam',
-        sizes: '20x30 cm, 20x40 cm, 15x25 cm',
-        thickness: '4 - 7 mm',
-        surface: 'Chẻ tay thủ công thô mộc'
-      }
-    },
-    {
-      id: 'roofing-multi',
-      category: 'roofing',
-      title: 'Ngói Đá Đa Sắc Lợp Mái',
-      engTitle: 'Multicolor Roofing Slate',
-      desc: 'Sự kết hợp ngẫu nhiên giữa màu xám đen, vàng gỉ sét và nâu đồng tạo phong cách cổ kính, vương giả kiểu Pháp.',
-      img: '/assets/img/multicolor_slate.jpg',
-      specs: {
-        origin: 'Lai Châu, Việt Nam',
-        sizes: 'Rối tự do hoặc quy chuẩn',
-        thickness: '5 - 8 mm',
-        surface: 'Vân thô tự nhiên'
-      }
-    },
-    {
-      id: 'wall-black',
-      category: 'wall',
-      title: 'Đá Thẻ Ốp Tường Đen Tự Nhiên',
-      engTitle: 'Natural Black Wall Cladding Slate',
-      desc: 'Các thanh đá thẻ dài mỏng chẻ thô ốp ghép so le tạo hiệu ứng vách đá tự nhiên đầy nghệ thuật và chiều sâu.',
-      img: '/assets/img/wall_cladding.jpg',
-      specs: {
-        origin: 'Lai Châu, Việt Nam',
-        sizes: '10x20 cm, 5x20 cm, 15x30 cm',
-        thickness: '10 - 15 mm',
-        surface: 'Chẻ tay nhô cao nghệ thuật'
-      }
-    },
-    {
-      id: 'wall-multi',
-      category: 'wall',
-      title: 'Đá Vân Sóng Đa Sắc Ốp Mặt Tiền',
-      engTitle: 'Multicolor Slate Wall Cladding',
-      desc: 'Màu sắc biến chuyển kỳ ảo nổi bật dưới ánh nắng mặt trời, hoàn hảo cho mặt tiền biệt thự và vách trang trí sảnh đón.',
-      img: '/assets/img/multicolor_slate.jpg',
-      specs: {
-        origin: 'Lai Châu, Việt Nam',
-        sizes: '15x60 cm, 10x50 cm',
-        thickness: '15 - 20 mm',
-        surface: 'Ghép tấm băm gồ ghề'
-      }
-    },
-    {
-      id: 'paving-black',
-      category: 'paving',
-      title: 'Đá Lát Sân Vườn Đen Nhám',
-      engTitle: 'Textured Black Paving Slate',
-      desc: 'Bề mặt chống trơn trượt tuyệt đối, độ chịu lực uốn nén cao, chịu nhiệt và chống rêu mốc tối đa cho sân vườn, lối đi ô tô.',
-      img: '/assets/img/paving_slate.jpg',
-      specs: {
-        origin: 'Lai Châu, Việt Nam',
-        sizes: '30x30 cm, 30x60 cm, 40x40 cm',
-        thickness: '12 - 25 mm',
-        surface: 'Chẻ thô phẳng tự nhiên'
-      }
-    },
-    {
-      id: 'paving-step',
-      category: 'paving',
-      title: 'Đá Thớt Lát Bước Dạo Sân Vườn',
-      engTitle: 'Natural Garden Step Stones',
-      desc: 'Đá cắt hình dạng thớt tự do, giữ trọn vẹn nét mộc mạc hoang sơ của đá tự nhiên để xếp đặt lối đi dạo trên thảm cỏ.',
-      img: '/assets/img/project_1.jpg',
-      specs: {
-        origin: 'Lai Châu, Việt Nam',
-        sizes: 'Đường kính 30 - 50 cm',
-        thickness: '30 - 45 mm',
-        surface: 'Bề mặt chẻ tay thô ráp'
-      }
+    if (location.state && location.state.filter) {
+      setActiveFilter(location.state.filter);
     }
-  ];
-
-  const filters = [
-    { key: 'all', name: 'Tất cả sản phẩm' },
-    { key: 'roofing', name: 'Đá Lợp Mái' },
-    { key: 'wall', name: 'Đá Ốp Tường' },
-    { key: 'paving', name: 'Đá Lát Sân Vườn' }
-  ];
+  }, [location.state]);
 
   const filteredProducts = activeFilter === 'all'
     ? productsList
@@ -158,24 +69,32 @@ const Products = () => {
               >
                 <div>
                   {/* Image Showcase */}
-                  <div className="aspect-[16/10] overflow-hidden rounded-xs border border-muted/50 relative mb-8">
+                  <Link to={`/products/${product.id}`} className="aspect-[16/10] overflow-hidden rounded-xs border border-muted/50 relative mb-8 block">
                     <img 
                       src={product.img} 
                       alt={product.title} 
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  </div>
+                  </Link>
 
                   {/* Info */}
                   <div className="space-y-4">
                     <div className="flex items-center gap-2 text-accent text-xs font-body uppercase tracking-wider">
                       <Sparkles size={14} />
-                      <span>{product.category === 'roofing' ? 'Đá lợp mái' : product.category === 'wall' ? 'Đá ốp tường' : 'Đá lát sân vườn'}</span>
+                      <span>
+                        {product.category === 'da-den-lop-mai' && 'Đá đen LỢP MÁI'}
+                        {product.category === 'da-den-op-lat' && 'Đá đen ỐP LÁT'}
+                        {product.category === 'da-da-sac-lop-mai' && 'Đá đa sắc LỢP MÁI'}
+                        {product.category === 'da-da-sac-op-lat' && 'Đá đa sắc ỐP LÁT'}
+                        {product.category === 'da-trang-tri' && 'Đá TRANG TRÍ'}
+                      </span>
                     </div>
-                    <h3 className="text-2xl md:text-3xl font-heading font-bold text-primary group-hover:text-accent transition-colors">
-                      {product.title}
-                    </h3>
+                    <Link to={`/products/${product.id}`} className="block">
+                      <h3 className="text-2xl md:text-3xl font-heading font-bold text-primary group-hover:text-accent transition-colors">
+                        {product.title}
+                      </h3>
+                    </Link>
                     <p className="font-body text-sm text-secondary/80 leading-relaxed">
                       {product.desc}
                     </p>
@@ -205,17 +124,18 @@ const Products = () => {
                 {/* Actions */}
                 <div className="mt-8 pt-6 border-t border-muted/50 flex items-center justify-between gap-4">
                   <Link 
-                    to="/contact" 
+                    to={`/products/${product.id}`} 
                     className="inline-flex items-center gap-2 text-accent font-body uppercase tracking-wider text-xs font-bold hover:text-primary transition-colors border-b border-transparent hover:border-primary pb-1"
                   >
-                    Yêu cầu báo giá <MoveRight size={14} />
+                    Xem chi tiết <MoveRight size={14} />
                   </Link>
-                  <a 
-                    href="/catalogue.pdf" 
+                  <Link 
+                    to="/contact" 
+                    state={{ subject: `Yêu cầu báo giá: ${product.title}` }}
                     className="inline-flex items-center gap-1.5 font-body text-xs text-secondary hover:text-accent transition-colors"
                   >
-                    <FileText size={14} /> Spec Sheet
-                  </a>
+                    Yêu cầu báo giá
+                  </Link>
                 </div>
               </div>
             ))}
