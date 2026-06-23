@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #2A2A2A;
+  --color-secondary: #666666;
+  --color-accent: #B8975A;
+  --color-background: #FAF7F0;
+  --color-surface: #FFFFFF;
+  --color-muted: #EAE6DF;
+  --font-heading: var(--heading-font-family);
+  --font-body: var(--body-font-family);
+  --animate-fade-in-up: fade-in-up 1s ease-out;
+
+  @keyframes fade-in-up {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+@layer base {
+  :root, html[lang="en"] {
+    --heading-font-family: "Cormorant Garamond", serif;
+    --body-font-family: "Jost", sans-serif;
+  }
+  html[lang="vi"] {
+    --heading-font-family: "Prata", serif;
+    --body-font-family: "Be Vietnam Pro", sans-serif;
+  }
+
+  body {
+    font-family: var(--font-body);
+    background-color: var(--color-background);
+    color: var(--color-primary);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+  }
+}
+
+@layer utilities {
+  .text-shadow {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+}
