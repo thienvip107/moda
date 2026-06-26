@@ -15,7 +15,11 @@ const Footer = () => {
           {/* Brand Info */}
           <div className="space-y-6">
             <Link to="/" className="inline-block">
-              <h2 className="text-3xl font-heading font-bold text-primary tracking-widest">HT STONE</h2>
+              <img 
+                src="/assets/img/logo-black.png" 
+                alt="HT STONE" 
+                className="h-14 md:h-18 w-auto object-contain" 
+              />
             </Link>
             <p className="font-body text-sm leading-relaxed text-secondary/80">
               {t('slogan_1')} <br />

@@ -35,56 +35,60 @@ const Header = () => {
   const showSolidHeader = isScrolled || location.pathname !== '/' || mobileMenuOpen;
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${showSolidHeader ? 'bg-surface/90 backdrop-blur-md py-3 shadow-sm border-b border-muted/50' : 'bg-transparent py-5'}`}>
-      <div className="container mx-auto px-4 md:px-6 lg:px-8 flex items-center justify-between">
-        
-        {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 group">
-          <h1 className={`text-2xl md:text-3xl font-heading font-bold tracking-widest transition-colors duration-300 ${showSolidHeader ? 'text-primary' : 'text-white'}`}>
-            HT STONE
-          </h1>
-        </Link>
-
-        {/* Desktop Nav */}
-        <nav className="hidden lg:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <Link 
-              key={link.path} 
-              to={link.path}
-              className={`font-body text-sm uppercase tracking-wider font-semibold transition-colors duration-300 hover:text-accent ${
-                location.pathname === link.path 
-                  ? 'text-accent' 
-                  : showSolidHeader ? 'text-primary/80' : 'text-white/90'
-              }`}
-            >
-              {link.name}
-            </Link>
-          ))}
-        </nav>
-
-        {/* Right Actions */}
-        <div className="flex items-center gap-4">
-          <button 
-            onClick={toggleLanguage}
-            className={`flex items-center gap-1 font-body text-sm font-semibold transition-colors hover:text-accent ${showSolidHeader ? 'text-primary' : 'text-white'}`}
-          >
-            <Globe size={18} />
-            {i18n.language.toUpperCase()}
-          </button>
+    <>
+      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${showSolidHeader ? 'bg-surface/90 backdrop-blur-md py-3 shadow-sm border-b border-muted/50' : 'bg-transparent py-5'}`}>
+        <div className="container mx-auto px-4 md:px-6 lg:px-8 flex items-center justify-between">
           
-          <Link to="/contact" className={`hidden md:inline-flex items-center justify-center px-6 py-2.5 border font-body text-sm uppercase tracking-wider font-bold transition-all duration-300 ${showSolidHeader ? 'border-accent text-accent hover:bg-accent hover:text-surface' : 'border-white/80 text-white hover:bg-white hover:text-primary'}`}>
-            {t('contact')}
+          {/* Logo */}
+          <Link to="/" className="flex items-center gap-2 group">
+            <img 
+              src={showSolidHeader ? "/assets/img/logo-black.png" : "/assets/img/logo-white.png"} 
+              alt="HT STONE" 
+              className="h-12 md:h-16 w-auto object-contain transition-all duration-300"
+            />
           </Link>
 
-          {/* Mobile Menu Toggle */}
-          <button 
-            className={`lg:hidden p-2 transition-colors ${showSolidHeader ? 'text-primary' : 'text-white'}`}
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
-          </button>
+          {/* Desktop Nav */}
+          <nav className="hidden lg:flex items-center gap-8">
+            {navLinks.map((link) => (
+              <Link 
+                key={link.path} 
+                to={link.path}
+                className={`font-body text-sm uppercase tracking-wider font-semibold transition-colors duration-300 hover:text-accent ${
+                  location.pathname === link.path 
+                    ? 'text-accent' 
+                    : showSolidHeader ? 'text-primary/80' : 'text-white/90'
+                }`}
+              >
+                {link.name}
+              </Link>
+            ))}
+          </nav>
+
+          {/* Right Actions */}
+          <div className="flex items-center gap-4">
+            <button 
+              onClick={toggleLanguage}
+              className={`flex items-center gap-1 font-body text-sm font-semibold transition-colors hover:text-accent ${showSolidHeader ? 'text-primary' : 'text-white'}`}
+            >
+              <Globe size={18} />
+              {i18n.language.toUpperCase()}
+            </button>
+            
+            <Link to="/contact" className={`hidden md:inline-flex items-center justify-center px-6 py-2.5 border font-body text-sm uppercase tracking-wider font-bold transition-all duration-300 ${showSolidHeader ? 'border-accent text-accent hover:bg-accent hover:text-surface' : 'border-white/80 text-white hover:bg-white hover:text-primary'}`}>
+              {t('contact')}
+            </Link>
+
+            {/* Mobile Menu Toggle */}
+            <button 
+              className={`lg:hidden p-2 transition-colors ${showSolidHeader ? 'text-primary' : 'text-white'}`}
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+            </button>
+          </div>
         </div>
-      </div>
+      </header>
 
       {/* Mobile Menu Overlay */}
       <div 
@@ -96,9 +100,11 @@ const Header = () => {
             {/* Mobile Menu Header Bar */}
             <div className="flex items-center justify-between px-4 py-5 border-b border-muted/50">
               <Link to="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2">
-                <h1 className="text-2xl font-heading font-bold tracking-widest text-primary">
-                  HT STONE
-                </h1>
+                <img 
+                  src="/assets/img/logo-black.png" 
+                  alt="HT STONE" 
+                  className="h-12 w-auto object-contain"
+                />
               </Link>
               <div className="flex items-center gap-4">
                 <button 
@@ -142,13 +148,17 @@ const Header = () => {
           </div>
 
           {/* Branding Watermark */}
-          <div className="p-8 text-center border-t border-muted/30">
-            <p className="font-heading text-xl font-bold text-accent tracking-widest">HT STONE</p>
-            <p className="font-body text-[10px] text-secondary/60 uppercase tracking-widest mt-1">Đá Tự Nhiên Lai Châu Trường Tồn</p>
+          <div className="p-8 flex flex-col items-center border-t border-muted/30">
+            <img 
+              src="/assets/img/logo-gold.png" 
+              alt="HT STONE" 
+              className="h-14 w-auto object-contain mb-2"
+            />
+            <p className="font-body text-[10px] text-secondary/60 uppercase tracking-widest">Đá Tự Nhiên Lai Châu Trường Tồn</p>
           </div>
         </div>
       </div>
-    </header>
+    </>
   );
 };
 
