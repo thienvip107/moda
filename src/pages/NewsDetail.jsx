@@ -2,35 +2,42 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Calendar, User, Sparkles, Share2 } from 'lucide-react';
 import { FaFacebook } from 'react-icons/fa';
-import { newsList } from '../data/news';
+import { getNewsBySlugOrId, getNewsList } from '../services/api';
 
 const NewsDetail = () => {
   const { newsId } = useParams();
   const navigate = useNavigate();
   const [post, setPost] = useState(null);
+  const [allNews, setAllNews] = useState([]);
 
   useEffect(() => {
-    const foundPost = newsList.find(p => p.id === newsId);
-    if (foundPost) {
-      setPost(foundPost);
-      document.title = `${foundPost.title} | HT STONE - Đá Tự Nhiên Lai Châu`;
-    } else {
-      navigate('/news');
+    async function loadPost() {
+      const foundPost = await getNewsBySlugOrId(newsId);
+      const newsData = await getNewsList();
+      setAllNews(newsData);
+
+      if (foundPost) {
+        setPost(foundPost);
+        document.title = `${foundPost.title} | HT STONE - Đá Tự Nhiên Lai Châu`;
+      } else {
+        navigate('/news');
+      }
     }
+    loadPost();
     window.scrollTo(0, 0);
   }, [newsId, navigate]);
 
   if (!post) return null;
 
   // Get related posts (same category, excluding current post)
-  const relatedPosts = newsList
-    .filter(p => p.category === post.category && p.id !== post.id)
+  const relatedPosts = allNews
+    .filter(p => p.category === post.category && p.id !== post.id && p.slug !== post.slug)
     .slice(0, 2);
 
-  // If no related posts in same category, just take other posts
   const backupRelated = relatedPosts.length > 0 
     ? relatedPosts 
-    : newsList.filter(p => p.id !== post.id).slice(0, 2);
+    : allNews.filter(p => p.id !== post.id && p.slug !== post.slug).slice(0, 2);
+
 
   return (
     <main className="min-h-screen bg-background text-primary pt-28 pb-20">
@@ -61,7 +68,7 @@ const NewsDetail = () => {
           </span>
           
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-primary leading-tight">
-            {post.title}
+            {(i18n.language === 'en' && post.title_en) ? post.title_en : post.title}
           </h1>
 
           {/* Meta Info */}

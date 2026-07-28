@@ -1,78 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MapPin, Expand, Layers, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { getProjectsList } from '../services/api';
 
 const Projects = () => {
   const { t } = useTranslation();
   const [activeFilter, setActiveFilter] = useState('all');
+  const [projectsList, setProjectsList] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  React.useEffect(() => {
+  useEffect(() => {
     document.title = "Công trình tiêu biểu | HT STONE";
+    async function fetchProjects() {
+      try {
+        const data = await getProjectsList();
+        setProjectsList(data);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchProjects();
   }, []);
 
-  const projectsList = [
-    {
-      id: 'vinhomes-riverside',
-      category: 'villa',
-      title: 'Biệt Thự Đơn Lập Vinhomes Riverside',
-      desc: 'Hạng mục đá lát sân vườn, lối đi ô tô và ốp tường rào biệt thự bằng đá đen Lai Châu tự nhiên chẻ thô.',
-      location: 'Long Biên, Hà Nội',
-      img: '/assets/img/project_1.jpg',
-      year: '2024',
-      scale: 'Đá lát 450 m², Đá ốp 180 m²'
-    },
-    {
-      id: 'amanoi-resort',
-      category: 'resort',
-      title: 'Amanoi Resort Ninh Thuận',
-      desc: 'Cung cấp đá đen Lai Châu chống trơn lát sàn quanh hồ bơi vô cực, thềm hiên và lối đi nối các biệt thự Bungalow.',
-      location: 'Vịnh Vĩnh Hy, Ninh Thuận',
-      img: '/assets/img/project_2.jpg',
-      year: '2023',
-      scale: 'Đá lát 2.500 m²'
-    },
-    {
-      id: 'hotel-de-la-coupole',
-      category: 'resort',
-      title: 'Hotel de la Coupole Sapa',
-      desc: 'Hệ mái ngói đá Lai Châu đen hình vảy cá kết hợp chữ nhật, kiến tạo nên mái ngói tráng lệ mang đậm dấu ấn Indochine.',
-      location: 'Sapa, Lào Cai',
-      img: '/assets/img/project_3.jpg',
-      year: '2022',
-      scale: 'Ngói đá lợp mái 4.800 m²'
-    },
-    {
-      id: 'tay-ho-villa',
-      category: 'villa',
-      title: 'Biệt Thự Cổ Điển Tây Hồ',
-      desc: 'Ốp mặt tiền vây quanh, trụ cột lớn bằng đá đa sắc Lai Châu tạo tông ấm sang trọng, mộc mạc.',
-      location: 'Quảng An, Tây Hồ, Hà Nội',
-      img: '/assets/img/project_4.jpg',
-      year: '2024',
-      scale: 'Đá ốp trang trí 350 m²'
-    },
-    {
-      id: 'intercontinental-danang',
-      category: 'resort',
-      title: 'InterContinental Danang Sun Peninsula',
-      desc: 'Trải lát lối đi bộ bậc dạo ngoài trời, lối lên nhà hàng bằng đá tấm Lai Châu cỡ lớn.',
-      location: 'Bán đảo Sơn Trà, Đà Nẵng',
-      img: '/assets/img/slide_3.jpg',
-      year: '2023',
-      scale: 'Đá lát dạo 1.200 m²'
-    },
-    {
-      id: 'parkcity-garden',
-      category: 'garden',
-      title: 'Cảnh Quan Sân Vườn ParkCity Hanoi',
-      desc: 'Sắp đặt lối đi dạo thảm cỏ bằng đá thớt tròn tự nhiên kết hợp sỏi cuội đen bóng tạo tiểu cảnh Nhật Bản.',
-      location: 'Hà Đông, Hà Nội',
-      img: '/assets/img/about_stone.jpg',
-      year: '2024',
-      scale: '180 viên đá thớt thô'
-    }
-  ];
+
+
 
   const filters = [
     { key: 'all', name: 'Tất cả công trình' },
@@ -95,7 +49,7 @@ const Projects = () => {
             <span className="font-body uppercase tracking-widest text-accent text-xs font-bold">{t('projects')}</span>
             <div className="w-12 h-[1px] bg-accent"></div>
           </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-light text-primary">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-light text-primary leading-relaxed">
             Những Tuyệt Tác <br />
             <span className="font-bold">Đá Tự Nhiên Kiến Tạo</span>
           </h1>

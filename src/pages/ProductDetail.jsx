@@ -87,7 +87,7 @@ const ProductDetail = () => {
           
           {/* Left Column: Image Gallery */}
           <div className="lg:col-span-7 space-y-4">
-            <div className="aspect-[16/10] w-full overflow-hidden border border-muted bg-surface rounded-sm relative shadow-md">
+            <div className="aspect-square w-full overflow-hidden border border-muted bg-surface rounded-sm relative shadow-md">
               <img 
                 src={selectedImage} 
                 alt={product.title} 
@@ -102,7 +102,7 @@ const ProductDetail = () => {
                   <button
                     key={index}
                     onClick={() => setSelectedImage(imgUrl)}
-                    className={`aspect-[16/10] overflow-hidden rounded-xs border transition-all duration-300 ${
+                    className={`aspect-square overflow-hidden rounded-xs border transition-all duration-300 ${
                       selectedImage === imgUrl 
                         ? 'border-accent shadow-md scale-[1.02]' 
                         : 'border-muted hover:border-accent/50'
@@ -128,7 +128,7 @@ const ProductDetail = () => {
               </div>
               
               <div className="space-y-2">
-                <h1 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-primary leading-tight">
+                <h1 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-primary leading-relaxed">
                   {product.title}
                 </h1>
                 <p className="text-secondary/60 font-body text-sm md:text-base italic">
@@ -145,21 +145,22 @@ const ProductDetail = () => {
                 <h4 className="font-semibold text-primary uppercase tracking-wider text-xs border-b border-muted pb-2 mb-2">Thông tin quy cách nhanh</h4>
                 <div className="flex justify-between">
                   <span className="text-primary/70">Kích thước thông dụng:</span>
-                  <span className="font-semibold text-primary">{product.specs.sizes}</span>
+                  <span className="font-semibold text-primary">{product.specs?.sizes || '30x30, 30x60, 40x40 cm'}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-primary/70">Độ dày tiêu chuẩn:</span>
-                  <span className="font-semibold text-primary">{product.specs.thickness}</span>
+                  <span className="font-semibold text-primary">{product.specs?.thickness || '1.0 - 1.5 cm'}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-primary/70">Bề mặt hoàn thiện:</span>
-                  <span className="font-semibold text-primary">{product.specs.surface}</span>
+                  <span className="font-semibold text-primary">{product.specs?.surface || 'Chẻ tự nhiên / Mài thô'}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-primary/70">Xuất xứ:</span>
-                  <span className="font-semibold text-primary">{product.specs.origin}</span>
+                  <span className="font-semibold text-primary">{product.specs?.origin || 'Mỏ đá Slate Lai Châu, Việt Nam'}</span>
                 </div>
               </div>
+
             </div>
 
             {/* CTAs */}
@@ -315,7 +316,7 @@ const ProductDetail = () => {
                   to={`/products/${relProduct.id}`}
                   className="group bg-surface border border-muted p-4 rounded-sm shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col h-full"
                 >
-                  <div className="aspect-[16/10] overflow-hidden mb-6 rounded-xs relative">
+                  <div className="aspect-square overflow-hidden mb-6 rounded-xs relative">
                     <img 
                       src={relProduct.img} 
                       alt={relProduct.title} 

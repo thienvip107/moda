@@ -25,11 +25,11 @@
 
 @layer base {
   :root, html[lang="en"] {
-    --heading-font-family: "Cormorant Garamond", serif;
+    --heading-font-family: "Lora", "Merriweather", serif;
     --body-font-family: "Jost", sans-serif;
   }
   html[lang="vi"] {
-    --heading-font-family: "Playfair Display", serif;
+    --heading-font-family: "Lora", "Be Vietnam Pro", serif;
     --body-font-family: "Be Vietnam Pro", sans-serif;
   }
 
@@ -39,9 +39,11 @@
     color: var(--color-primary);
     -webkit-font-smoothing: antialiased;
   }
-  h1, h2, h3, h4, h5, h6 {
+  h1, h2, h3, h4, h5, h6, .font-heading {
     font-family: var(--font-heading);
     font-weight: 600;
+    line-height: 1.45;
+    letter-spacing: 0.01em;
   }
 }
 

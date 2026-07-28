@@ -1,41 +1,49 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ArrowRight, Download, Play, ChevronRight, ChevronLeft, Gem, Truck, Hammer } from 'lucide-react';
+import { getBanners } from '../services/api';
 
 const Home = () => {
   const { t } = useTranslation();
+  const [banners, setBanners] = useState([]);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
-  const slides = [
+  useEffect(() => {
+    document.title = "HT STONE - Đá Tự Nhiên Lai Châu Cao Cấp";
+    async function fetchBanners() {
+      try {
+        const data = await getBanners();
+        setBanners(data);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    fetchBanners();
+  }, []);
+
+  const slides = banners.length > 0 ? banners.map(b => ({
+    image: b.image_url,
+    title: b.title,
+    subtitle: b.subtitle,
+    link: b.link_url || '/products'
+  })) : [
     {
       image: "/assets/img/slide_1.jpg",
-      title: "Simply Beautiful Design",
-      subtitle: "Innovative textures, elegant bathrooms and luxury stone design"
-    },
-    {
-      image: "/assets/img/slide_2.jpg",
-      title: "Antolini Haute Nature",
-      subtitle: "Designed by Nature, Perfected in Italy"
-    },
-    {
-      image: "/assets/img/slide_3.jpg",
-      title: "Timeless Craftsmanship",
-      subtitle: "Direct mining and state-of-the-art stone fabrication"
+      title: "ĐÁ SLATE LAI CHÂU TỰ NHIÊN High-End",
+      subtitle: "Giải pháp ốp lát & lợp mái cao cấp trường tồn theo thời gian",
+      link: "/products"
     }
   ];
 
-  const [currentSlide, setCurrentSlide] = React.useState(0);
-
-  React.useEffect(() => {
-    document.title = "HT STONE - Đá Tự Nhiên Lai Châu Cao Cấp";
-  }, []);
-
-  React.useEffect(() => {
+  useEffect(() => {
+    if (slides.length <= 1) return;
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, 6000);
     return () => clearInterval(timer);
-  }, []);
+  }, [slides.length]);
+
 
   return (
     <main className="min-h-screen bg-background text-primary">
@@ -67,13 +75,14 @@ const Home = () => {
             
             {/* Slide Info (Bottom Left) */}
             <div className="text-left max-w-xl animate-fade-in-up">
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-3 tracking-wide leading-tight">
-                {slides[currentSlide].title}
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-3 tracking-wide leading-relaxed">
+                {slides[currentSlide]?.title || ''}
               </h2>
               <p className="font-body text-sm md:text-base text-gray-300 font-light tracking-wider leading-relaxed">
-                {slides[currentSlide].subtitle}
+                {slides[currentSlide]?.subtitle || ''}
               </p>
             </div>
+
 
             {/* Slide Controls & Indicator (Bottom Right) */}
             <div className="flex items-center gap-6 text-white font-body">
@@ -115,7 +124,7 @@ const Home = () => {
                 <div className="w-12 h-[1px] bg-accent"></div>
                 <span className="font-body uppercase tracking-widest text-accent text-xs font-bold">Về Chúng Tôi</span>
               </div>
-              <h2 className="text-4xl md:text-5xl font-heading font-light text-primary leading-tight">
+              <h2 className="text-4xl md:text-5xl font-heading font-light text-primary leading-relaxed">
                 Di Sản Đá Tự Nhiên <br />
                 <span className="font-bold">Lai Châu Trường Tồn</span>
               </h2>
@@ -214,7 +223,7 @@ const Home = () => {
                 state={{ filter: cat.filter }}
                 className="group bg-surface border border-muted p-4 rounded-sm shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col h-full"
               >
-                <div className="aspect-[4/3] overflow-hidden mb-6 rounded-xs relative">
+                <div className="aspect-square overflow-hidden mb-6 rounded-xs relative">
                   <img 
                     src={cat.img} 
                     alt={cat.title} 

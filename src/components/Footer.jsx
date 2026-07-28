@@ -1,11 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { MapPin, Phone, Mail, Send } from 'lucide-react';
 import { FaFacebook, FaInstagram, FaLinkedin } from 'react-icons/fa';
+import { getSiteSettings } from '../services/api';
 
 const Footer = () => {
   const { t } = useTranslation();
+  const [settings, setSettings] = useState({
+    hotline: '0988 123 456',
+    email: 'info@htstone.vn',
+    address_headquarters: 'Lô C2-4, KCN Thụy Vân, TP. Việt Trì, Phú Thọ',
+    address_factory: 'Mỏ đá Slate Nậm Nhùn, Tỉnh Lai Châu',
+    facebook_url: '#',
+    instagram_url: '#'
+  });
+
+  useEffect(() => {
+    async function fetchSettings() {
+      try {
+        const data = await getSiteSettings();
+        setSettings(data);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    fetchSettings();
+  }, []);
 
   return (
     <footer className="bg-muted/30 text-secondary pt-16 pb-8 border-t border-muted">
@@ -26,14 +47,11 @@ const Footer = () => {
               {t('slogan_2')}
             </p>
             <div className="flex gap-4 pt-2">
-              <a href="#" className="w-10 h-10 rounded-full border border-muted flex items-center justify-center text-primary/70 hover:bg-accent hover:text-surface hover:border-accent transition-all duration-300">
+              <a href={settings.facebook_url || '#'} target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full border border-muted flex items-center justify-center text-primary/70 hover:bg-accent hover:text-surface hover:border-accent transition-all duration-300">
                 <FaFacebook size={18} />
               </a>
-              <a href="#" className="w-10 h-10 rounded-full border border-muted flex items-center justify-center text-primary/70 hover:bg-accent hover:text-surface hover:border-accent transition-all duration-300">
+              <a href={settings.instagram_url || '#'} target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full border border-muted flex items-center justify-center text-primary/70 hover:bg-accent hover:text-surface hover:border-accent transition-all duration-300">
                 <FaInstagram size={18} />
-              </a>
-              <a href="#" className="w-10 h-10 rounded-full border border-muted flex items-center justify-center text-primary/70 hover:bg-accent hover:text-surface hover:border-accent transition-all duration-300">
-                <FaLinkedin size={18} />
               </a>
             </div>
           </div>
@@ -56,22 +74,23 @@ const Footer = () => {
             <ul className="space-y-4 font-body text-sm">
               <li className="flex items-start gap-3">
                 <MapPin size={18} className="text-accent shrink-0 mt-0.5" />
-                <span>Văn phòng HN: Số 12, Đường 3, KĐT Him Lam, Long Biên, Hà Nội</span>
+                <span>Showroom/Văn phòng: {settings.address_headquarters}</span>
               </li>
               <li className="flex items-start gap-3">
                 <MapPin size={18} className="text-accent shrink-0 mt-0.5" />
-                <span>Mỏ đá Lai Châu: Xã Thân Thuộc, Huyện Tân Uyên, Tỉnh Lai Châu</span>
+                <span>Mỏ đá & Nhà máy: {settings.address_factory}</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone size={18} className="text-accent shrink-0" />
-                <span>+84 987 654 321</span>
+                <a href={`tel:${settings.hotline}`} className="hover:text-accent font-semibold">{settings.hotline}</a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail size={18} className="text-accent shrink-0" />
-                <span>info@htstone.vn</span>
+                <a href={`mailto:${settings.email}`} className="hover:text-accent">{settings.email}</a>
               </li>
             </ul>
           </div>
+
 
           {/* Newsletter */}
           <div>

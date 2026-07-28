@@ -1,13 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ChevronRight, Award, Shield, Cpu, Leaf } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { getPolicy } from '../services/api';
 
 const About = () => {
   const { t } = useTranslation();
+  const [profile, setProfile] = useState(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     document.title = "Về chúng tôi | HT STONE - Đá Tự Nhiên Lai Châu";
+    async function fetchProfile() {
+      try {
+        const data = await getPolicy('company_profile');
+        setProfile(data);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    fetchProfile();
   }, []);
 
   return (
@@ -20,9 +31,8 @@ const About = () => {
             <span className="font-body uppercase tracking-widest text-accent text-xs font-bold">{t('about')}</span>
             <div className="w-12 h-[1px] bg-accent"></div>
           </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-light text-primary">
-            Hành Trình Kiến Tạo <br />
-            <span className="font-bold">Giá Trị Vĩnh Cửu</span>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-light text-primary leading-relaxed">
+            {profile?.title || 'Hành Trình Kiến Tạo Giá Trị Vĩnh Cửu'}
           </h1>
         </div>
       </section>
@@ -48,16 +58,27 @@ const About = () => {
 
             <div className="lg:col-span-5 space-y-6">
               <span className="font-body uppercase tracking-widest text-accent text-xs font-bold">Câu Chuyện Của Chúng Tôi</span>
-              <h2 className="text-3xl md:text-4xl font-heading font-light leading-tight">
+              <h2 className="text-3xl md:text-4xl font-heading font-light leading-relaxed">
                 Đá Tự Nhiên Lai Châu - <br />
                 <span className="font-bold">Món Quà Từ Lòng Đất</span>
               </h2>
-              <p className="font-body text-base text-secondary leading-relaxed">
-                Được tích tụ và biến đổi qua hàng trăm triệu năm dưới áp lực địa chất khổng lồ của dãy Hoàng Liên Sơn, đá Slate Lai Châu mang trong mình cấu trúc thớ lớp đặc biệt, độ cứng tuyệt đối và khả năng chống chịu thời tiết khắc nghiệt tối đa.
-              </p>
-              <p className="font-body text-base text-secondary leading-relaxed">
-                Tại HT STONE, chúng tôi không chỉ khai thác đá; chúng tôi nâng niu từng thớ đá tự nhiên độc bản để tạo nên các tác phẩm nghệ thuật kiến trúc bền vững qua nhiều thế hệ.
-              </p>
+
+              {profile?.content ? (
+                <div 
+                  className="font-body text-base text-secondary leading-relaxed space-y-4 prose prose-neutral"
+                  dangerouslySetInnerHTML={{ __html: profile.content }}
+                />
+              ) : (
+                <>
+                  <p className="font-body text-base text-secondary leading-relaxed">
+                    Được tích tụ và biến đổi qua hàng trăm triệu năm dưới áp lực địa chất khổng lồ của dãy Hoàng Liên Sơn, đá Slate Lai Châu mang trong mình cấu trúc thớ lớp đặc biệt, độ cứng tuyệt đối và khả năng chống chịu thời tiết khắc nghiệt tối đa.
+                  </p>
+                  <p className="font-body text-base text-secondary leading-relaxed">
+                    Tại HT STONE, chúng tôi không chỉ khai thác đá; chúng tôi nâng niu từng thớ đá tự nhiên độc bản để tạo nên các tác phẩm nghệ thuật kiến trúc bền vững qua nhiều thế hệ.
+                  </p>
+                </>
+              )}
+
             </div>
 
           </div>

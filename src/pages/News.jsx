@@ -1,25 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Sparkles, Calendar, User, MoveRight } from 'lucide-react';
-import { newsList } from '../data/news';
+import { getNewsList } from '../services/api';
 
 const News = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [news, setNews] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  React.useEffect(() => {
+  useEffect(() => {
     document.title = "Tin tức & Cẩm nang | HT STONE - Đá Tự Nhiên Lai Châu";
     window.scrollTo(0, 0);
+
+    async function fetchNews() {
+      try {
+        const data = await getNewsList();
+        setNews(data);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchNews();
   }, []);
 
-  const categories = ['all', 'Kỹ thuật thi công', 'Kiến thức vật liệu', 'Vận hành mỏ', 'Ý tưởng thiết kế', 'Chăm sóc nhà cửa'];
+  const categories = ['all', 'Tin tức công ty', 'Kỹ thuật thi công', 'Kiến thức vật liệu', 'Vận hành mỏ', 'Ý tưởng thiết kế'];
 
-  const filteredNews = newsList.filter(post => {
-    const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                          post.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
+  const filteredNews = news.filter(post => {
+    const matchesSearch = (post.title || '').toLowerCase().includes(searchTerm.toLowerCase()) || 
+                          (post.excerpt || post.summary || '').toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = selectedCategory === 'all' || post.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
+
 
   return (
     <main className="min-h-screen bg-background text-primary pt-24 pb-20">

@@ -20,7 +20,7 @@ const Capabilities = () => {
             <span className="font-body uppercase tracking-widest text-accent text-xs font-bold">{t('capabilities')}</span>
             <div className="w-12 h-[1px] bg-accent"></div>
           </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-light text-primary">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-light text-primary leading-relaxed">
             Năng Lực Khai Thác <br />
             <span className="font-bold">& Thi Công Trọn Gói</span>
           </h1>
@@ -103,7 +103,7 @@ const Capabilities = () => {
 
             <div className="space-y-6">
               <span className="font-body uppercase tracking-widest text-accent text-xs font-bold">Quy Trình Kiểm Tra Chất Lượng</span>
-              <h2 className="text-3xl md:text-4xl font-heading font-light leading-tight">
+              <h2 className="text-3xl md:text-4xl font-heading font-light leading-relaxed">
                 Tiêu Chuẩn <span className="font-bold">Đá Xuất Khẩu Nghiêm Ngặt</span>
               </h2>
               <p className="font-body text-base text-secondary leading-relaxed">

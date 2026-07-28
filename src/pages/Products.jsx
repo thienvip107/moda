@@ -1,24 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Shield, Sparkles, MoveRight, PhoneCall, FileText } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
-import { productsList, filters } from '../data/products';
+import { filters } from '../data/products';
+import { getProductsList } from '../services/api';
 
 const Products = () => {
   const { t } = useTranslation();
   const location = useLocation();
   const [activeFilter, setActiveFilter] = useState('all');
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  React.useEffect(() => {
+  useEffect(() => {
     document.title = "Sản phẩm | HT STONE - Đá Tự Nhiên Lai Châu";
     if (location.state && location.state.filter) {
       setActiveFilter(location.state.filter);
     }
+    async function fetchProducts() {
+      try {
+        const data = await getProductsList();
+        setProducts(data);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchProducts();
   }, [location.state]);
 
   const filteredProducts = activeFilter === 'all'
-    ? productsList
-    : productsList.filter(p => p.category === activeFilter);
+    ? products
+    : products.filter(p => p.category === activeFilter);
+
 
   return (
     <main className="min-h-screen bg-background text-primary pt-24">
@@ -30,7 +45,7 @@ const Products = () => {
             <span className="font-body uppercase tracking-widest text-accent text-xs font-bold">{t('products')}</span>
             <div className="w-12 h-[1px] bg-accent"></div>
           </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-light text-primary">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-light text-primary leading-relaxed">
             Tuyệt Tác Kiến Trúc <br />
             <span className="font-bold">Đá Tự Nhiên Cao Cấp</span>
           </h1>
@@ -69,7 +84,7 @@ const Products = () => {
               >
                 <div>
                   {/* Image Showcase */}
-                  <Link to={`/products/${product.id}`} className="aspect-[16/10] overflow-hidden rounded-xs border border-muted/50 relative mb-8 block">
+                  <Link to={`/products/${product.id}`} className="aspect-square overflow-hidden rounded-xs border border-muted/50 relative mb-8 block">
                     <img 
                       src={product.img} 
                       alt={product.title} 
@@ -104,21 +119,22 @@ const Products = () => {
                   <div className="mt-8 pt-6 border-t border-muted/70 space-y-3 font-body text-xs text-secondary">
                     <div className="flex justify-between">
                       <span className="font-semibold uppercase tracking-wider text-primary/70">Xuất xứ:</span>
-                      <span>{product.specs.origin}</span>
+                      <span>{product.specs?.origin || 'Mỏ đá Slate Lai Châu, Việt Nam'}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="font-semibold uppercase tracking-wider text-primary/70">Kích thước thông dụng:</span>
-                      <span>{product.specs.sizes}</span>
+                      <span>{product.specs?.sizes || '30x30, 30x60, 40x40 cm'}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="font-semibold uppercase tracking-wider text-primary/70">Độ dày tiêu chuẩn:</span>
-                      <span>{product.specs.thickness}</span>
+                      <span>{product.specs?.thickness || '1.0 - 1.5 cm'}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="font-semibold uppercase tracking-wider text-primary/70">Bề mặt hoàn thiện:</span>
-                      <span>{product.specs.surface}</span>
+                      <span>{product.specs?.surface || 'Chẻ tự nhiên / Mài thô'}</span>
                     </div>
                   </div>
+
                 </div>
 
                 {/* Actions */}
