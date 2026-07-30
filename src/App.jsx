@@ -9,6 +9,7 @@ import Projects from './pages/Projects';
 import Capabilities from './pages/Capabilities';
 import Contact from './pages/Contact';
 import ProductDetail from './pages/ProductDetail';
+import ProjectDetail from './pages/ProjectDetail';
 import News from './pages/News';
 import NewsDetail from './pages/NewsDetail';
 
@@ -66,11 +67,11 @@ function App() {
           <Route path="/products" element={<Products />} />
           <Route path="/products/:productId" element={<ProductDetail />} />
           <Route path="/projects" element={<Projects />} />
+          <Route path="/projects/:projectId" element={<ProjectDetail />} />
           <Route path="/capabilities" element={<Capabilities />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/news" element={<News />} />
           <Route path="/news/:newsId" element={<NewsDetail />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
 
         {/* Admin CMS Routes */}

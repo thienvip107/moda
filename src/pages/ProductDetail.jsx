@@ -12,6 +12,7 @@ import {
   Layers 
 } from 'lucide-react';
 import { productsList } from '../data/products';
+import { getProductsList } from '../services/api';
 
 const ProductDetail = () => {
   const { productId } = useParams();
@@ -20,19 +21,41 @@ const ProductDetail = () => {
   const [product, setProduct] = useState(null);
   const [activeTab, setActiveTab] = useState('features');
   const [selectedImage, setSelectedImage] = useState('');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const foundProduct = productsList.find(p => p.id === productId);
-    if (foundProduct) {
-      setProduct(foundProduct);
-      setSelectedImage(foundProduct.img);
-      document.title = `${foundProduct.title} | HT STONE - Đá Tự Nhiên Lai Châu`;
-    } else {
-      // If product not found, redirect back to products
-      navigate('/products');
+    async function loadProduct() {
+      try {
+        const allProds = await getProductsList();
+        const found = allProds.find(p => p.id === productId || p.slug === productId || p.code === productId)
+          || productsList.find(p => p.id === productId || p.slug === productId);
+
+        if (found) {
+          setProduct(found);
+          setSelectedImage(found.img || found.image_url);
+          document.title = `${found.title || found.name} | HT STONE - Đá Tự Nhiên Lai Châu`;
+        } else if (allProds.length > 0) {
+          setProduct(allProds[0]);
+          setSelectedImage(allProds[0].img || allProds[0].image_url);
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
     }
+    loadProduct();
     window.scrollTo(0, 0);
-  }, [productId, navigate]);
+  }, [productId]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background pt-32 text-center">
+        <div className="inline-block w-8 h-8 border-2 border-accent border-t-transparent rounded-full animate-spin"></div>
+        <p className="font-body text-sm text-secondary mt-4">Đang tải thông tin sản phẩm...</p>
+      </div>
+    );
+  }
 
   if (!product) return null;
 
@@ -220,85 +243,120 @@ const ProductDetail = () => {
           </div>
 
           {/* Tab Content */}
-          <div className="p-6 md:p-8 lg:p-12 text-left">
-            {activeTab === 'features' && (
-              <div className="space-y-6">
-                <h3 className="text-xl font-heading font-bold text-primary mb-4">Ưu Điểm Vượt Trội Của Đá Slate Lai Châu</h3>
-                <p className="font-body text-sm text-secondary/90 leading-relaxed mb-6">
-                  Đá Slate Lai Châu sở hữu độ tuổi kiến tạo địa chất lên tới hàng triệu năm. Dưới nhiệt độ và áp suất cực lớn của lòng đất, các lớp thớ đá được ép chặt, tạo ra liên kết vật lý hoàn hảo mang đến cho sản phẩm những đặc điểm độc nhất vô nhị:
-                </p>
-                <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 font-body text-sm text-secondary">
-                  {product.features.map((feat, idx) => (
-                    <li key={idx} className="flex items-start gap-3 bg-muted/10 p-4 rounded-xs border border-muted/50">
-                      <span className="w-6 h-6 rounded-full bg-accent/15 text-accent flex items-center justify-center flex-shrink-0 font-bold text-xs mt-0.5">✓</span>
-                      <span>{feat}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
+          {(() => {
+            const defaultFeatures = [
+              'Độ bền vĩnh cửu trên 100 năm, chịu lực và chống ăn mòn cực tốt.',
+              'Màu sắc tự nhiên không phai dưới mưa nắng axit.',
+              'Kháng nước tuyệt đối (độ hút nước < 0.08%), không phát sinh rêu mốc.',
+              'Cách nhiệt và cách âm vượt trội cho công trình.'
+            ];
 
-            {activeTab === 'tech' && (
-              <div className="space-y-6">
-                <h3 className="text-xl font-heading font-bold text-primary mb-4">Kết Quả Kiểm Định Chỉ Tiêu Cơ Lý</h3>
-                <p className="font-body text-sm text-secondary/90 leading-relaxed mb-6">
-                  Tất cả sản phẩm đá Lai Châu của HT STONE đều được khai thác từ những vỉa đá chất lượng nhất và được chứng nhận đạt chuẩn chỉ tiêu kỹ thuật phục vụ cho cả các công trình công cộng lẫn dự án tư nhân cao cấp:
-                </p>
-                <div className="border border-muted rounded-xs overflow-hidden max-w-3xl">
-                  <table className="w-full text-left border-collapse font-body text-sm text-secondary">
-                    <thead>
-                      <tr className="bg-muted/20 border-b border-muted">
-                        <th className="p-4 font-semibold text-primary uppercase tracking-wider text-xs">Chỉ tiêu cơ lý</th>
-                        <th className="p-4 font-semibold text-primary uppercase tracking-wider text-xs">Trị số đo thực nghiệm</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-muted">
-                      <tr className="hover:bg-muted/5">
-                        <td className="p-4 font-semibold text-primary/70">Cường độ chịu lực uốn nén (Flexural Strength)</td>
-                        <td className="p-4 text-primary font-semibold">{product.techSpecs.flexuralStrength}</td>
-                      </tr>
-                      <tr className="hover:bg-muted/5">
-                        <td className="p-4 font-semibold text-primary/70">Tỷ lệ hút nước (Water Absorption)</td>
-                        <td className="p-4 text-primary font-semibold">{product.techSpecs.waterAbsorption}</td>
-                      </tr>
-                      <tr className="hover:bg-muted/5">
-                        <td className="p-4 font-semibold text-primary/70">Khối lượng thể tích (Density)</td>
-                        <td className="p-4 text-primary font-semibold">{product.techSpecs.density}</td>
-                      </tr>
-                      <tr className="hover:bg-muted/5">
-                        <td className="p-4 font-semibold text-primary/70">Độ cứng bề mặt (Mohs Hardness Scale)</td>
-                        <td className="p-4 text-primary font-semibold">{product.techSpecs.mohsHardness}</td>
-                      </tr>
-                      <tr className="hover:bg-muted/5">
-                        <td className="p-4 font-semibold text-primary/70">Khả năng bền hoá chất (Acid Resistance)</td>
-                        <td className="p-4 text-primary font-semibold">{product.techSpecs.acidResistance}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            )}
+            const defaultTechSpecs = {
+              flexuralStrength: '58.4 - 61.0 MPa',
+              waterAbsorption: '0.08%',
+              density: '2.78 - 2.80 g/cm³',
+              mohsHardness: '5.5 / 10',
+              acidResistance: 'Bền bỉ vĩnh viễn'
+            };
 
-            {activeTab === 'apps' && (
-              <div className="space-y-6">
-                <h3 className="text-xl font-heading font-bold text-primary mb-4">Các Hạng Mục Ứng Dụng Hàng Đầu</h3>
-                <p className="font-body text-sm text-secondary/90 leading-relaxed mb-6">
-                  Nhờ tính thẩm mỹ cao cùng tính năng chống chọi thời tiết tuyệt hảo, dòng sản phẩm này thường được thiết kế để phục vụ cho các hạng mục sau:
-                </p>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  {product.applications.map((app, idx) => (
-                    <div key={idx} className="border border-muted p-6 rounded-xs bg-muted/5 shadow-xs">
-                      <span className="text-accent text-xs font-bold font-body uppercase tracking-wider block mb-2">Hạng mục 0{idx + 1}</span>
-                      <h4 className="font-heading text-lg font-bold text-primary mb-2">{app}</h4>
-                      <p className="font-body text-xs text-secondary/80 leading-relaxed">
-                        Đảm bảo yêu cầu kỹ thuật thi công lâu dài, bền màu và mang lại giá trị gia tăng cực lớn cho tài sản.
-                      </p>
+            const defaultApplications = [
+              'Lợp mái biệt thự & lâu đài',
+              'Ốp lát sân vườn & resort',
+              'Trang trí ngoại thất cao cấp'
+            ];
+
+            const featuresList = Array.isArray(product?.features) && product.features.length > 0
+              ? product.features
+              : defaultFeatures;
+
+            const techSpecsData = product?.techSpecs || defaultTechSpecs;
+
+            const appsList = Array.isArray(product?.applications) && product.applications.length > 0
+              ? product.applications
+              : defaultApplications;
+
+            return (
+              <div className="p-6 md:p-8 lg:p-12 text-left">
+                {activeTab === 'features' && (
+                  <div className="space-y-6">
+                    <h3 className="text-xl font-heading font-bold text-primary mb-4">Ưu Điểm Vượt Trội Của Đá Slate Lai Châu</h3>
+                    <p className="font-body text-sm text-secondary/90 leading-relaxed mb-6">
+                      Đá Slate Lai Châu sở hữu độ tuổi kiến tạo địa chất lên tới hàng triệu năm. Dưới nhiệt độ và áp suất cực lớn của lòng đất, các lớp thớ đá được ép chặt, tạo ra liên kết vật lý hoàn hảo mang đến cho sản phẩm những đặc điểm độc nhất vô nhị:
+                    </p>
+                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 font-body text-sm text-secondary">
+                      {featuresList.map((feat, idx) => (
+                        <li key={idx} className="flex items-start gap-3 bg-muted/10 p-4 rounded-xs border border-muted/50">
+                          <span className="w-6 h-6 rounded-full bg-accent/15 text-accent flex items-center justify-center flex-shrink-0 font-bold text-xs mt-0.5">✓</span>
+                          <span>{feat}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {activeTab === 'tech' && (
+                  <div className="space-y-6">
+                    <h3 className="text-xl font-heading font-bold text-primary mb-4">Kết Quả Kiểm Định Chỉ Tiêu Cơ Lý</h3>
+                    <p className="font-body text-sm text-secondary/90 leading-relaxed mb-6">
+                      Tất cả sản phẩm đá Lai Châu của HT STONE đều được khai thác từ những vỉa đá chất lượng nhất và được chứng nhận đạt chuẩn chỉ tiêu kỹ thuật phục vụ cho cả các công trình công cộng lẫn dự án tư nhân cao cấp:
+                    </p>
+                    <div className="border border-muted rounded-xs overflow-hidden max-w-3xl">
+                      <table className="w-full text-left border-collapse font-body text-sm text-secondary">
+                        <thead>
+                          <tr className="bg-muted/20 border-b border-muted">
+                            <th className="p-4 font-semibold text-primary uppercase tracking-wider text-xs">Chỉ tiêu cơ lý</th>
+                            <th className="p-4 font-semibold text-primary uppercase tracking-wider text-xs">Trị số đo thực nghiệm</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-muted">
+                          <tr className="hover:bg-muted/5">
+                            <td className="p-4 font-semibold text-primary/70">Cường độ chịu lực uốn nén (Flexural Strength)</td>
+                            <td className="p-4 text-primary font-semibold">{techSpecsData.flexuralStrength || '58.4 - 61.0 MPa'}</td>
+                          </tr>
+                          <tr className="hover:bg-muted/5">
+                            <td className="p-4 font-semibold text-primary/70">Tỷ lệ hút nước (Water Absorption)</td>
+                            <td className="p-4 text-primary font-semibold">{techSpecsData.waterAbsorption || '0.08%'}</td>
+                          </tr>
+                          <tr className="hover:bg-muted/5">
+                            <td className="p-4 font-semibold text-primary/70">Khối lượng thể tích (Density)</td>
+                            <td className="p-4 text-primary font-semibold">{techSpecsData.density || '2.78 - 2.80 g/cm³'}</td>
+                          </tr>
+                          <tr className="hover:bg-muted/5">
+                            <td className="p-4 font-semibold text-primary/70">Độ cứng bề mặt (Mohs Hardness Scale)</td>
+                            <td className="p-4 text-primary font-semibold">{techSpecsData.mohsHardness || '5.5 / 10'}</td>
+                          </tr>
+                          <tr className="hover:bg-muted/5">
+                            <td className="p-4 font-semibold text-primary/70">Khả năng bền hoá chất (Acid Resistance)</td>
+                            <td className="p-4 text-primary font-semibold">{techSpecsData.acidResistance || 'Bền bỉ vĩnh viễn'}</td>
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
-                  ))}
-                </div>
+                  </div>
+                )}
+
+                {activeTab === 'apps' && (
+                  <div className="space-y-6">
+                    <h3 className="text-xl font-heading font-bold text-primary mb-4">Các Hạng Mục Ứng Dụng Hàng Đầu</h3>
+                    <p className="font-body text-sm text-secondary/90 leading-relaxed mb-6">
+                      Nhờ tính thẩm mỹ cao cùng tính năng chống chọi thời tiết tuyệt hảo, dòng sản phẩm này thường được thiết kế để phục vụ cho các hạng mục sau:
+                    </p>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                      {appsList.map((app, idx) => (
+                        <div key={idx} className="border border-muted p-6 rounded-xs bg-muted/5 shadow-xs">
+                          <span className="text-accent text-xs font-bold font-body uppercase tracking-wider block mb-2">Hạng mục 0{idx + 1}</span>
+                          <h4 className="font-heading text-lg font-bold text-primary mb-2">{app}</h4>
+                          <p className="font-body text-xs text-secondary/80 leading-relaxed">
+                            Đảm bảo yêu cầu kỹ thuật thi công lâu dài, bền màu và mang lại giá trị gia tăng cực lớn cho tài sản.
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
-            )}
-          </div>
+            );
+          })()}
         </div>
 
         {/* 4. Related Products Section */}
