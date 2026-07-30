@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { ArrowLeft, Calendar, User, Sparkles, Share2 } from 'lucide-react';
 import { FaFacebook } from 'react-icons/fa';
 import { getNewsBySlugOrId, getNewsList } from '../services/api';
@@ -7,6 +8,7 @@ import { getNewsBySlugOrId, getNewsList } from '../services/api';
 const NewsDetail = () => {
   const { newsId } = useParams();
   const navigate = useNavigate();
+  const { i18n } = useTranslation();
   const [post, setPost] = useState(null);
   const [allNews, setAllNews] = useState([]);
 
@@ -101,12 +103,15 @@ const NewsDetail = () => {
 
         {/* 4. Article Body Content */}
         <div className="prose prose-lg max-w-none text-left space-y-6 font-body text-base md:text-lg text-secondary leading-relaxed mb-16">
-          {post.content.map((paragraph, index) => (
-            <p key={index} className="first-letter:text-5xl first-letter:font-heading first-letter:font-bold first-letter:float-left first-letter:mr-3 first-letter:text-accent first-letter:mt-1 first-letter:leading-none">
-              {/* Drop cap only on first paragraph */}
-              {index === 0 ? paragraph : paragraph}
-            </p>
-          ))}
+          {Array.isArray(post.content) ? (
+            post.content.map((paragraph, index) => (
+              <p key={index} className="first-letter:text-5xl first-letter:font-heading first-letter:font-bold first-letter:float-left first-letter:mr-3 first-letter:text-accent first-letter:mt-1 first-letter:leading-none">
+                {paragraph}
+              </p>
+            ))
+          ) : (
+            <p>{post.content}</p>
+          )}
         </div>
 
         {/* 5. Related Articles Section */}
