@@ -46,7 +46,7 @@ const News = () => {
             <span className="font-body uppercase tracking-widest text-accent text-xs font-bold">Tin tức & Cẩm nang</span>
             <div className="w-12 h-[1px] bg-accent"></div>
           </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-light text-primary mb-6">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-light text-primary leading-relaxed mb-6">
             Không gian kiến thức <br />
             <span className="font-bold">Đá Slate Lai Châu</span>
           </h1>

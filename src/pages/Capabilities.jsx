@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Gem, Truck, Hammer, ShieldCheck, ChevronRight } from 'lucide-react';
+import { Gem, Truck, Hammer, ShieldCheck, ChevronRight, HardHat } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Capabilities = () => {
@@ -27,25 +27,25 @@ const Capabilities = () => {
         </div>
       </section>
 
-      {/* 2. Three Pillars of Capability */}
+      {/* 2. Four Pillars of Capability */}
       <section className="py-20 md:py-24 lg:py-32 bg-background">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
           
-          <div className="grid lg:grid-cols-3 gap-8 lg:gap-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
             
             {/* Pillar 1 */}
             <div className="space-y-6">
               <div className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center text-accent">
                 <Gem size={32} />
               </div>
-              <h3 className="text-2xl font-heading font-bold">1. Khai Thác Tại Mỏ</h3>
+              <h3 className="text-2xl font-heading font-bold">1. Khai Thác</h3>
               <p className="font-body text-sm text-secondary/90 leading-relaxed">
-                Chúng tôi sở hữu quyền khai thác hợp pháp vỉa đá Lai Châu có chất lượng cao nhất. Đảm bảo nguồn nguyên liệu dồi dào, trực tiếp không qua trung gian giúp giá thành cạnh tranh tuyệt đối.
+                HT STONE sở hữu quyền khai thác hợp pháp vỉa đá Slate Lai Châu chất lượng cao. Đảm bảo nguồn nguyên liệu tự nhiên dồi dào, kiểm soát chất lượng từ phôi đá thô ngay tại lòng đất mỏ.
               </p>
               <ul className="space-y-2 font-body text-xs text-secondary border-t border-muted/50 pt-4">
-                <li className="flex items-center gap-2">✓ Trữ lượng khai thác ổn định lâu dài</li>
-                <li className="flex items-center gap-2">✓ Tuyển chọn chất lượng vỉa đá ngay tại mỏ</li>
-                <li className="flex items-center gap-2">✓ Đảm bảo tiến độ cung cấp mọi khối lượng</li>
+                <li className="flex items-center gap-2">✓ Trữ lượng khai thác lớn và ổn định</li>
+                <li className="flex items-center gap-2">✓ Khai thác chọn lọc vỉa đá già tuổi</li>
+                <li className="flex items-center gap-2">✓ Tối ưu chi phí sản xuất tận gốc</li>
               </ul>
             </div>
 
@@ -54,14 +54,14 @@ const Capabilities = () => {
               <div className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center text-accent">
                 <Hammer size={32} />
               </div>
-              <h3 className="text-2xl font-heading font-bold">2. Chế Tác & Gia Công</h3>
+              <h3 className="text-2xl font-heading font-bold">2. Sản Xuất</h3>
               <p className="font-body text-sm text-secondary/90 leading-relaxed">
-                Nhà máy gia công được đặt ngay gần chân mỏ đá Lai Châu, trang bị hệ thống máy cắt CNC, máy hiệu chuẩn chiều dày hiện đại kết hợp với bàn tay chẻ đá lành nghề của thợ đá Tây Bắc.
+                Nhà máy gia công hiện đại đặt gần chân mỏ, quy tụ các nghệ nhân chẻ đá có tay nghề cao nhất Tây Bắc. Kết hợp máy móc CNC và kỹ thuật chẻ tay thủ công để tạo ra sản phẩm hoàn hảo.
               </p>
               <ul className="space-y-2 font-body text-xs text-secondary border-t border-muted/50 pt-4">
-                <li className="flex items-center gap-2">✓ Gia công kích thước chuẩn xác từng milimet</li>
-                <li className="flex items-center gap-2">✓ Độ dày đá được phân loại đồng đều</li>
-                <li className="flex items-center gap-2">✓ Chẻ tay tinh xảo, giữ vân đá tự nhiên đẹp nhất</li>
+                <li className="flex items-center gap-2">✓ Kỹ nghệ chẻ tay giữ nguyên vân đá độc bản</li>
+                <li className="flex items-center gap-2">✓ Cắt CNC chuẩn xác quy cách thiết kế</li>
+                <li className="flex items-center gap-2">✓ Phân loại độ dày đồng đều, nghiêm ngặt</li>
               </ul>
             </div>
 
@@ -70,14 +70,30 @@ const Capabilities = () => {
               <div className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center text-accent">
                 <Truck size={32} />
               </div>
-              <h3 className="text-2xl font-heading font-bold">3. Logistics & Thi Công</h3>
+              <h3 className="text-2xl font-heading font-bold">3. Phân Phối</h3>
               <p className="font-body text-sm text-secondary/90 leading-relaxed">
-                HT STONE cung cấp dịch vụ logistics vận chuyển trực tiếp đến chân công trình toàn quốc. Đội ngũ kỹ thuật viên lắp đặt chuyên nghiệp, giàu kinh nghiệm đảm bảo tính thẩm mỹ cao nhất cho công trình.
+                Hệ thống tổng kho lớn và mạng lưới logistics chuyên nghiệp trên cả nước, đáp ứng nhanh chóng mọi yêu cầu giao hàng. Sản phẩm được đóng pallet gỗ chắc chắn để tránh sứt mẻ.
               </p>
               <ul className="space-y-2 font-body text-xs text-secondary border-t border-muted/50 pt-4">
-                <li className="flex items-center gap-2">✓ Giao hàng toàn quốc an toàn, đúng hẹn</li>
-                <li className="flex items-center gap-2">✓ Đội ngũ thợ đá chuyên nghiệp thi công lắp đặt</li>
-                <li className="flex items-center gap-2">✓ Giám sát kỹ thuật chặt chẽ, bảo hành lâu dài</li>
+                <li className="flex items-center gap-2">✓ Hệ thống tổng kho tại Hà Nội, Đà Nẵng, TP.HCM</li>
+                <li className="flex items-center gap-2">✓ Vận chuyển tận chân công trình an toàn</li>
+                <li className="flex items-center gap-2">✓ Đóng kiện tiêu chuẩn xuất khẩu</li>
+              </ul>
+            </div>
+
+            {/* Pillar 4 */}
+            <div className="space-y-6">
+              <div className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center text-accent">
+                <HardHat size={32} />
+              </div>
+              <h3 className="text-2xl font-heading font-bold">4. Thi Công</h3>
+              <p className="font-body text-sm text-secondary/90 leading-relaxed">
+                Đội ngũ kỹ sư và thợ thi công lành nghề của HT STONE am hiểu sâu sắc về đặc tính kỹ thuật của đá tự nhiên. Đảm bảo tính thẩm mỹ, chống thấm dột tuyệt đối cho mái đá và ốp lát.
+              </p>
+              <ul className="space-y-2 font-body text-xs text-secondary border-t border-muted/50 pt-4">
+                <li className="flex items-center gap-2">✓ Bản vẽ thiết kế chia đá chi tiết</li>
+                <li className="flex items-center gap-2">✓ Kỹ thuật lợp mái đá chống thấm dột 100%</li>
+                <li className="flex items-center gap-2">✓ Bảo hành kỹ thuật và bảo trì định kỳ</li>
               </ul>
             </div>
 

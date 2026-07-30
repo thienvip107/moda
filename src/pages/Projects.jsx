@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { MapPin, Expand, Layers, ExternalLink } from 'lucide-react';
+import { Expand, ExternalLink, MoveRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { getProjectsList } from '../services/api';
 
@@ -84,43 +84,41 @@ const Projects = () => {
             {filteredProjects.map((proj) => (
               <div 
                 key={proj.id} 
-                className="group bg-surface border border-muted p-4 rounded-sm shadow-sm hover:shadow-xl transition-all duration-500"
+                className="group bg-surface border border-muted p-4 rounded-sm shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col justify-between"
               >
-                {/* Project Image */}
-                <div className="aspect-[4/3] overflow-hidden border border-muted/50 rounded-xs mb-6 relative">
-                  <img 
-                    src={proj.img} 
-                    alt={proj.title} 
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
-                    <div className="w-12 h-12 rounded-full bg-surface border border-muted flex items-center justify-center shadow-lg transform scale-75 group-hover:scale-100 transition-all duration-300">
-                      <Expand className="text-accent" size={18} />
+                <div>
+                  {/* Project Image */}
+                  <Link to={`/projects/${proj.id}`} className="aspect-[4/3] overflow-hidden border border-muted/50 rounded-xs mb-4 relative block">
+                    <img 
+                      src={proj.img} 
+                      alt={proj.title} 
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">
+                      <div className="w-12 h-12 rounded-full bg-surface border border-muted flex items-center justify-center shadow-lg transform scale-75 group-hover:scale-100 transition-all duration-300">
+                        <Expand className="text-accent" size={18} />
+                      </div>
                     </div>
+                  </Link>
+
+                  {/* Project Title */}
+                  <div className="space-y-2">
+                    <Link to={`/projects/${proj.id}`} className="block">
+                      <h3 className="text-xl font-heading font-bold text-primary group-hover:text-accent transition-colors line-clamp-2">
+                        {proj.title}
+                      </h3>
+                    </Link>
                   </div>
                 </div>
 
-                {/* Project Metadata */}
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between font-body text-xs text-secondary/80">
-                    <span className="flex items-center gap-1">
-                      <MapPin size={12} className="text-accent" /> {proj.location}
-                    </span>
-                    <span>Năm: {proj.year}</span>
-                  </div>
-
-                  <h3 className="text-xl md:text-2xl font-heading font-bold text-primary group-hover:text-accent transition-colors">
-                    {proj.title}
-                  </h3>
-
-                  <p className="font-body text-sm text-secondary/80 leading-relaxed">
-                    {proj.desc}
-                  </p>
-
-                  <div className="pt-4 border-t border-muted/70 flex items-center gap-2 font-body text-xs text-secondary">
-                    <Layers size={14} className="text-accent" />
-                    <span><strong>Quy mô:</strong> {proj.scale}</span>
-                  </div>
+                {/* Actions */}
+                <div className="mt-6 pt-4 border-t border-muted/50 flex items-center justify-between">
+                  <Link 
+                    to={`/projects/${proj.id}`} 
+                    className="inline-flex items-center gap-1.5 text-accent font-body uppercase tracking-wider text-sm font-bold hover:text-primary transition-colors border-b border-transparent hover:border-primary pb-0.5"
+                  >
+                    Xem chi tiết <MoveRight size={14} />
+                  </Link>
                 </div>
               </div>
             ))}

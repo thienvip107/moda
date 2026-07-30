@@ -47,7 +47,7 @@ const Contact = () => {
             <span className="font-body uppercase tracking-widest text-accent text-xs font-bold">{t('contact')}</span>
             <div className="w-12 h-[1px] bg-accent"></div>
           </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-light text-primary">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-light text-primary leading-relaxed">
             Kết Nối Để Kiến Tạo <br />
             <span className="font-bold">Không Gian Độc Bản</span>
           </h1>

@@ -67,7 +67,7 @@ const NewsDetail = () => {
             <Sparkles size={12} /> {post.category}
           </span>
           
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-primary leading-tight">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-primary leading-relaxed">
             {(i18n.language === 'en' && post.title_en) ? post.title_en : post.title}
           </h1>
 

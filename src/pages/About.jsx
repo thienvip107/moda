@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ChevronRight, Award, Shield, Cpu, Leaf } from 'lucide-react';
+import { ChevronRight, Award, Shield, Cpu, Leaf, Download } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { getPolicy } from '../services/api';
 
@@ -151,10 +151,13 @@ const About = () => {
                 </div>
               </div>
 
-              <div className="pt-4">
+              <div className="pt-4 flex flex-wrap gap-4">
                 <Link to="/contact" className="inline-flex items-center justify-center px-8 py-3.5 bg-accent text-surface font-body uppercase tracking-wider text-xs font-bold hover:bg-primary transition-all duration-400">
                   Liên hệ hợp tác thương mại
                 </Link>
+                <a href="/assets/files/profile_htstone.pdf" download className="inline-flex items-center gap-2 justify-center px-8 py-3.5 border border-accent text-accent font-body uppercase tracking-wider text-xs font-bold hover:bg-accent hover:text-surface transition-all duration-400">
+                  <Download size={16} /> Tải Hồ sơ năng lực
+                </a>
               </div>
             </div>
 
