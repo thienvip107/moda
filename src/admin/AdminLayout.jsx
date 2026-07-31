@@ -39,7 +39,7 @@ export default function AdminLayout({ user, onLogout }) {
     { label: 'Sản Phẩm Mới', path: '/admin/products', icon: Package },
     { label: 'Dự Án Công Trình', path: '/admin/projects', icon: FolderKanban },
     { label: 'Sự Kiện Công Ty', path: '/admin/events', icon: CalendarDays },
-    { label: 'Hồ Sơ & Chính Sách', path: '/admin/policies', icon: FileText },
+    {label: 'Về Chúng Tôi & Chính Sách', path: '/admin/policies', icon: FileText },
     { label: 'Hotline & Footer', path: '/admin/settings', icon: Settings },
   ];
 

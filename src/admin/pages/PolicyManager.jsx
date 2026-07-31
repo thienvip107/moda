@@ -3,7 +3,7 @@ import { FileText, Save, CheckCircle2, Loader2, Building, ShieldCheck } from 'lu
 import { getPolicy, savePolicy } from '../../services/api';
 
 export default function PolicyManager() {
-  const [activeTab, setActiveTab] = useState('sales_policy');
+  const [activeTab, setActiveTab] = useState('company_profile');
   const [langTab, setLangTab] = useState('vi');
   const [policyData, setPolicyData] = useState({ title: '', title_en: '', content: '', content_en: '' });
   const [loading, setLoading] = useState(true);
@@ -11,8 +11,8 @@ export default function PolicyManager() {
   const [message, setMessage] = useState('');
 
   const tabs = [
+    { key: 'company_profile', label: 'Về Chúng Tôi (Hồ Sơ Năng Lực)', icon: Building },
     { key: 'sales_policy', label: 'Chính Sách Bán Hàng & Giao Nhận', icon: ShieldCheck },
-    { key: 'company_profile', label: 'Hồ Sơ Năng Lực Công Ty', icon: Building },
   ];
 
   useEffect(() => {

@@ -2,24 +2,30 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ArrowRight, Download, Play, ChevronRight, ChevronLeft, Gem, Truck, Hammer } from 'lucide-react';
-import { getBanners } from '../services/api';
+import { getBanners, getPolicy, getProjectsList } from '../services/api';
 
 const Home = () => {
   const { t } = useTranslation();
   const [banners, setBanners] = useState([]);
+  const [profile, setProfile] = useState(null);
+  const [projects, setProjects] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
     document.title = "HT STONE - Đá Tự Nhiên Lai Châu Cao Cấp";
-    async function fetchBanners() {
+    async function fetchHomeData() {
       try {
         const data = await getBanners();
         setBanners(data);
+        const policyData = await getPolicy('company_profile');
+        setProfile(policyData);
+        const projData = await getProjectsList();
+        setProjects(projData);
       } catch (err) {
         console.error(err);
       }
     }
-    fetchBanners();
+    fetchHomeData();
   }, []);
 
   const slides = banners.length > 0 ? banners.map(b => ({
@@ -125,12 +131,25 @@ const Home = () => {
                 <span className="font-body uppercase tracking-widest text-accent text-xs font-bold">Về Chúng Tôi</span>
               </div>
               <h2 className="text-4xl md:text-5xl font-heading font-light text-primary leading-relaxed">
-                Di Sản Đá Tự Nhiên <br />
-                <span className="font-bold">Lai Châu Trường Tồn</span>
+                {profile?.title ? (
+                  profile.title
+                ) : (
+                  <>
+                    Di Sản Đá Tự Nhiên <br />
+                    <span className="font-bold">Lai Châu Trường Tồn</span>
+                  </>
+                )}
               </h2>
-              <p className="font-body text-base md:text-lg text-secondary leading-relaxed">
-                Được hình thành từ hàng triệu năm kiến tạo địa chất, đá Slate Lai Châu sở hữu độ bền vĩnh cửu cùng vẻ đẹp thô mộc, độc bản. HT STONE tự hào là đơn vị sở hữu mỏ và chế tác đá tự nhiên Lai Châu hàng đầu Việt Nam, mang tinh hoa của núi rừng Tây Bắc vào các công trình kiến trúc đẳng cấp toàn quốc.
-              </p>
+              {profile?.content ? (
+                <div 
+                  className="font-body text-base md:text-lg text-secondary leading-relaxed space-y-4 prose prose-neutral max-w-none"
+                  dangerouslySetInnerHTML={{ __html: profile.content }}
+                />
+              ) : (
+                <p className="font-body text-base md:text-lg text-secondary leading-relaxed">
+                  Được hình thành từ hàng triệu năm kiến tạo địa chất, đá Slate Lai Châu sở hữu độ bền vĩnh cửu cùng vẻ đẹp thô mộc, độc bản. HT STONE tự hào là đơn vị sở hữu mỏ và chế tác đá tự nhiên Lai Châu hàng đầu Việt Nam, mang tinh hoa của núi rừng Tây Bắc vào các công trình kiến trúc đẳng cấp toàn quốc.
+                </p>
+              )}
               <div className="grid grid-cols-2 gap-6 pt-4 border-t border-muted">
                 <div>
                   <h4 className="font-heading text-3xl font-bold text-accent mb-1">100%</h4>
@@ -331,47 +350,52 @@ const Home = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-12 md:mb-16">
-            {[
+            {(projects.length > 0 ? projects.slice(0, 4) : [
               {
+                id: 'vinhomes-riverside',
                 title: "Vinhomes Riverside Villa",
-                type: "Đá ốp vách trang trí & Lát sân vườn",
+                desc: "Đá ốp vách trang trí & Lát sân vườn",
                 img: "/assets/img/project_1.jpg"
               },
               {
+                id: 'amanoi-resort',
                 title: "Amanoi Resort Ninh Thuận",
-                type: "Đá lát lối đi & Quanh hồ bơi cao cấp",
+                desc: "Đá lát lối đi & Quanh hồ bơi cao cấp",
                 img: "/assets/img/project_2.jpg"
               },
               {
+                id: 'hotel-de-la-coupole',
                 title: "Hotel de la Coupole Sapa",
-                type: "Mái ngói đá đen tự nhiên Lai Châu",
+                desc: "Mái ngói đá đen tự nhiên Lai Châu",
                 img: "/assets/img/project_3.jpg"
               },
               {
+                id: 'biet-thu-tay-ho',
                 title: "Biệt thự cổ điển Tây Hồ",
-                type: "Ốp cột đá đa sắc & Lát sảnh đón",
+                desc: "Ốp cột đá đa sắc & Lát sảnh đón",
                 img: "/assets/img/project_4.jpg"
               }
-            ].map((proj, idx) => (
-              <div 
-                key={idx} 
-                className="group bg-surface border border-muted p-3 rounded-sm shadow-sm hover:shadow-lg transition-all duration-400"
+            ]).map((proj, idx) => (
+              <Link 
+                key={proj.id || idx} 
+                to={`/projects/${proj.id || proj.slug}`}
+                className="group bg-surface border border-muted p-3 rounded-sm shadow-sm hover:shadow-lg transition-all duration-400 block text-left"
               >
                 <div className="aspect-square overflow-hidden border border-muted/50 rounded-xs mb-4 relative">
                   <img 
-                    src={proj.img} 
+                    src={proj.img || proj.image_url} 
                     alt={proj.title} 
                     className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105" 
                   />
                   <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 </div>
-                <h4 className="font-heading font-bold text-lg text-primary mb-1 group-hover:text-accent transition-colors">
+                <h4 className="font-heading font-bold text-lg text-primary mb-1 group-hover:text-accent transition-colors line-clamp-1">
                   {proj.title}
                 </h4>
-                <p className="font-body text-xs text-secondary/80">
-                  {proj.type}
+                <p className="font-body text-xs text-secondary/80 line-clamp-1">
+                  {proj.desc || proj.scale || proj.location || 'Đá ốp lát & lợp mái Lai Châu'}
                 </p>
-              </div>
+              </Link>
             ))}
           </div>
 
