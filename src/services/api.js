@@ -135,23 +135,21 @@ export async function getBanners() {
 
 export async function saveBanner(bannerData) {
   if (isSupabaseConfigured) {
-    if (bannerData.id && typeof bannerData.id === 'string' && bannerData.id.length > 20) {
+    if (bannerData.id) {
       const { data, error } = await supabase
         .from('banners')
         .update(bannerData)
         .eq('id', bannerData.id)
         .select();
-      if (error) throw error;
-      return data[0];
-    } else {
-      const { id, ...newBanner } = bannerData;
-      const { data, error } = await supabase
-        .from('banners')
-        .insert([newBanner])
-        .select();
-      if (error) throw error;
-      return data[0];
+      if (!error && data?.length) return data[0];
     }
+    const { id, ...newBanner } = bannerData;
+    const { data, error } = await supabase
+      .from('banners')
+      .insert([newBanner])
+      .select();
+    if (error) throw error;
+    return data[0];
   }
   const banners = getLocalData('banners', defaultBanners);
   let updated;
@@ -226,22 +224,20 @@ export async function saveNews(newsItem) {
   };
 
   if (isSupabaseConfigured) {
-    if (newsItem.id && typeof newsItem.id === 'string' && newsItem.id.length > 20) {
+    if (newsItem.id) {
       const { data, error } = await supabase
         .from('news')
         .update(payload)
         .eq('id', newsItem.id)
         .select();
-      if (error) throw error;
-      return data[0];
-    } else {
-      const { data, error } = await supabase
-        .from('news')
-        .insert([payload])
-        .select();
-      if (error) throw error;
-      return data[0];
+      if (!error && data?.length) return data[0];
     }
+    const { data, error } = await supabase
+      .from('news')
+      .insert([payload])
+      .select();
+    if (error) throw error;
+    return data[0];
   }
   const list = getLocalData('news', initialNews);
   let updated;
@@ -332,22 +328,20 @@ export async function saveProduct(productData) {
   };
 
   if (isSupabaseConfigured) {
-    if (productData.id && typeof productData.id === 'string' && productData.id.length > 20) {
+    if (productData.id) {
       const { data, error } = await supabase
         .from('products')
         .update(payload)
         .eq('id', productData.id)
         .select();
-      if (error) throw error;
-      return data[0];
-    } else {
-      const { data, error } = await supabase
-        .from('products')
-        .insert([payload])
-        .select();
-      if (error) throw error;
-      return data[0];
+      if (!error && data?.length) return data[0];
     }
+    const { data, error } = await supabase
+      .from('products')
+      .insert([payload])
+      .select();
+    if (error) throw error;
+    return data[0];
   }
   const list = await getProductsList();
   let updated;
@@ -395,7 +389,10 @@ export async function savePolicy(key, title, content, title_en = '', content_en 
   if (isSupabaseConfigured) {
     const { data, error } = await supabase
       .from('policies')
-      .upsert({ key, title, title_en, content, content_en, updated_at: new Date() })
+      .upsert(
+        { key, title, title_en, content, content_en, updated_at: new Date() },
+        { onConflict: 'key' }
+      )
       .select();
     if (error) throw error;
     return data[0];
@@ -450,22 +447,20 @@ export async function saveEvent(evt) {
   };
 
   if (isSupabaseConfigured) {
-    if (evt.id && typeof evt.id === 'string' && evt.id.length > 20) {
+    if (evt.id) {
       const { data, error } = await supabase
         .from('events')
         .update(payload)
         .eq('id', evt.id)
         .select();
-      if (error) throw error;
-      return data[0];
-    } else {
-      const { data, error } = await supabase
-        .from('events')
-        .insert([payload])
-        .select();
-      if (error) throw error;
-      return data[0];
+      if (!error && data?.length) return data[0];
     }
+    const { data, error } = await supabase
+      .from('events')
+      .insert([payload])
+      .select();
+    if (error) throw error;
+    return data[0];
   }
   const events = getLocalData('events', defaultEvents);
   let updated;
@@ -533,22 +528,20 @@ export async function saveProject(projectData) {
   };
 
   if (isSupabaseConfigured) {
-    if (projectData.id && typeof projectData.id === 'string' && projectData.id.length > 20) {
+    if (projectData.id) {
       const { data, error } = await supabase
         .from('projects')
         .update(payload)
         .eq('id', projectData.id)
         .select();
-      if (error) throw error;
-      return data[0];
-    } else {
-      const { data, error } = await supabase
-        .from('projects')
-        .insert([payload])
-        .select();
-      if (error) throw error;
-      return data[0];
+      if (!error && data?.length) return data[0];
     }
+    const { data, error } = await supabase
+      .from('projects')
+      .insert([payload])
+      .select();
+    if (error) throw error;
+    return data[0];
   }
   const list = await getProjectsList();
   let updated;
@@ -613,7 +606,7 @@ export async function saveSiteSettings(settingsObj) {
     }));
     const { error } = await supabase
       .from('site_settings')
-      .upsert(records);
+      .upsert(records, { onConflict: 'key' });
     if (error) throw error;
     return settingsObj;
   }
