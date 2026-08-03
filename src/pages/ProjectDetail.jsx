@@ -15,7 +15,7 @@ const ProjectDetail = () => {
       try {
         const list = await getProjectsList();
         setAllProjects(list);
-        const found = list.find(p => p.id === projectId || p.slug === projectId);
+        const found = list.find(p => String(p.id) === String(projectId) || String(p.slug) === String(projectId));
         if (found) {
           setProject(found);
           document.title = `${found.title} | HT STONE - Dự Án Tiêu Biểu`;

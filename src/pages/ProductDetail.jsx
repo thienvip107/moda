@@ -27,8 +27,8 @@ const ProductDetail = () => {
     async function loadProduct() {
       try {
         const allProds = await getProductsList();
-        const found = allProds.find(p => p.id === productId || p.slug === productId || p.code === productId)
-          || productsList.find(p => p.id === productId || p.slug === productId);
+        const found = allProds.find(p => String(p.id) === String(productId) || String(p.slug) === String(productId) || String(p.code) === String(productId))
+          || productsList.find(p => String(p.id) === String(productId) || String(p.slug) === String(productId));
 
         if (found) {
           setProduct(found);

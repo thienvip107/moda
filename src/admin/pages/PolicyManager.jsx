@@ -11,7 +11,8 @@ export default function PolicyManager() {
   const [message, setMessage] = useState('');
 
   const tabs = [
-    { key: 'company_profile', label: 'Về Chúng Tôi (Hồ Sơ Năng Lực)', icon: Building },
+    { key: 'company_profile', label: 'Về Chúng Tôi (Hồ Sơ Công Ty)', icon: Building },
+    { key: 'capabilities', label: 'Trang Năng Lực Khai Thác & Thi Công', icon: Hammer },
     { key: 'sales_policy', label: 'Chính Sách Bán Hàng & Giao Nhận', icon: ShieldCheck },
   ];
 

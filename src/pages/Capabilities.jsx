@@ -1,13 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Gem, Truck, Hammer, ShieldCheck, ChevronRight, HardHat } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { getPolicy } from '../services/api';
 
 const Capabilities = () => {
   const { t } = useTranslation();
+  const [capabilityData, setCapabilityData] = useState(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     document.title = "Năng lực khai thác & thi công | HT STONE";
+    async function loadCapabilities() {
+      try {
+        const data = await getPolicy('capabilities');
+        if (data && (data.title || data.content)) {
+          setCapabilityData(data);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    loadCapabilities();
   }, []);
 
   return (
@@ -21,9 +34,21 @@ const Capabilities = () => {
             <div className="w-12 h-[1px] bg-accent"></div>
           </div>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-light text-primary leading-relaxed">
-            Năng Lực Khai Thác <br />
-            <span className="font-bold">& Thi Công Trọn Gói</span>
+            {capabilityData?.title ? (
+              capabilityData.title
+            ) : (
+              <>
+                Năng Lực Khai Thác <br />
+                <span className="font-bold">& Thi Công Trọn Gói</span>
+              </>
+            )}
           </h1>
+          {capabilityData?.content && (
+            <div 
+              className="mt-6 max-w-3xl mx-auto font-body text-base text-secondary/90 leading-relaxed text-left prose"
+              dangerouslySetInnerHTML={{ __html: capabilityData.content }}
+            />
+          )}
         </div>
       </section>
 
