@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FileText, Save, CheckCircle2, Loader2, Building, ShieldCheck } from 'lucide-react';
+import { FileText, Save, CheckCircle2, Loader2, Building, ShieldCheck, Hammer } from 'lucide-react';
 import { getPolicy, savePolicy } from '../../services/api';
 
 export default function PolicyManager() {
