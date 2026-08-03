@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Gem, Truck, Hammer, ShieldCheck, ChevronRight, HardHat } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { getPolicy } from '../services/api';
+import SEO from '../components/SEO';
 
 const Capabilities = () => {
   const { t } = useTranslation();
@@ -25,6 +26,12 @@ const Capabilities = () => {
 
   return (
     <main className="min-h-screen bg-background text-primary pt-24">
+      <SEO 
+        title="Mỏ Đá Lai Châu - Năng Lực Khai Thác & Sản Xuất Đá Slate Tự Nhiên | HT STONE"
+        description="Khám phá năng lực mỏ đá Lai Châu của HT STONE. Sở hữu mỏ khai thác trực tiếp, nhà máy gia công công suất lớn, quy trình thi công đá đen & đá đa sắc chuyên nghiệp toàn quốc."
+        keywords="mỏ đá, mỏ đá lai châu, khai thác đá đen, sản xuất đá slate, đá lai châu, nhà máy đá tự nhiên, ht stone"
+        canonical="/capabilities"
+      />
       {/* 1. Header Section */}
       <section className="py-16 md:py-20 lg:py-28 bg-muted/20 border-b border-muted">
         <div className="container mx-auto px-4 md:px-6 lg:px-8 text-center">

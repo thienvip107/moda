@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { productsList } from '../data/products';
 import { getProductsList } from '../services/api';
+import SEO from '../components/SEO';
 
 const ProductDetail = () => {
   const { productId } = useParams();
@@ -75,8 +76,42 @@ const ProductDetail = () => {
     }
   };
 
+  const productTitle = `${product.title || product.name} - Đá Slate Lai Châu Cao Cấp | HT STONE`;
+  const productDesc = `${product.title || product.name} tự nhiên nguyên bản khai thác tại mỏ đá Lai Châu. ${product.short_desc || product.desc || 'Chuyên dùng lợp mái biệt thự, ốp tường và lát sân vườn cao cấp.'} Báo giá tốt nhất tại mỏ.`;
+  const productKeywords = `${product.title || product.name}, đá đen, đá lai châu, mỏ đá, đá cao cấp, đá slate lai châu, đá đen lai châu, đá ốp tường, đá lợp mái, ht stone`;
+
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": product.title || product.name,
+    "image": product.img || product.image_url ? `https://www.modalaichau.com${product.img || product.image_url}` : undefined,
+    "description": product.short_desc || product.desc || `${product.title || product.name} - Đá Slate Lai Châu tự nhiên cao cấp khai thác trực tiếp từ mỏ.`,
+    "sku": String(product.code || product.id),
+    "mpn": String(product.code || product.id),
+    "brand": {
+      "@type": "Brand",
+      "name": "HT STONE"
+    },
+    "offers": {
+      "@type": "Offer",
+      "url": `https://www.modalaichau.com/products/${product.id}`,
+      "priceCurrency": "VND",
+      "price": "250000",
+      "availability": "https://schema.org/InStock",
+      "itemCondition": "https://schema.org/NewCondition"
+    }
+  };
+
   return (
     <main className="min-h-screen bg-background text-primary pt-28 pb-20">
+      <SEO 
+        title={productTitle}
+        description={productDesc}
+        keywords={productKeywords}
+        canonical={`/products/${product.id}`}
+        ogImage={product.img || product.image_url}
+        schemaData={productSchema}
+      />
       <div className="container mx-auto px-4 md:px-6 lg:px-8">
         
         {/* 1. Breadcrumbs & Back Button */}

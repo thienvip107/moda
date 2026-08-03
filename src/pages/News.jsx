@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Sparkles, Calendar, User, MoveRight } from 'lucide-react';
 import { getNewsList } from '../services/api';
+import SEO from '../components/SEO';
 
 const News = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -38,6 +39,12 @@ const News = () => {
 
   return (
     <main className="min-h-screen bg-background text-primary pt-24 pb-20">
+      <SEO 
+        title="Tin Tức & Cẩm Nang Đá Slate Lai Châu - Mỏ Đá & Thi Công | HT STONE"
+        description="Cập nhật tin tức mới nhất về ngành đá tự nhiên, kỹ thuật lợp mái đá đen Lai Châu, kinh nghiệm chọn đá ốp tường sân vườn và báo giá tận mỏ."
+        keywords="tin tức đá lai châu, cẩm nang đá đen, kỹ thuật lợp mái đá, kinh nghiệm chọn đá ốp tường, mỏ đá lai châu, ht stone"
+        canonical="/news"
+      />
       {/* 1. Header Section */}
       <section className="py-16 md:py-20 lg:py-24 bg-muted/20 border-b border-muted">
         <div className="container mx-auto px-4 md:px-6 lg:px-8 text-center max-w-3xl">

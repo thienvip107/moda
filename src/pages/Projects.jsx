@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Expand, ExternalLink, MoveRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { getProjectsList } from '../services/api';
+import SEO from '../components/SEO';
 
 const Projects = () => {
   const { t } = useTranslation();
@@ -41,6 +42,12 @@ const Projects = () => {
 
   return (
     <main className="min-h-screen bg-background text-primary pt-24">
+      <SEO 
+        title="Dự Án Thi Công Đá Đen & Đá Đa Sắc Lai Châu | HT STONE"
+        description="Tuyển tập các dự án thi công lợp mái đá đen Lai Châu, ốp mặt tiền biệt thự và lát cảnh quan resort cao cấp của HT STONE trên toàn quốc."
+        keywords="dự án thi công đá đen, lợp mái đá biệt thự, đá lai châu ốp tường resort, công trình đá tự nhiên, ht stone"
+        canonical="/projects"
+      />
       {/* 1. Header Section */}
       <section className="py-16 md:py-20 lg:py-28 bg-muted/20 border-b border-muted">
         <div className="container mx-auto px-4 md:px-6 lg:px-8 text-center">

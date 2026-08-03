@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, MapPin, Calendar, Layers, ExternalLink, MoveRight, Sparkles } from 'lucide-react';
 import { getProjectsList } from '../services/api';
+import SEO from '../components/SEO';
 
 const ProjectDetail = () => {
   const { projectId } = useParams();
@@ -49,6 +50,13 @@ const ProjectDetail = () => {
 
   return (
     <main className="min-h-screen bg-background text-primary pt-28 pb-20">
+      <SEO 
+        title={`${project.title} - Thi Công Đá Slate Lai Châu | HT STONE`}
+        description={`Dự án ${project.title} tại ${project.location || 'Việt Nam'}. ${project.desc || 'Thi công lợp mái đá đen Lai Châu và ốp lát hoàn thiện tự nhiên cao cấp bởi HT STONE.'}`}
+        keywords={`${project.title}, thi công đá lai châu, đá đen lợp mái, công trình biệt thự, ht stone`}
+        canonical={`/projects/${project.id}`}
+        ogImage={project.img || project.image_url}
+      />
       <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-5xl">
         
         {/* Navigation & Breadcrumb */}

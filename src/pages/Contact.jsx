@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Phone, Mail, MapPin, Send, HelpCircle } from 'lucide-react';
+import SEO from '../components/SEO';
 
 const Contact = () => {
   const { t } = useTranslation();
@@ -39,6 +40,12 @@ const Contact = () => {
 
   return (
     <main className="min-h-screen bg-background text-primary pt-24">
+      <SEO 
+        title="Liên Hệ Báo Giá Đá Đen & Đá Đa Sắc Lai Châu Tận Mỏ | HT STONE"
+        description="Liên hệ HT STONE để nhận báo giá đá Slate Lai Châu lợp mái, ốp tường, lát sân vườn trực tiếp tại mỏ. Tư vấn kỹ thuật và gửi mẫu đá miễn phí toàn quốc."
+        keywords="báo giá đá lai châu, báo giá đá đen, báo giá mỏ đá lai châu, liên hệ ht stone, tư vấn lợp mái đá"
+        canonical="/contact"
+      />
       {/* 1. Header Section */}
       <section className="py-16 md:py-20 lg:py-28 bg-muted/20 border-b border-muted">
         <div className="container mx-auto px-4 md:px-6 lg:px-8 text-center">

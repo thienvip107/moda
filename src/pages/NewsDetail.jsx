@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { ArrowLeft, Calendar, User, Sparkles, Share2 } from 'lucide-react';
 import { FaFacebook } from 'react-icons/fa';
 import { getNewsBySlugOrId, getNewsList } from '../services/api';
+import SEO from '../components/SEO';
 
 const NewsDetail = () => {
   const { newsId } = useParams();
@@ -41,8 +42,38 @@ const NewsDetail = () => {
     : allNews.filter(p => p.id !== post.id && p.slug !== post.slug).slice(0, 2);
 
 
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": post.title,
+    "image": post.image_url ? `https://www.modalaichau.com${post.image_url}` : "https://www.modalaichau.com/assets/img/roofing_slate.jpg",
+    "description": post.excerpt || post.summary || post.title,
+    "author": {
+      "@type": "Organization",
+      "name": "HT STONE"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "HT STONE",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.modalaichau.com/assets/img/favicon.png"
+      }
+    },
+    "datePublished": post.created_at || "2026-07-30"
+  };
+
   return (
     <main className="min-h-screen bg-background text-primary pt-28 pb-20">
+      <SEO 
+        title={`${post.title} | HT STONE - Đá Tự Nhiên Lai Châu`}
+        description={post.excerpt || post.summary || `${post.title} - Bài viết chuyên sâu về đá Slate Lai Châu, đá đen lợp mái, đá ốp tường sân vườn từ mỏ HT STONE.`}
+        keywords={`${post.title}, đá lai châu, đá đen, mỏ đá lai châu, đá slate, ht stone`}
+        canonical={`/news/${post.slug || post.id}`}
+        ogImage={post.image_url}
+        ogType="article"
+        schemaData={articleSchema}
+      />
       <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-4xl">
         
         {/* 1. Navigation & Breadcrumb */}

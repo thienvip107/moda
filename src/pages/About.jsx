@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { ChevronRight, Award, Shield, Cpu, Leaf, Download } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { getPolicy } from '../services/api';
+import SEO from '../components/SEO';
 
 const About = () => {
   const { t } = useTranslation();
@@ -23,6 +24,12 @@ const About = () => {
 
   return (
     <main className="min-h-screen bg-background text-primary pt-24">
+      <SEO 
+        title="Về HT STONE - Đơn Vị Khai Thác Mỏ Đá Slate Lai Châu Cao Cấp"
+        description="HT STONE là thương hiệu sản xuất, khai thác mỏ đá Lai Châu và thi công các dòng đá đen, đá đa sắc tự nhiên hàng đầu Việt Nam. Hơn 15 năm kinh nghiệm kiến tạo công trình."
+        keywords="mỏ đá, mỏ đá lai châu, ht stone, modalaichau, đá lai châu, đá đen lai châu, nhà máy đá slate"
+        canonical="/about"
+      />
       {/* 1. Page Header */}
       <section className="py-20 lg:py-28 bg-muted/20 border-b border-muted">
         <div className="container mx-auto px-4 md:px-6 lg:px-8 text-center">

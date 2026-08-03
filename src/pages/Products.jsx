@@ -4,6 +4,7 @@ import { Shield, Sparkles, MoveRight, PhoneCall, FileText } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { filters } from '../data/products';
 import { getProductsList } from '../services/api';
+import SEO from '../components/SEO';
 
 const Products = () => {
   const { t } = useTranslation();
@@ -35,8 +36,45 @@ const Products = () => {
     : products.filter(p => p.category === activeFilter);
 
 
+  const getSeoData = () => {
+    switch (activeFilter) {
+      case 'roofing':
+        return {
+          title: "Đá Đen Lợp Mái Lai Châu - Đá Slate Vảy Cá, Mái Biệt Thự | HT STONE",
+          description: "Báo giá đá đen lợp mái Lai Châu tự nhiên cao cấp, đá vảy cá, đá lợp mái hình chữ nhật từ mỏ khai thác trực tiếp. Không thấm nước, độ bền vĩnh cửu 100 năm.",
+          keywords: "đá lợp mái, đá đen lợp mái, đá slate lai châu lợp mái, đá vảy cá, đá lợp mái biệt thự, đá đen lai châu"
+        };
+      case 'wall':
+        return {
+          title: "Đá Đen & Đá Đa Sắc Ốp Tường - Đá Slate Lai Châu Cao Cấp | HT STONE",
+          description: "Các mẫu đá đen Lai Châu ốp tường, đá đa sắc ốp mặt tiền, chân tường biệt thự, resort sang trọng. Sản xuất trực tiếp tại mỏ, chống rêu mốc tối đa.",
+          keywords: "đá ốp tường, đá đen ốp tường, đá đa sắc ốp tường, đá lai châu ốp tường, đá slate lai châu ốp tường"
+        };
+      case 'flooring':
+        return {
+          title: "Đá Đen Lát Sân Vườn, Lát Nền - Đá Slate Lai Châu Chịu Lực | HT STONE",
+          description: "Đá đen lát sân vườn, lát lối đi biệt thự, quảng trường. Đá tự nhiên chẻ thô chống trơn trượt, chịu tải trọng lớn, độ bền hơn 100 năm.",
+          keywords: "đá lát sân vườn, đá đen lát sân, đá lai châu lát nền, đá slate lát lối đi, đá đen lai châu"
+        };
+      default:
+        return {
+          title: "Đá Đen & Đá Đa Sắc Lai Châu - Mỏ Đá Tự Nhiên Cao Cấp | HT STONE",
+          description: "Danh mục sản phẩm đá Slate Lai Châu tự nhiên cao cấp khai thác trực tiếp tại mỏ. Bao gồm đá đen lợp mái, đá đen ốp tường, đá đa sắc lát sân vườn.",
+          keywords: "mỏ đá, đá đen, đá lai châu, đá cao cấp, đá slate lai châu, đá đen lai châu, đá ốp tường, đá lợp mái, đá lát sân"
+        };
+    }
+  };
+
+  const seoInfo = getSeoData();
+
   return (
     <main className="min-h-screen bg-background text-primary pt-24">
+      <SEO 
+        title={seoInfo.title}
+        description={seoInfo.description}
+        keywords={seoInfo.keywords}
+        canonical="/products"
+      />
       {/* 1. Header Section */}
       <section className="py-16 md:py-20 lg:py-28 bg-muted/20 border-b border-muted">
         <div className="container mx-auto px-4 md:px-6 lg:px-8 text-center">
