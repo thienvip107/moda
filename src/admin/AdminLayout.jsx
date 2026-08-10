@@ -16,7 +16,8 @@ import {
   Crown,
   UserCheck,
   ChevronRight,
-  Mail
+  Mail,
+  Sparkles
 } from 'lucide-react';
 import { logoutAdmin } from '../services/api';
 import { isSupabaseConfigured } from '../lib/supabase';
