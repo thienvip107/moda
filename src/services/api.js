@@ -7,8 +7,10 @@ import { optimizeCloudinaryUrl } from './cloudinary';
 const defaultBanners = [
   {
     id: 'b1',
-    title: 'ĐÁ SLATE LAI CHÂU TỰ NHIÊN High-End',
-    subtitle: 'Giải pháp ốp lát & lợp mái cao cấp trường tồn theo thời gian',
+    title: '(1) KHAI THÁC - SẢN XUẤT - PHÂN PHỐI - THI CÔNG',
+    title_en: '(01) QUARRYING - PROCESSING - SUPPLY - INSTALLATION',
+    subtitle: 'Sở hữu mỏ đá, HT STONE làm chủ toàn bộ quy trình từ khai thác đến thi công, đảm bảo nguồn cung ổn định và đáp ứng các dự án quy mô lớn.',
+    subtitle_en: 'Owning and operating our own Slate quarries, HT STONE manages every stage-from quarrying and processing to supply and professional installation. This integrated approach ensures a stable source of premium natural stone and the capability to deliver projects of every scale.',
     image_url: 'https://res.cloudinary.com/ydxroi9a/image/upload/w_1920,f_auto,q_auto/v1784694449/xhcldvnhsangyaor75uz.jpg',
     link_url: '/products',
     order_index: 1,
@@ -16,8 +18,10 @@ const defaultBanners = [
   },
   {
     id: 'b2',
-    title: 'CHẾ TÁC & THI CÔNG ĐÁ ĐỘC BẢN',
-    subtitle: 'Kiến tạo không gian kiến trúc đẳng cấp hoàng gia',
+    title: '(2) CHẾ TÁC & THI CÔNG ĐÁ ĐỘC BẢN',
+    title_en: '(02) BESPOKE STONE CRAFTSMANSHIP',
+    subtitle: 'Không có hai phiến đá nào giống nhau. Mỗi sản phẩm là dấu ấn độc bản của thiên nhiên, được chẻ tay thủ công để lưu giữ trọn vẹn những đường vân nguyên bản, tạo nên vẻ đẹp mộc mạc, tinh tế và sang trọng.',
+    subtitle_en: 'No two pieces of Slate are ever the same. Each stone is a unique expression of nature, carefully hand-split to preserve its authentic texture and distinctive character, creating architectural spaces defined by timeless elegance and individuality.',
     image_url: 'https://res.cloudinary.com/ydxroi9a/image/upload/w_1920,f_auto,q_auto/v1784694451/gfdazhqzcrw0asamtbnw.jpg',
     link_url: '/projects',
     order_index: 2,
@@ -25,8 +29,10 @@ const defaultBanners = [
   },
   {
     id: 'b3',
-    title: 'KIẾN TRÚC TRƯỜNG TỒN THEO THỜI GIAN',
-    subtitle: 'Đá tự nhiên nguyên khối được khai thác trực tiếp từ mỏ Lai Châu',
+    title: '(3) KHÔNG CHỈ LÀ ĐÁ TỰ NHIÊN',
+    title_en: '(03) MORE THAN NATURAL STONE',
+    subtitle: 'Chúng tôi tin rằng mỗi phiến đá đều mang một giá trị riêng. Không chỉ làm đẹp cho công trình, đá tự nhiên còn góp phần kiến tạo những không gian đáng tự hào, gần gũi với thiên nhiên, hòa quyện cùng nguồn năng lượng của đất trời.',
+    subtitle_en: 'At HT STONE, we believe every piece of stone tells a story. Beyond its natural beauty, Slate shapes spaces that inspire, connect people with nature, and stand as enduring expressions of architecture and craftsmanship.',
     image_url: 'https://res.cloudinary.com/ydxroi9a/image/upload/w_1920,f_auto,q_auto/v1784694456/vfdzgkygfdtwfp2eeoj8.jpg',
     link_url: '/about',
     order_index: 3,
@@ -51,37 +57,112 @@ const defaultPolicies = {
 
 const defaultProjects = [
   {
-    id: 'vinhomes-riverside',
-    title: 'Biệt Thự Đơn Lập Vinhomes Riverside',
-    slug: 'vinhomes-riverside',
-    category: 'villa',
-    desc: 'Hạng mục đá lát sân vườn, lối đi ô tô và ốp tường rào biệt thự bằng đá đen Lai Châu tự nhiên chẻ thô.',
-    location: 'Long Biên, Hà Nội',
-    img: 'https://res.cloudinary.com/ydxroi9a/image/upload/w_800,f_auto,q_auto/v1784694423/kcnmsxbnasrbezglaqmy.jpg',
+    id: 'nha-hat-lon-ha-noi',
+    title: 'Nhà Hát Lớn Hà Nội',
+    title_en: 'Hanoi Opera House',
+    slug: 'nha-hat-lon-ha-noi',
+    category: 'iconic',
+    desc: 'Kiến trúc biểu tượng - Hạng mục lợp mái ngói đá tự nhiên nguyên bản.',
+    location: 'Hoàn Kiếm, Hà Nội',
+    img: 'https://res.cloudinary.com/ydxroi9a/image/upload/w_800,f_auto,q_auto/v1784694428/adpht1zwuubd1lddxbtq.jpg',
     year: '2024',
-    scale: 'Đá lát 450 m², Đá ốp 180 m²'
+    scale: 'Mái ngói đá Slate'
   },
   {
-    id: 'amanoi-resort',
-    title: 'Amanoi Resort Ninh Thuận',
-    slug: 'amanoi-resort',
+    id: 'waldorf-astoria-hanoi',
+    title: 'Waldorf Astoria Hanoi',
+    title_en: 'Waldorf Astoria Hanoi',
+    slug: 'waldorf-astoria-hanoi',
+    category: 'hotel',
+    desc: 'Khách sạn sang trọng - Ốp vách nghệ thuật và lát đá tự nhiên đẳng cấp thượng lưu.',
+    location: 'Hà Nội',
+    img: 'https://res.cloudinary.com/ydxroi9a/image/upload/w_800,f_auto,q_auto/v1784694425/p3mrfgfx1g0v5vihwj5i.jpg',
+    year: '2024',
+    scale: 'Đá ốp lát cao cấp'
+  },
+  {
+    id: 'pacific-place-hanoi',
+    title: 'Pacific Place Hanoi',
+    title_en: 'Pacific Place Hanoi',
+    slug: 'pacific-place-hanoi',
+    category: 'urban',
+    desc: 'Kiến trúc đô thị hiện đại - Hạng mục đá lát sảnh và cảnh quan thương mại.',
+    location: 'Hà Nội',
+    img: 'https://res.cloudinary.com/ydxroi9a/image/upload/w_800,f_auto,q_auto/v1784694423/kcnmsxbnasrbezglaqmy.jpg',
+    year: '2023',
+    scale: 'Đá ốp mặt tiền & cảnh quan'
+  },
+  {
+    id: 'alluvia-city',
+    title: 'Alluvia City (Văn Giang, Hưng Yên)',
+    title_en: 'Alluvia City (Van Giang, Hung Yen)',
+    slug: 'alluvia-city',
+    category: 'urban',
+    desc: 'Kiến trúc đô thị hiện đại - Cung cấp và thi công đá đường dạo sân vườn khu đô thị.',
+    location: 'Văn Giang, Hưng Yên',
+    img: 'https://res.cloudinary.com/ydxroi9a/image/upload/w_800,f_auto,q_auto/v1784694459/cbxamzsfpfvto5g5hi4q.jpg',
+    year: '2024',
+    scale: 'Đá lát cảnh quan'
+  },
+  {
+    id: 'dai-su-quan-anh',
+    title: 'Đại sứ quán Vương quốc Anh tại Hà Nội',
+    title_en: 'British Embassy Hanoi',
+    slug: 'dai-su-quan-anh',
+    category: 'public',
+    desc: 'Công trình công cộng - Cung cấp đá tự nhiên bảo đảm tiêu chuẩn kiến trúc ngoại giao.',
+    location: 'Hà Nội',
+    img: 'https://res.cloudinary.com/ydxroi9a/image/upload/w_800,f_auto,q_auto/v1784694419/khg9fw7wkqnqssrksraj.jpg',
+    year: '2023',
+    scale: 'Đá ốp tường & lợp mái'
+  },
+  {
+    id: 'sun-spa-resort',
+    title: 'Sun Spa Resort (Quảng Bình)',
+    title_en: 'Sun Spa Resort (Quang Binh)',
+    slug: 'sun-spa-resort',
     category: 'resort',
-    desc: 'Cung cấp đá đen Lai Châu chống trơn lát sàn quanh hồ bơi vô cực, thềm hiên và lối đi nối các biệt thự Bungalow.',
-    location: 'Vịnh Vĩnh Hy, Ninh Thuận',
+    desc: 'Nghỉ dưỡng ven biển - Lát hồ bơi vô cực và đường dạo bungalow bằng đá Slate chống trơn.',
+    location: 'Quảng Bình',
     img: 'https://res.cloudinary.com/ydxroi9a/image/upload/w_800,f_auto,q_auto/v1784694425/p3mrfgfx1g0v5vihwj5i.jpg',
     year: '2023',
-    scale: 'Đá lát 2.500 m²'
+    scale: 'Đá lát hồ bơi 3.000m²'
   },
   {
-    id: 'hotel-de-la-coupole',
-    title: 'Hotel de la Coupole Sapa',
-    slug: 'hotel-de-la-coupole',
+    id: 'lake-view-hotel',
+    title: 'Lake View Hotel Hà Nội',
+    title_en: 'Lake View Hotel Hanoi',
+    slug: 'lake-view-hotel',
+    category: 'hotel',
+    desc: 'Khách sạn sang trọng - Hệ thống đá đen ốp sảnh đón khách và vách sảnh thang máy.',
+    location: 'Hà Nội',
+    img: 'https://res.cloudinary.com/ydxroi9a/image/upload/w_800,f_auto,q_auto/v1784694413/eacdckyeft9xsvbfszpb.jpg',
+    year: '2023',
+    scale: 'Đá ốp vách 1.200m²'
+  },
+  {
+    id: 'biethu-vuon-dao-ciputra',
+    title: 'Khu biệt thự Vườn Đào – Ciputra Hà Nội',
+    title_en: 'Vuon Dao Villas - Ciputra Hanoi',
+    slug: 'biethu-vuon-dao-ciputra',
+    category: 'villa',
+    desc: 'Biệt thự cao cấp - Lợp mái đá vảy cá đen tuyền kết hợp đá chẻ ốp tường rào biệt thự.',
+    location: 'Tây Hồ, Hà Nội',
+    img: 'https://res.cloudinary.com/ydxroi9a/image/upload/w_800,f_auto,q_auto/v1784694423/kcnmsxbnasrbezglaqmy.jpg',
+    year: '2024',
+    scale: 'Đá lợp mái & ốp rào'
+  },
+  {
+    id: 'eco-retreat-long-an',
+    title: 'Eco Retreat (Long An)',
+    title_en: 'Eco Retreat (Long An)',
+    slug: 'eco-retreat-long-an',
     category: 'resort',
-    desc: 'Hệ mái ngói đá Lai Châu đen hình vảy cá kết hợp chữ nhật, kiến tạo nên mái ngói tráng lệ mang đậm dấu ấn Indochine.',
-    location: 'Sapa, Lào Cai',
-    img: 'https://res.cloudinary.com/ydxroi9a/image/upload/w_800,f_auto,q_auto/v1784694428/adpht1zwuubd1lddxbtq.jpg',
-    year: '2022',
-    scale: 'Ngói đá lợp mái 4.800 m²'
+    desc: 'Không gian resort sinh thái - Cung cấp đá chẻ tự nhiên hòa quyện cảnh quan thiên nhiên.',
+    location: 'Long An',
+    img: 'https://res.cloudinary.com/ydxroi9a/image/upload/w_800,f_auto,q_auto/v1784694444/cap5xlp4lzlzh5ca8zv2.jpg',
+    year: '2024',
+    scale: 'Đá cảnh quan sinh thái'
   }
 ];
 
@@ -272,6 +353,43 @@ export async function getProductsList() {
     surface: 'Chẻ tự nhiên / Mài thô'
   };
 
+  const mapProductData = (p) => {
+    const mainImg = optimizeCloudinaryUrl(p.image_url || p.img, 800);
+    let gal = [];
+    if (Array.isArray(p.gallery)) {
+      gal = p.gallery.map(u => optimizeCloudinaryUrl(u, 800));
+    } else if (typeof p.gallery === 'string') {
+      try {
+        const parsed = JSON.parse(p.gallery);
+        if (Array.isArray(parsed)) gal = parsed.map(u => optimizeCloudinaryUrl(u, 800));
+      } catch (e) {
+        if (p.gallery) gal = [optimizeCloudinaryUrl(p.gallery, 800)];
+      }
+    }
+    if (mainImg && !gal.includes(mainImg)) {
+      gal.unshift(mainImg);
+    }
+    let specsObj = p.specs;
+    if (typeof specsObj === 'string') {
+      try { specsObj = JSON.parse(specsObj); } catch (e) { specsObj = null; }
+    }
+    return {
+      ...p,
+      title: p.name || p.title,
+      name: p.name || p.title,
+      name_en: p.name_en || p.title_en || p.engTitle || '',
+      desc: p.description || p.desc,
+      description: p.description || p.desc,
+      description_en: p.description_en || p.desc_en || '',
+      img: mainImg,
+      image_url: mainImg,
+      gallery: gal,
+      code: p.slug || p.code,
+      category: p.category || 'da-den-lop-mai',
+      specs: specsObj || defaultSpecs
+    };
+  };
+
   if (isSupabaseConfigured) {
     try {
       const { data, error } = await supabase
@@ -279,21 +397,10 @@ export async function getProductsList() {
         .select('*')
         .order('created_at', { ascending: false });
       if (!error && data?.length) {
-        const dbProducts = data.map(p => ({
-          ...p,
-          title: p.name || p.title,
-          desc: p.description || p.desc,
-          img: optimizeCloudinaryUrl(p.image_url || p.img, 800),
-          code: p.slug || p.code,
-          category: p.category || 'da-den-lop-mai',
-          specs: p.specs || defaultSpecs
-        }));
+        const dbProducts = data.map(mapProductData);
         if (dbProducts.length < initialProducts.length) {
           const dbSlugs = new Set(dbProducts.map(p => p.slug || p.id));
-          const extra = initialProducts.filter(p => !dbSlugs.has(p.id) && !dbSlugs.has(p.slug)).map(p => ({
-            ...p,
-            img: optimizeCloudinaryUrl(p.img || p.image_url, 800)
-          }));
+          const extra = initialProducts.filter(p => !dbSlugs.has(p.id) && !dbSlugs.has(p.slug)).map(mapProductData);
           return [...dbProducts, ...extra];
         }
         return dbProducts;
@@ -304,17 +411,24 @@ export async function getProductsList() {
   }
   const localProducts = getLocalData('products', initialProducts);
   const list = Array.isArray(localProducts) ? localProducts : Object.values(localProducts).flat();
-  return list.map(p => ({
-    ...p,
-    title: p.title || p.name,
-    desc: p.desc || p.description,
-    img: optimizeCloudinaryUrl(p.image_url || p.img, 800),
-    specs: p.specs || defaultSpecs
-  }));
+  return list.map(mapProductData);
 }
 
 export async function saveProduct(productData) {
   const slug = productData.slug || (productData.name || productData.title).toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  const mainImg = productData.img || productData.image_url || '';
+  let gal = Array.isArray(productData.gallery) ? [...productData.gallery] : [];
+  if (mainImg && !gal.includes(mainImg)) {
+    gal.unshift(mainImg);
+  }
+
+  const specsObj = productData.specs || {
+    sizes: productData.sizes || '30x30, 30x60, 40x40 cm',
+    thickness: productData.thickness || '1.0 - 1.5 cm',
+    surface: productData.surface || 'Chẻ tự nhiên / Mài thô',
+    origin: productData.origin || 'Mỏ đá Slate Lai Châu, Việt Nam'
+  };
+
   const payload = {
     name: productData.name || productData.title,
     name_en: productData.name_en || productData.title_en || '',
@@ -322,36 +436,77 @@ export async function saveProduct(productData) {
     price: productData.price || 'Liên hệ',
     description: productData.description || productData.desc || '',
     description_en: productData.description_en || productData.desc_en || '',
-    image_url: productData.img || productData.image_url,
+    image_url: mainImg,
     category: productData.category || 'Đá lợp mái',
-    is_new: productData.is_new ?? true
+    is_new: productData.is_new ?? true,
+    specs: specsObj,
+    gallery: gal,
+    features: Array.isArray(productData.features) ? productData.features : [],
+    applications: Array.isArray(productData.applications) ? productData.applications : []
   };
 
+  let savedResult = null;
+
   if (isSupabaseConfigured) {
-    if (productData.id) {
-      const { data, error } = await supabase
-        .from('products')
-        .update(payload)
-        .eq('id', productData.id)
-        .select();
-      if (!error && data?.length) return data[0];
+    try {
+      if (productData.id && typeof productData.id === 'string' && productData.id.length > 20) {
+        const { data, error } = await supabase
+          .from('products')
+          .update(payload)
+          .eq('id', productData.id)
+          .select();
+        if (error) throw error;
+        if (data?.length) savedResult = data[0];
+      } else {
+        const { data, error } = await supabase
+          .from('products')
+          .insert([payload])
+          .select();
+        if (error) throw error;
+        if (data?.length) savedResult = data[0];
+      }
+    } catch (err) {
+      console.warn('Supabase save with specs/gallery payload failed, trying basic payload:', err.message);
+      const basicPayload = { ...payload };
+      delete basicPayload.specs;
+      delete basicPayload.gallery;
+      delete basicPayload.features;
+      delete basicPayload.applications;
+
+      try {
+        if (productData.id && typeof productData.id === 'string' && productData.id.length > 20) {
+          const { data, error } = await supabase
+            .from('products')
+            .update(basicPayload)
+            .eq('id', productData.id)
+            .select();
+          if (!error && data?.length) savedResult = data[0];
+        } else {
+          const { data, error } = await supabase
+            .from('products')
+            .insert([basicPayload])
+            .select();
+          if (!error && data?.length) savedResult = data[0];
+        }
+      } catch (err2) {
+        console.error('Basic Supabase save failed:', err2);
+      }
     }
-    const { data, error } = await supabase
-      .from('products')
-      .insert([payload])
-      .select();
-    if (error) throw error;
-    return data[0];
   }
-  const list = await getProductsList();
-  let updated;
-  if (productData.id) {
-    updated = list.map(p => p.id === productData.id ? { ...p, ...productData, slug } : p);
-  } else {
-    updated = [{ ...productData, id: `prod_${Date.now()}`, slug }, ...list];
+
+  const fullItem = {
+    ...productData,
+    ...payload,
+    id: savedResult?.id || productData.id || `prod_${Date.now()}`,
+    img: mainImg
+  };
+  const list = getLocalData('products', initialProducts);
+  const updated = list.map(p => (p.id === fullItem.id || p.slug === fullItem.slug) ? fullItem : p);
+  if (!list.some(p => p.id === fullItem.id || p.slug === fullItem.slug)) {
+    updated.unshift(fullItem);
   }
   setLocalData('products', updated);
-  return productData;
+  return savedResult || fullItem;
 }
 
 export async function deleteProduct(id) {
@@ -569,13 +724,24 @@ export async function deleteProject(id) {
 // 7. SITE SETTINGS (HOTLINE, FOOTER, ADDRESS) API
 // ==========================================
 const defaultSettings = {
-  hotline: '0988 123 456',
-  zalo: '0988 123 456',
+  hotline: '0909168587',
+  zalo: '0909168587',
   email: 'info@htstone.vn',
-  address_headquarters: 'Lô C2-4, KCN Thụy Vân, TP. Việt Trì, Phú Thọ',
-  address_factory: 'Mỏ đá Slate Nậm Nhùn, Tỉnh Lai Châu',
+  showroom_hanoi: 'Số 8 ngõ 42 Trần Cung, TP Hà Nội',
+  showroom_hanoi_phone: '0909168587',
+  office_laichau: '206 Trần Hưng Đạo, phường Đoàn Kết, tỉnh Lai Châu',
+  office_laichau_phone: '0338.693.555',
+  quarry_namho: 'Mỏ đá Đen Nậm Ho: Xã Pa Tần, Tỉnh Lai Châu',
+  quarry_phiengen: 'Mỏ đá Đa Sắc Phiêng Én: Xã Lê Lợi, Tỉnh Lai Châu',
+  address_headquarters: 'Số 8 ngõ 42 Trần Cung, TP Hà Nội & 206 Trần Hưng Đạo, Lai Châu',
+  address_factory: 'Mỏ Nậm Ho & Mỏ Phiêng Én, Tỉnh Lai Châu',
+  company_full_name: 'HT STONE là thương hiệu đá tự nhiên thuộc Công ty TNHH MTV Thương mại và Xây dựng Hiền Tài',
+  company_full_name_en: 'HT STONE is the natural stone brand of Hien Tai Trading & Construction One Member Co., Ltd.',
   facebook_url: 'https://facebook.com',
-  instagram_url: 'https://instagram.com'
+  instagram_url: 'https://instagram.com',
+  home_intro_title: 'Làm Chủ Nguồn Đá Slate Tự Nhiên Từ Lai Châu',
+  home_intro_desc: 'HT STONE sở hữu mỏ đá Slate tự nhiên tại Lai Châu, cung cấp hai dòng sản phẩm chính là đá Slate đen và đá Slate đa sắc. Việc làm chủ nguồn đá giúp chúng tôi kiểm soát chất lượng ngay từ khâu khai thác và đảm bảo nguồn cung ổn định cho các dự án. Với độ hút nước thấp, kết cấu bền chắc và vẻ đẹp nguyên bản của đá tự nhiên, Slate Lai Châu là lựa chọn phù hợp cho các hạng mục lợp mái, ốp tường và lát nền. HT STONE đồng hành cùng khách hàng từ khai thác – sản xuất – phân phối – thi công, mang đến giải pháp đá tự nhiên trọn gói.',
+  footer_about: 'HT STONE là thương hiệu đá tự nhiên thuộc Công ty TNHH MTV Thương mại và Xây dựng Hiền Tài'
 };
 
 export async function getSiteSettings() {
@@ -646,3 +812,42 @@ export async function logoutAdmin() {
   }
   localStorage.removeItem('sailor_admin_session');
 }
+
+// ==========================================
+// 9. QUẢN LÝ LIÊN HỆ (CONTACTS)
+// ==========================================
+
+export async function submitContactForm(contactData) {
+  if (isSupabaseConfigured) {
+    const { error } = await supabase.from('contacts').insert([contactData]);
+    if (error) throw error;
+  } else {
+    const contacts = JSON.parse(localStorage.getItem('moda_contacts') || '[]');
+    contacts.push({ id: Date.now().toString(), ...contactData, status: 'new', created_at: new Date().toISOString() });
+    localStorage.setItem('moda_contacts', JSON.stringify(contacts));
+  }
+}
+
+export async function getContacts() {
+  if (isSupabaseConfigured) {
+    const { data, error } = await supabase.from('contacts').select('*').order('created_at', { ascending: false });
+    if (error) throw error;
+    return data;
+  }
+  return JSON.parse(localStorage.getItem('moda_contacts') || '[]');
+}
+
+export async function updateContactStatus(id, status) {
+  if (isSupabaseConfigured) {
+    const { error } = await supabase.from('contacts').update({ status }).eq('id', id);
+    if (error) throw error;
+  } else {
+    const contacts = JSON.parse(localStorage.getItem('moda_contacts') || '[]');
+    const index = contacts.findIndex(c => c.id === id);
+    if (index !== -1) {
+      contacts[index].status = status;
+      localStorage.setItem('moda_contacts', JSON.stringify(contacts));
+    }
+  }
+}
+

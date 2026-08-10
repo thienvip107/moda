@@ -71,7 +71,7 @@ const ProductDetail = () => {
       case 'da-den-op-lat': return 'Đá đen ỐP LÁT';
       case 'da-da-sac-lop-mai': return 'Đá đa sắc LỢP MÁI';
       case 'da-da-sac-op-lat': return 'Đá đa sắc ỐP LÁT';
-      case 'da-trang-tri': return 'Đá TRANG TRÍ';
+      case 'da-trang-tri': return 'Đá Rối';
       default: return 'Đá Tự Nhiên';
     }
   };

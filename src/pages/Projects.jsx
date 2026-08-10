@@ -6,13 +6,14 @@ import { getProjectsList } from '../services/api';
 import SEO from '../components/SEO';
 
 const Projects = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isEn = i18n.language === 'en';
   const [activeFilter, setActiveFilter] = useState('all');
   const [projectsList, setProjectsList] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    document.title = "Công trình tiêu biểu | HT STONE";
+    document.title = isEn ? "Projects | HT STONE - Portfolio" : "Công trình tiêu biểu | HT STONE";
     async function fetchProjects() {
       try {
         const data = await getProjectsList();
@@ -24,16 +25,16 @@ const Projects = () => {
       }
     }
     fetchProjects();
-  }, []);
-
-
-
+  }, [isEn]);
 
   const filters = [
-    { key: 'all', name: 'Tất cả công trình' },
-    { key: 'villa', name: 'Biệt thự cao cấp' },
-    { key: 'resort', name: 'Resort & Khách sạn' },
-    { key: 'garden', name: 'Sân vườn & Cảnh quan' }
+    { key: 'all', name: 'Tất cả công trình', name_en: 'All Projects' },
+    { key: 'iconic', name: 'Kiến trúc biểu tượng', name_en: 'Iconic Architecture' },
+    { key: 'hotel', name: 'Khách sạn sang trọng', name_en: 'Luxury Hotels' },
+    { key: 'urban', name: 'Đô thị hiện đại', name_en: 'Urban Developments' },
+    { key: 'public', name: 'Công trình công cộng', name_en: 'Public Buildings' },
+    { key: 'resort', name: 'Nghỉ dưỡng & Resort', name_en: 'Resorts' },
+    { key: 'villa', name: 'Biệt thự cao cấp', name_en: 'Luxury Villas' }
   ];
 
   const filteredProjects = activeFilter === 'all'
@@ -43,8 +44,8 @@ const Projects = () => {
   return (
     <main className="min-h-screen bg-background text-primary pt-24">
       <SEO 
-        title="Dự Án Thi Công Đá Đen & Đá Đa Sắc Lai Châu | HT STONE"
-        description="Tuyển tập các dự án thi công lợp mái đá đen Lai Châu, ốp mặt tiền biệt thự và lát cảnh quan resort cao cấp của HT STONE trên toàn quốc."
+        title={isEn ? "HT STONE Project Portfolio - Black & Multicolor Lai Chau Slate" : "Dự Án Thi Công Đá Đen & Đá Đa Sắc Lai Châu | HT STONE"}
+        description={isEn ? "Explore HT STONE's benchmark projects featuring Lai Chau Slate across luxury villas, resorts, iconic public buildings, and urban developments." : "Tuyển tập các dự án thi công lợp mái đá đen Lai Châu, ốp mặt tiền biệt thự và lát cảnh quan resort cao cấp của HT STONE trên toàn quốc."}
         keywords="dự án thi công đá đen, lợp mái đá biệt thự, đá lai châu ốp tường resort, công trình đá tự nhiên, ht stone"
         canonical="/projects"
       />
@@ -56,9 +57,9 @@ const Projects = () => {
             <span className="font-body uppercase tracking-widest text-accent text-xs font-bold">{t('projects')}</span>
             <div className="w-12 h-[1px] bg-accent"></div>
           </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-light text-primary leading-relaxed">
-            Những Tuyệt Tác <br />
-            <span className="font-bold">Đá Tự Nhiên Kiến Tạo</span>
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-heading font-light text-primary leading-relaxed">
+            {isEn ? 'PORTFOLIO' : 'DANH SÁCH DỰ ÁN'} <br />
+            <span className="font-bold">{isEn ? 'Architectural Masterpieces' : 'Công Trình Tiêu Biểu'}</span>
           </h1>
         </div>
       </section>
@@ -66,18 +67,18 @@ const Projects = () => {
       {/* 2. Portfolio Filters */}
       <section className="py-8 md:py-12 bg-background border-b border-muted/50">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
-          <div className="flex flex-wrap items-center justify-center gap-4 md:gap-8">
+          <div className="flex flex-wrap items-center justify-center gap-3 md:gap-6">
             {filters.map((f) => (
               <button
                 key={f.key}
                 onClick={() => setActiveFilter(f.key)}
-                className={`font-body text-sm uppercase tracking-wider font-semibold py-2 px-4 border-b-2 transition-all duration-300 ${
+                className={`font-body text-xs md:text-sm uppercase tracking-wider font-semibold py-2 px-3 border-b-2 transition-all duration-300 ${
                   activeFilter === f.key
                     ? 'border-accent text-accent'
                     : 'border-transparent text-secondary hover:text-primary hover:border-muted'
                 }`}
               >
-                {f.name}
+                {isEn ? f.name_en : f.name}
               </button>
             ))}
           </div>
@@ -109,12 +110,15 @@ const Projects = () => {
                   </Link>
 
                   {/* Project Title */}
-                  <div className="space-y-2">
+                  <div className="space-y-2 text-left">
                     <Link to={`/projects/${proj.id}`} className="block">
-                      <h3 className="text-xl font-heading font-bold text-primary group-hover:text-accent transition-colors line-clamp-2">
-                        {proj.title}
+                      <h3 className="text-lg font-heading font-bold text-primary group-hover:text-accent transition-colors line-clamp-2">
+                        {isEn ? (proj.title_en || proj.title) : proj.title}
                       </h3>
                     </Link>
+                    <p className="font-body text-xs text-secondary/80 line-clamp-2">
+                      {proj.desc || proj.scale || proj.location}
+                    </p>
                   </div>
                 </div>
 
@@ -122,9 +126,9 @@ const Projects = () => {
                 <div className="mt-6 pt-4 border-t border-muted/50 flex items-center justify-between">
                   <Link 
                     to={`/projects/${proj.id}`} 
-                    className="inline-flex items-center gap-1.5 text-accent font-body uppercase tracking-wider text-sm font-bold hover:text-primary transition-colors border-b border-transparent hover:border-primary pb-0.5"
+                    className="inline-flex items-center gap-1.5 text-accent font-body uppercase tracking-wider text-xs font-bold hover:text-primary transition-colors border-b border-transparent hover:border-primary pb-0.5"
                   >
-                    Xem chi tiết <MoveRight size={14} />
+                    {isEn ? 'View Project Details' : 'Xem chi tiết'} <MoveRight size={14} />
                   </Link>
                 </div>
               </div>
@@ -136,12 +140,12 @@ const Projects = () => {
       {/* 4. CTA */}
       <section className="py-16 md:py-20 lg:py-28 bg-muted/20 border-t border-muted text-center">
         <div className="container mx-auto px-4 max-w-2xl">
-          <h2 className="text-3xl font-heading font-bold mb-4">Lên Ý Tưởng Cho Công Trình Của Bạn?</h2>
-          <p className="font-body text-secondary text-sm leading-relaxed mb-8">
-            Hãy liên hệ với đội ngũ kỹ sư và chuyên viên kỹ thuật của HT STONE để nhận bản vẽ chi tiết thi công đá và phương án tối ưu hóa chi phí nhất.
+          <h2 className="text-2xl md:text-3xl font-heading font-bold mb-4">{isEn ? 'Planning Your Architectural Project?' : 'Lên Ý Tưởng Cho Công Trình Của Bạn?'}</h2>
+          <p className="font-body text-secondary text-xs md:text-sm leading-relaxed mb-8">
+            {isEn ? 'Connect with HT STONE technical experts for tailored stone laying plans and direct quarry pricing estimates.' : 'Hãy liên hệ với đội ngũ kỹ sư và chuyên viên kỹ thuật của HT STONE để nhận bản vẽ chi tiết thi công đá và phương án tối ưu hóa chi phí nhất.'}
           </p>
           <Link to="/contact" className="inline-flex items-center gap-2 bg-accent text-surface px-8 py-3.5 font-body uppercase tracking-wider text-xs font-bold hover:bg-primary transition-all duration-400">
-            Tư vấn thiết kế miễn phí <ExternalLink size={16} />
+            {isEn ? 'REQUEST FREE TECHNICAL CONSULTATION' : 'TƯ VẤN THIẾT KẾ MIỄN PHÍ'} <ExternalLink size={16} />
           </Link>
         </div>
       </section>

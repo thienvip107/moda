@@ -9,7 +9,7 @@ export const productsList = [
     desc: 'Biệt thự lợp mái ngói đá Slate 20x30cm đen tuyền tự nhiên cao cấp.',
     img: '/assets/img/roofing_slate.jpg',
     gallery: ['/assets/img/roofing_slate.jpg', '/assets/img/slide_2.jpg', '/assets/img/project_3.jpg'],
-    specs: { origin: 'Lai Châu, Việt Nam', sizes: '20x30 cm', thickness: '5 - 7 mm', surface: 'Chẻ tay thủ công' },
+    specs: { origin: 'Lai Châu, Việt Nam', sizes: '30x20 cm', thickness: '0.5 cm', surface: 'Xén cạnh thủ công hoặc Cắt phẳng bằng máy' },
     features: [
       'Độ bền vĩnh cửu trên 100 năm, chịu lực và chống ăn mòn cực tốt.',
       'Màu đen ghi tự nhiên không phai dưới mưa nắng axit.',
@@ -26,7 +26,7 @@ export const productsList = [
     desc: 'Biệt thự lợp đá Slate kích thước 18x27cm. Chuyên khai thác và cung cấp cũng như tư vấn giải pháp đặc thù cho công trình mái đá Lai Châu.',
     img: '/assets/img/roofing_slate.jpg',
     gallery: ['/assets/img/roofing_slate.jpg', '/assets/img/slide_2.jpg'],
-    specs: { origin: 'Lai Châu, Việt Nam', sizes: '18x27 cm', thickness: '5 - 7 mm', surface: 'Chẻ tay phẳng' },
+    specs: { origin: 'Lai Châu, Việt Nam', sizes: '30x20 cm', thickness: '0.5 cm', surface: 'Xén cạnh thủ công hoặc Cắt phẳng bằng máy' },
     features: ['Cách nhiệt và cách âm vượt trội.', 'Kết cấu thớ đá chặt chẽ chống thấm dột tuyệt đối.', 'Không cong vênh do biến đổi thời tiết.'],
     techSpecs: { flexuralStrength: '59.0 MPa', waterAbsorption: '0.08%', density: '2.79 g/cm³', mohsHardness: '5.5 / 10', acidResistance: 'Bền bỉ vĩnh viễn' },
     applications: ['Lợp mái biệt thự sang trọng', 'Lợp nhà mái thái cách điệu']
@@ -39,7 +39,7 @@ export const productsList = [
     desc: 'Công trình lâu đài lợp đá vảy cá kích thước 14x21cm mang vẻ đẹp sang trọng, cổ điển Pháp.',
     img: '/assets/img/roofing_slate.jpg',
     gallery: ['/assets/img/roofing_slate.jpg', '/assets/img/project_3.jpg'],
-    specs: { origin: 'Lai Châu, Việt Nam', sizes: '14x21 cm', thickness: '5 - 7 mm', surface: 'Chẻ tay thủ công dạng vảy cá' },
+    specs: { origin: 'Lai Châu, Việt Nam', sizes: '30x20 cm', thickness: '0.5 cm', surface: 'Xén cạnh thủ công hoặc Cắt phẳng bằng máy' },
     features: ['Mặt ngói cắt bo tròn vảy cá tạo hiệu ứng xếp lớp mềm mại.', 'Phong cách lâu đài cổ điển Châu Âu quý phái.', 'Độ bền thách thức thời gian.'],
     techSpecs: { flexuralStrength: '58.0 MPa', waterAbsorption: '0.09%', density: '2.78 g/cm³', mohsHardness: '5.5 / 10', acidResistance: 'Kháng axit tuyệt hảo' },
     applications: ['Lợp lâu đài cổ điển', 'Lợp biệt thự Pháp', 'Tạo điểm nhấn chóp mái']
@@ -52,7 +52,7 @@ export const productsList = [
     desc: 'Đá lợp mái hình lục giác độc đáo, sắc sảo tạo điểm nhấn kiến trúc riêng biệt.',
     img: '/assets/img/roofing_slate.jpg',
     gallery: ['/assets/img/roofing_slate.jpg', '/assets/img/slide_2.jpg'],
-    specs: { origin: 'Lai Châu, Việt Nam', sizes: '14x21 cm', thickness: '5 mm (±1mm)', surface: 'Lục giác chẻ tay' },
+    specs: { origin: 'Lai Châu, Việt Nam', sizes: '30x20 cm', thickness: '0.5 cm', surface: 'Xén cạnh thủ công hoặc Cắt phẳng bằng máy' },
     features: ['Kiểu dáng lục giác ghép góc tinh xảo.', 'Chống nóng, chống rêu mốc và chịu lực gió bão tốt.', 'Tông màu đen tuyền tự nhiên.'],
     techSpecs: { flexuralStrength: '60.1 MPa', waterAbsorption: '0.07%', density: '2.80 g/cm³', mohsHardness: '6.0 / 10', acidResistance: 'Không phai màu' },
     applications: ['Lợp mái chòi sân vườn', 'Thiết kế chóp mái biệt thự hiện đại']
@@ -65,7 +65,7 @@ export const productsList = [
     desc: 'Sản phẩm ngói vảy cá chẻ tay thông dụng phục vụ các dự án biệt thự cao cấp.',
     img: '/assets/img/roofing_slate.jpg',
     gallery: ['/assets/img/roofing_slate.jpg', '/assets/img/project_3.jpg'],
-    specs: { origin: 'Lai Châu, Việt Nam', sizes: '14x21 cm', thickness: '5 mm (±1mm)', surface: 'Vảy cá chẻ thô' },
+    specs: { origin: 'Lai Châu, Việt Nam', sizes: '30x20 cm', thickness: '0.5 cm', surface: 'Xén cạnh thủ công hoặc Cắt phẳng bằng máy' },
     features: ['Cách nhiệt cực tốt, giúp nhà mát mẻ.', 'Kháng rêu mốc, chống đọng nước.', 'Thi công tỉ mỉ, độ bền hơn 1 thế kỷ.'],
     techSpecs: { flexuralStrength: '58.5 MPa', waterAbsorption: '0.08%', density: '2.78 g/cm³', mohsHardness: '5.5 / 10', acidResistance: 'Bền bỉ tuyệt đối' },
     applications: ['Lợp mái nhà cổ, biệt thự phong cách Pháp']
@@ -78,7 +78,7 @@ export const productsList = [
     desc: 'Ngói đá lợp mái hình chữ nhật hiện đại, mang lại sự khỏe khoắn, vuông vức cho công trình.',
     img: '/assets/img/roofing_slate.jpg',
     gallery: ['/assets/img/roofing_slate.jpg', '/assets/img/slide_3.jpg'],
-    specs: { origin: 'Lai Châu, Việt Nam', sizes: '15x25 cm', thickness: '5 mm (±1mm)', surface: 'Chẻ tay phẳng phiu' },
+    specs: { origin: 'Lai Châu, Việt Nam', sizes: '30x20 cm', thickness: '0.5 cm', surface: 'Xén cạnh thủ công hoặc Cắt phẳng bằng máy' },
     features: ['Đường nét vuông vức, hiện đại dễ phối cảnh.', 'Chống chịu muối mặn và gió biển cực tốt.', 'Hiệu quả cách âm chống ồn khi trời mưa lớn.'],
     techSpecs: { flexuralStrength: '61.0 MPa', waterAbsorption: '0.07%', density: '2.80 g/cm³', mohsHardness: '6.0 / 10', acidResistance: 'Chống mài mòn hóa học' },
     applications: ['Lợp biệt thự hiện đại, Resort ven biển']
@@ -91,7 +91,7 @@ export const productsList = [
     desc: 'Sản phẩm ngói đá chẻ tay mã LM-03 quy cách trung bình 18x27cm.',
     img: '/assets/img/roofing_slate.jpg',
     gallery: ['/assets/img/roofing_slate.jpg'],
-    specs: { origin: 'Lai Châu, Việt Nam', sizes: '18x27 cm', thickness: '5 mm (±1mm)', surface: 'Chẻ tay tự nhiên' },
+    specs: { origin: 'Lai Châu, Việt Nam', sizes: '30x20 cm', thickness: '0.5 cm', surface: 'Xén cạnh thủ công hoặc Cắt phẳng bằng máy' },
     features: ['Kích thước lợp phổ biến, tỷ lệ hao hụt thấp.', 'Màu đen bóng mờ tự nhiên cực kỳ quý phái.', 'Chống cháy, cách nhiệt hiệu quả.'],
     techSpecs: { flexuralStrength: '59.2 MPa', waterAbsorption: '0.08%', density: '2.79 g/cm³', mohsHardness: '5.5 / 10', acidResistance: 'Bền bỉ thời tiết' },
     applications: ['Lợp mái công trình dân dụng cao cấp', 'Nhà hàng phong cách cổ điển']
@@ -104,7 +104,7 @@ export const productsList = [
     desc: 'Lá ngói đá Lai Châu kích thước chuẩn 20x30cm chẻ thô chống thấm nước.',
     img: '/assets/img/roofing_slate.jpg',
     gallery: ['/assets/img/roofing_slate.jpg', '/assets/img/project_3.jpg'],
-    specs: { origin: 'Lai Châu, Việt Nam', sizes: '20x30 cm', thickness: '5 mm (±1mm)', surface: 'Chẻ tay thô mộc' },
+    specs: { origin: 'Lai Châu, Việt Nam', sizes: '30x20 cm', thickness: '0.5 cm', surface: 'Xén cạnh thủ công hoặc Cắt phẳng bằng máy' },
     features: ['Kích thước tiêu chuẩn dễ lắp đặt.', 'Cách âm tốt khi mưa bão lớn.', 'Đá tự nhiên 100% không độc hại.'],
     techSpecs: { flexuralStrength: '58.8 MPa', waterAbsorption: '0.08%', density: '2.78 g/cm³', mohsHardness: '5.5 / 10', acidResistance: 'Chống ăn mòn' },
     applications: ['Biệt thự gia đình', 'Nhà thờ họ, từ đường gỗ cổ']
@@ -117,7 +117,7 @@ export const productsList = [
     desc: 'Ứng dụng đá vảy cá 14x21cm thiết kế chuyên biệt cho hệ mái lâu đài phức tạp.',
     img: '/assets/img/roofing_slate.jpg',
     gallery: ['/assets/img/roofing_slate.jpg', '/assets/img/slide_2.jpg'],
-    specs: { origin: 'Lai Châu, Việt Nam', sizes: '14x21 cm', thickness: '5 - 7 mm', surface: 'Bo tròn vảy cá nghệ thuật' },
+    specs: { origin: 'Lai Châu, Việt Nam', sizes: '30x20 cm', thickness: '0.5 cm', surface: 'Xén cạnh thủ công hoặc Cắt phẳng bằng máy' },
     features: ['Ôm sát các đường cong vòm phức tạp của lâu đài.', 'Tạo điểm nhấn thẩm mỹ hoàng gia Pháp.', 'Tuổi thọ cao ngang ngửa tuổi thọ công trình.'],
     techSpecs: { flexuralStrength: '58.0 MPa', waterAbsorption: '0.09%', density: '2.78 g/cm³', mohsHardness: '5.5 / 10', acidResistance: 'Không phai màu' },
     applications: ['Mái lâu đài, biệt phủ diện tích lớn', 'Các hệ mái chóp nón phức tạp']
@@ -130,7 +130,7 @@ export const productsList = [
     desc: 'Lợp mái ngói đá chữ nhật kích thước 20x30cm cho các căn biệt thự nghỉ dưỡng cao cấp.',
     img: '/assets/img/roofing_slate.jpg',
     gallery: ['/assets/img/roofing_slate.jpg', '/assets/img/slide_3.jpg'],
-    specs: { origin: 'Lai Châu, Việt Nam', sizes: '20x30 cm', thickness: '5 - 7 mm', surface: 'Chẻ tay phẳng' },
+    specs: { origin: 'Lai Châu, Việt Nam', sizes: '30x20 cm', thickness: '0.5 cm', surface: 'Xén cạnh thủ công hoặc Cắt phẳng bằng máy' },
     features: ['Cách nhiệt chống nóng tuyệt vời, giảm tải điện năng điều hòa.', 'Khả năng chịu đựng khí hậu biển muối mặn khắc nghiệt.', 'Mang vẻ đẹp hiện đại phóng khoáng.'],
     techSpecs: { flexuralStrength: '61.5 MPa', waterAbsorption: '0.07%', density: '2.80 g/cm³', mohsHardness: '6.0 / 10', acidResistance: 'Kháng mặn hoàn hảo' },
     applications: ['Resort ven biển, Villa cao cấp', 'Nhà hàng sang trọng ven sông']
@@ -143,7 +143,7 @@ export const productsList = [
     desc: 'Lợp mái đá chữ nhật cao cấp mang phong cách cung điện Châu Âu tráng lệ.',
     img: '/assets/img/roofing_slate.jpg',
     gallery: ['/assets/img/roofing_slate.jpg'],
-    specs: { origin: 'Lai Châu, Việt Nam', sizes: 'Quy cách đặc biệt', thickness: '6 - 8 mm', surface: 'Chẻ tay dày dặn' },
+    specs: { origin: 'Lai Châu, Việt Nam', sizes: '30x20 cm', thickness: '0.5 cm', surface: 'Xén cạnh thủ công hoặc Cắt phẳng bằng máy' },
     features: ['Độ dày nâng cấp tăng cường độ bền chịu va đập.', 'Màu đen bóng sang trọng tự nhiên.', 'Vẻ ngoài bề thế vương giả.'],
     techSpecs: { flexuralStrength: '63.0 MPa', waterAbsorption: '0.06%', density: '2.81 g/cm³', mohsHardness: '6.0 / 10', acidResistance: 'Bền vững vĩnh viễn' },
     applications: ['Các dự án tầm cỡ vương triều, cung điện, nhà hát']
@@ -156,7 +156,7 @@ export const productsList = [
     desc: 'Biệt thự lợp ngói đá chữ nhật kích thước 20x30cm tạo phong cách kiến trúc châu Âu.',
     img: '/assets/img/roofing_slate.jpg',
     gallery: ['/assets/img/roofing_slate.jpg', '/assets/img/project_3.jpg'],
-    specs: { origin: 'Lai Châu, Việt Nam', sizes: '20x30 cm', thickness: '5 - 7 mm', surface: 'Chẻ phẳng tự nhiên' },
+    specs: { origin: 'Lai Châu, Việt Nam', sizes: '30x20 cm', thickness: '0.5 cm', surface: 'Xén cạnh thủ công hoặc Cắt phẳng bằng máy' },
     features: ['Tạo mảng mái sang trọng, lịch lãm.', 'Khả năng tự làm sạch bụi bẩn khi trời mưa.', 'Đá tự nhiên 100% không độc hại.'],
     techSpecs: { flexuralStrength: '59.5 MPa', waterAbsorption: '0.08%', density: '2.78 g/cm³', mohsHardness: '5.5 / 10', acidResistance: 'Không phai màu' },
     applications: ['Biệt thự đơn lập, biệt thự liền kề vườn']
@@ -171,7 +171,7 @@ export const productsList = [
     desc: 'Đá đen lát sân vườn dày dặn 30x60cm chuyên dụng chịu lực lớn.',
     img: '/assets/img/paving_slate.jpg',
     gallery: ['/assets/img/paving_slate.jpg', '/assets/img/project_2.jpg'],
-    specs: { origin: 'Lai Châu, Việt Nam', sizes: '30x60 cm', thickness: '20 mm (±2mm)', surface: 'Chẻ thô nhám tự nhiên' },
+    specs: { origin: 'Lai Châu, Việt Nam', sizes: '30x20 cm', thickness: '0.5 cm', surface: 'Xén cạnh thủ công hoặc Cắt phẳng bằng máy' },
     features: ['Kích thước lớn 30x60cm tạo mảng sân bề thế sang trọng.', 'Chịu lực nén cực tốt chống nứt vỡ.', 'Khả năng chịu nhiệt, chống rêu mốc tuyệt hảo.'],
     techSpecs: { flexuralStrength: '64.5 MPa', waterAbsorption: '0.06%', density: '2.81 g/cm³', mohsHardness: '6.0 / 10', acidResistance: 'Kháng muối biển ăn mòn' },
     applications: ['Lát sân biệt thự hiện đại', 'Lát lối đi xe ô tô biệt thự resort']
@@ -184,7 +184,7 @@ export const productsList = [
     desc: 'Đá đen lát sân vườn khổ vuông 30x30cm chẻ thô nhám tự nhiên.',
     img: '/assets/img/paving_slate.jpg',
     gallery: ['/assets/img/paving_slate.jpg'],
-    specs: { origin: 'Lai Châu, Việt Nam', sizes: '30x30 cm', thickness: '10 mm (±2mm)', surface: 'Chẻ tay thô ráp' },
+    specs: { origin: 'Lai Châu, Việt Nam', sizes: '30x20 cm', thickness: '0.5 cm', surface: 'Xén cạnh thủ công hoặc Cắt phẳng bằng máy' },
     features: ['Khổ vuông thông dụng dễ thi công.', 'Vân đá đen ghi mộc mạc sang trọng.', 'Kháng nước tốt, giữ sân sạch bóng rêu.'],
     techSpecs: { flexuralStrength: '62.0 MPa', waterAbsorption: '0.07%', density: '2.78 g/cm³', mohsHardness: '5.5 / 10', acidResistance: 'Không phai màu' },
     applications: ['Lát sân vườn nhà phố biệt thự', 'Lát hiên nhà, lối vào sảnh']
@@ -197,7 +197,7 @@ export const productsList = [
     desc: 'Đá đen chẻ tay 20x20cm dày 10mm thích hợp ốp hoặc lát trang trí so le.',
     img: '/assets/img/paving_slate.jpg',
     gallery: ['/assets/img/paving_slate.jpg'],
-    specs: { origin: 'Lai Châu, Việt Nam', sizes: '20x20 cm', thickness: '10 mm (±2mm)', surface: 'Chẻ phẳng tự nhiên' },
+    specs: { origin: 'Lai Châu, Việt Nam', sizes: '30x20 cm', thickness: '0.5 cm', surface: 'Xén cạnh thủ công hoặc Cắt phẳng bằng máy' },
     features: ['Khổ nhỏ thích hợp lát ban công hoặc lối đi hẹp.', 'Màu sắc đen đồng đều.', 'Chống axit ăn mòn cực tốt.'],
     techSpecs: { flexuralStrength: '61.5 MPa', waterAbsorption: '0.07%', density: '2.79 g/cm³', mohsHardness: '5.5 / 10', acidResistance: 'Chống hóa chất tốt' },
     applications: ['Lát sàn ban công, logia biệt thự', 'Lát lối đi ngách nhỏ']
@@ -210,7 +210,7 @@ export const productsList = [
     desc: 'Đá đen lát sân vườn quy cách vuông lớn 40x40cm, dày 20mm chịu lực uốn nén cao.',
     img: '/assets/img/paving_slate.jpg',
     gallery: ['/assets/img/paving_slate.jpg', '/assets/img/project_2.jpg'],
-    specs: { origin: 'Lai Châu, Việt Nam', sizes: '40x40 cm', thickness: '20 mm (±2mm)', surface: 'Chẻ nhám chịu lực' },
+    specs: { origin: 'Lai Châu, Việt Nam', sizes: '30x20 cm', thickness: '0.5 cm', surface: 'Xén cạnh thủ công hoặc Cắt phẳng bằng máy' },
     features: ['Khổ đá lớn nâng tầm quy mô công trình biệt phủ.', 'Chịu uốn nén cực cao từ xe tải nhỏ hay xe ô tô di chuyển.', 'Kháng ẩm kháng rêu mốc vĩnh viễn.'],
     techSpecs: { flexuralStrength: '63.5 MPa', waterAbsorption: '0.06%', density: '2.80 g/cm³', mohsHardness: '6.0 / 10', acidResistance: 'Chống chịu axit cực tốt' },
     applications: ['Lát quảng trường resort biệt phủ', 'Lát sân lớn đón khách xe ô tô đậu đỗ']
@@ -223,7 +223,7 @@ export const productsList = [
     desc: 'Đá đen lát sân kích thước nhận đặt theo yêu cầu riêng biệt của các kiến trúc sư.',
     img: '/assets/img/paving_slate.jpg',
     gallery: ['/assets/img/paving_slate.jpg'],
-    specs: { origin: 'Lai Châu, Việt Nam', sizes: 'Kích thước ngẫu nhiên', thickness: '12 - 25 mm', surface: 'Đa dạng theo yêu cầu' },
+    specs: { origin: 'Lai Châu, Việt Nam', sizes: '30x20 cm', thickness: '0.5 cm', surface: 'Xén cạnh thủ công hoặc Cắt phẳng bằng máy' },
     features: ['Cá nhân hóa thiết kế riêng cho dự án biệt thự độc bản.', 'Cung ứng theo bản vẽ thiết kế cụ thể.', 'Chất lượng kiểm định xuất xưởng khắt khe.'],
     techSpecs: { flexuralStrength: '62.0 MPa', waterAbsorption: '0.07%', density: '2.78 g/cm³', mohsHardness: '5.5 / 10', acidResistance: 'Bền vững thời tiết' },
     applications: ['Các dự án biệt thự kiến trúc sư thiết kế cá nhân hóa', 'Villa đặc thù độc bản']
@@ -236,7 +236,7 @@ export const productsList = [
     desc: 'Đá đen lát sân chẻ tay quy cách 20x20cm, dày 10mm mộc mạc.',
     img: '/assets/img/paving_slate.jpg',
     gallery: ['/assets/img/paving_slate.jpg'],
-    specs: { origin: 'Lai Châu, Việt Nam', sizes: '20x20 cm', thickness: '10 mm (±2mm)', surface: 'Chẻ tay phẳng mặt' },
+    specs: { origin: 'Lai Châu, Việt Nam', sizes: '30x20 cm', thickness: '0.5 cm', surface: 'Xén cạnh thủ công hoặc Cắt phẳng bằng máy' },
     features: ['Kích thước nhỏ nhắn linh hoạt.', 'Chống trượt tốt cho lối dạo đi bộ.', 'Bền màu đen tuyền tự nhiên.'],
     techSpecs: { flexuralStrength: '61.0 MPa', waterAbsorption: '0.07%', density: '2.79 g/cm³', mohsHardness: '5.5 / 10', acidResistance: 'Chống ăn mòn hóa chất' },
     applications: ['Lát lối đi nhỏ trong công viên biệt thự', 'Ốp tường rào tiểu cảnh']
@@ -249,7 +249,7 @@ export const productsList = [
     desc: 'Đá đen chẻ phẳng quy cách 20x30cm chuyên dụng ốp tường rào biệt thự hoặc tường giếng trời lấy sáng.',
     img: '/assets/img/wall_cladding.jpg',
     gallery: ['/assets/img/wall_cladding.jpg', '/assets/img/about_stone.jpg'],
-    specs: { origin: 'Lai Châu, Việt Nam', sizes: '20x30 cm', thickness: '10 mm (±2mm)', surface: 'Chẻ phẳng tự nhiên' },
+    specs: { origin: 'Lai Châu, Việt Nam', sizes: '30x20 cm', thickness: '0.5 cm', surface: 'Xén cạnh thủ công hoặc Cắt phẳng bằng máy' },
     features: ['Cách phối ghép dễ dàng với các kích thước khác.', 'Mát mẻ chống nóng vào mùa hè.', 'Màu đen ghi tạo nên mảng tường bao vững chãi và thâm trầm.'],
     techSpecs: { flexuralStrength: '60.5 MPa', waterAbsorption: '0.08%', density: '2.78 g/cm³', mohsHardness: '5.5 / 10', acidResistance: 'Không rêu mốc' },
     applications: ['Ốp tường bao rào ngoại thất', 'Ốp tường giếng trời nhà phố hiện đại']
@@ -262,7 +262,7 @@ export const productsList = [
     desc: 'Thiết kế lát sân phối ghép nhiều kích cỡ (30x60, 30x30, 15x30cm) phá cách độc đáo cho sân biệt thự.',
     img: '/assets/img/paving_slate.jpg',
     gallery: ['/assets/img/paving_slate.jpg', '/assets/img/project_2.jpg'],
-    specs: { origin: 'Lai Châu, Việt Nam', sizes: 'Phối nhiều kích thước', thickness: '15 - 25 mm', surface: 'Chẻ thô nhám' },
+    specs: { origin: 'Lai Châu, Việt Nam', sizes: '30x20 cm', thickness: '0.5 cm', surface: 'Xén cạnh thủ công hoặc Cắt phẳng bằng máy' },
     features: ['Tạo mảng sân vườn hiện đại đậm chất nghệ thuật sắp đặt.', 'Kháng nước tối đa giúp sân khô ráo nhanh chóng sau mưa.', 'Ma sát chống trơn tuyệt vời.'],
     techSpecs: { flexuralStrength: '64.0 MPa', waterAbsorption: '0.06%', density: '2.81 g/cm³', mohsHardness: '6.0 / 10', acidResistance: 'Kháng hóa chất ăn mòn tốt' },
     applications: ['Lát sân vườn biệt thự phong cách hiện đại Châu Âu']
@@ -277,7 +277,7 @@ export const productsList = [
     desc: 'Sự phối hợp màu sắc ngẫu nhiên tự nhiên (vàng, nâu, xám). Tạo nên nét thô mộc, ấm áp đặc trưng cho mái nhà phong cách lâu đài Châu Âu cổ kính.',
     img: '/assets/img/multicolor_slate.jpg',
     gallery: ['/assets/img/multicolor_slate.jpg', '/assets/img/slide_2.jpg', '/assets/img/project_4.jpg'],
-    specs: { origin: 'Lai Châu, Việt Nam', sizes: 'Chữ nhật 20x30 cm, Vảy cá 15x25 cm', thickness: '5 - 8 mm', surface: 'Vân thô tự nhiên rực rỡ' },
+    specs: { origin: 'Lai Châu, Việt Nam', sizes: '30x20 cm', thickness: '0.5 cm', surface: 'Xén cạnh thủ công hoặc Cắt phẳng bằng máy' },
     features: ['Màu sắc độc bản biến chuyển từ xám ghi đến vàng cháy, đỏ đồng gỉ sắt vô cùng độc đáo.', 'Sản phẩm ngói lợp mang phong cách kiến trúc Gothic, Địa Trung Hải hay Châu Âu cổ kính.', 'Đá tự nhiên không bị phai màu dưới bức xạ tia UV hay mưa nắng thất thường.'],
     techSpecs: { flexuralStrength: '55.8 MPa', waterAbsorption: '0.12%', density: '2.72 g/cm³', mohsHardness: '5.0 / 10', acidResistance: 'Không phai màu dưới mọi thời tiết' },
     applications: ['Lợp biệt thự cổ điển, lâu đài phong cách Pháp', 'Resort phong cách Vintage']
@@ -290,7 +290,7 @@ export const productsList = [
     desc: 'Ngói đá đa sắc Lai Châu dáng vảy cá mềm mại độc đáo cho mái biệt thự phong cách lâu đài Pháp.',
     img: '/assets/img/multicolor_slate.jpg',
     gallery: ['/assets/img/multicolor_slate.jpg'],
-    specs: { origin: 'Lai Châu, Việt Nam', sizes: '15x25 cm, 20x30 cm', thickness: '5 - 8 mm', surface: 'Vảy cá chẻ tay' },
+    specs: { origin: 'Lai Châu, Việt Nam', sizes: '30x20 cm', thickness: '0.5 cm', surface: 'Xén cạnh thủ công hoặc Cắt phẳng bằng máy' },
     features: ['Màu sắc đa sắc gỉ đồng, vàng đất rực rỡ.', 'Cắt bo góc tạo độ xếp lớp sang trọng.', 'Không hấp thụ nhiệt, chống thấm tốt.'],
     techSpecs: { flexuralStrength: '55.0 MPa', waterAbsorption: '0.11%', density: '2.72 g/cm³', mohsHardness: '5.0 / 10', acidResistance: 'Bền bỉ hóa chất tốt' },
     applications: ['Lợp chóp mái lâu đài, biệt phủ cảnh quan phong cách Pháp']
@@ -305,7 +305,7 @@ export const productsList = [
     desc: 'Đá đa sắc Lai Châu chống thấm nước tuyệt đối, tạo vân màu rực rỡ và chống trơn trượt cho phòng tắm.',
     img: '/assets/img/multicolor_slate.jpg',
     gallery: ['/assets/img/multicolor_slate.jpg', '/assets/img/wall_cladding.jpg'],
-    specs: { origin: 'Lai Châu, Việt Nam', sizes: 'Nhận đặt theo yêu cầu', thickness: '10 - 15 mm', surface: 'Chẻ thô phẳng mặt' },
+    specs: { origin: 'Lai Châu, Việt Nam', sizes: '30x20 cm', thickness: '0.5 cm', surface: 'Xén cạnh thủ công hoặc Cắt phẳng bằng máy' },
     features: ['Vân màu vàng nâu chống trơn trượt tuyệt vời.', 'Không bị ăn mòn bởi các hóa chất tẩy rửa phòng tắm.', 'Mang phong cách spa thiên nhiên sang trọng.'],
     techSpecs: { flexuralStrength: '56.0 MPa', waterAbsorption: '0.10%', density: '2.73 g/cm³', mohsHardness: '5.0 / 10', acidResistance: 'Kháng hóa chất tốt' },
     applications: ['Ốp lát phòng tắm, phòng xông hơi Spa', 'Khu vệ sinh biệt thự cao cấp']
@@ -318,7 +318,7 @@ export const productsList = [
     desc: 'Đá đa sắc chẻ tay kích thước vuông nhỏ 15x15cm, thích hợp tạo điểm nhấn hoặc lát khu vực nhỏ.',
     img: '/assets/img/multicolor_slate.jpg',
     gallery: ['/assets/img/multicolor_slate.jpg'],
-    specs: { origin: 'Lai Châu, Việt Nam', sizes: '15x15 cm', thickness: '10 mm (±2mm)', surface: 'Chẻ tay mộc' },
+    specs: { origin: 'Lai Châu, Việt Nam', sizes: '30x20 cm', thickness: '0.5 cm', surface: 'Xén cạnh thủ công hoặc Cắt phẳng bằng máy' },
     features: ['Quy cách nhỏ dễ ốp lát ghép họa tiết.', 'Màu sắc phối hợp phong phú.', 'Độ bền cơ học cao.'],
     techSpecs: { flexuralStrength: '56.5 MPa', waterAbsorption: '0.11%', density: '2.73 g/cm³', mohsHardness: '5.0 / 10', acidResistance: 'Bền bỉ hóa chất' },
     applications: ['Lát hiên nhà, lối đi nhỏ', 'Ốp cột, chân tường rào']
@@ -331,7 +331,7 @@ export const productsList = [
     desc: 'Sản phẩm đá đa sắc lát sân vườn kích thước vuông chuẩn 30x30cm.',
     img: '/assets/img/multicolor_slate.jpg',
     gallery: ['/assets/img/multicolor_slate.jpg', '/assets/img/project_4.jpg'],
-    specs: { origin: 'Lai Châu, Việt Nam', sizes: '30x30 cm', thickness: '10 mm (±2mm)', surface: 'Chẻ tay thô mộc' },
+    specs: { origin: 'Lai Châu, Việt Nam', sizes: '30x20 cm', thickness: '0.5 cm', surface: 'Xén cạnh thủ công hoặc Cắt phẳng bằng máy' },
     features: ['Kích thước lát sân vườn thông dụng nhất.', 'Chống bám bẩn rêu mốc tối đa.', 'Tông màu phối bắt mắt tôn vinh thảm cỏ vườn.'],
     techSpecs: { flexuralStrength: '57.0 MPa', waterAbsorption: '0.10%', density: '2.74 g/cm³', mohsHardness: '5.2 / 10', acidResistance: 'Không phai màu' },
     applications: ['Lát sân vườn biệt thự nghỉ dưỡng', 'Lát lối đi dạo quanh vườn']
@@ -344,7 +344,7 @@ export const productsList = [
     desc: 'Đá ốp tường đa sắc phối hợp các kích cỡ 30x30cm, 15x30cm tạo bề mặt so le nghệ thuật.',
     img: '/assets/img/wall_cladding.jpg',
     gallery: ['/assets/img/wall_cladding.jpg', '/assets/img/about_stone.jpg'],
-    specs: { origin: 'Lai Châu, Việt Nam', sizes: '30x30 cm, 15x30 cm', thickness: '10 mm (±2mm)', surface: 'Chẻ phẳng tự nhiên' },
+    specs: { origin: 'Lai Châu, Việt Nam', sizes: '30x20 cm', thickness: '0.5 cm', surface: 'Xén cạnh thủ công hoặc Cắt phẳng bằng máy' },
     features: ['Cách phối ghép so le tạo điểm nhấn mộc mạc mạnh mẽ.', 'Chống nóng cho bức tường hướng Tây rất tốt.', 'Không ẩm mốc bong tróc như sơn tường.'],
     techSpecs: { flexuralStrength: '56.8 MPa', waterAbsorption: '0.11%', density: '2.73 g/cm³', mohsHardness: '5.0 / 10', acidResistance: 'Bền bỉ hóa chất' },
     applications: ['Ốp mặt tiền chính biệt thự', 'Ốp tường bao sân vườn cảnh quan']
@@ -357,7 +357,7 @@ export const productsList = [
     desc: 'Đá đa sắc độ dày tăng cường 20mm chuyên dụng cho các khu vực chịu tải lớn hoặc lát sân xe ô tô.',
     img: '/assets/img/multicolor_slate.jpg',
     gallery: ['/assets/img/multicolor_slate.jpg', '/assets/img/project_4.jpg'],
-    specs: { origin: 'Lai Châu, Việt Nam', sizes: '30x60 cm, 30x30 cm', thickness: '20 mm (±2mm)', surface: 'Chẻ thô nhám chịu lực' },
+    specs: { origin: 'Lai Châu, Việt Nam', sizes: '30x20 cm', thickness: '0.5 cm', surface: 'Xén cạnh thủ công hoặc Cắt phẳng bằng máy' },
     features: ['Chịu được tải trọng đè nén lớn từ xe ô tô.', 'Kích thước lớn 30x60cm sang trọng bề thế.', 'Đá dày chống nứt vỡ tuyệt đối.'],
     techSpecs: { flexuralStrength: '59.0 MPa', waterAbsorption: '0.09%', density: '2.74 g/cm³', mohsHardness: '5.2 / 10', acidResistance: 'Kháng muối mặn tốt' },
     applications: ['Lát ram dốc xe ô tô, lối vào garage biệt thự', 'Lát quảng trường resort']
@@ -370,7 +370,7 @@ export const productsList = [
     desc: 'Đá đa sắc ốp lát khổ vuông lớn 40x40cm, dày 20mm chịu uốn nén cao.',
     img: '/assets/img/multicolor_slate.jpg',
     gallery: ['/assets/img/multicolor_slate.jpg'],
-    specs: { origin: 'Lai Châu, Việt Nam', sizes: '40x40 cm', thickness: '20 mm (±2mm)', surface: 'Chẻ tự nhiên chịu lực' },
+    specs: { origin: 'Lai Châu, Việt Nam', sizes: '30x20 cm', thickness: '0.5 cm', surface: 'Xén cạnh thủ công hoặc Cắt phẳng bằng máy' },
     features: ['Khổ đá lớn tạo cảm giác rộng rãi cho khu sân.', 'Chịu lực uốn gãy vượt trội.', 'Màu đa sắc rực rỡ sinh động.'],
     techSpecs: { flexuralStrength: '58.5 MPa', waterAbsorption: '0.10%', density: '2.74 g/cm³', mohsHardness: '5.2 / 10', acidResistance: 'Chống rêu mốc vĩnh viễn' },
     applications: ['Lát sân chơi lớn biệt thự vườn', 'Lát sảnh đón ngoài trời']
@@ -383,7 +383,7 @@ export const productsList = [
     desc: 'Đá đa sắc kích thước nhỏ 10x20cm chuyên dùng ốp tường so le trang trí.',
     img: '/assets/img/multicolor_slate.jpg',
     gallery: ['/assets/img/multicolor_slate.jpg'],
-    specs: { origin: 'Lai Châu, Việt Nam', sizes: '10x20 cm', thickness: '10 mm (±2mm)', surface: 'Chẻ tự nhiên' },
+    specs: { origin: 'Lai Châu, Việt Nam', sizes: '30x20 cm', thickness: '0.5 cm', surface: 'Xén cạnh thủ công hoặc Cắt phẳng bằng máy' },
     features: ['Quy cách nhỏ xinh xắn dễ thi công mảng tường cong.', 'Màu đa sắc chuyển màu độc đáo.', 'Giá thành hợp lý.'],
     techSpecs: { flexuralStrength: '56.0 MPa', waterAbsorption: '0.11%', density: '2.73 g/cm³', mohsHardness: '5.0 / 10', acidResistance: 'Không phai màu' },
     applications: ['Ốp tường phòng khách, phòng ăn', 'Ốp bồn hoa, chân tường bao quanh biệt thự']
@@ -398,7 +398,7 @@ export const productsList = [
     desc: 'Đá rối đa sắc kích thước tự do ngẫu nhiên cho các mảng tường trang trí nghệ thuật hoặc lối đi dạo sân vườn.',
     img: '/assets/img/project_1.jpg',
     gallery: ['/assets/img/project_1.jpg', '/assets/img/project_4.jpg', '/assets/img/slide_3.jpg'],
-    specs: { origin: 'Lai Châu, Việt Nam', sizes: 'Ngẫu nhiên tự do', thickness: '15 - 25 mm', surface: 'Chẻ tự nhiên phẳng mặt' },
+    specs: { origin: 'Lai Châu, Việt Nam', sizes: '30x20 cm', thickness: '0.5 cm', surface: 'Xén cạnh thủ công hoặc Cắt phẳng bằng máy' },
     features: ['Kích thước rối ngẫu nhiên tạo chất mộc nghệ thuật.', 'Sự phối hợp màu sắc vô cùng phong phú sinh động.', 'Khả năng chống trượt tuyệt hảo.'],
     techSpecs: { flexuralStrength: '57.0 MPa', waterAbsorption: '0.09%', density: '2.74 g/cm³', mohsHardness: '5.2 / 10', acidResistance: 'Chống rêu mốc vĩnh viễn' },
     applications: ['Lát lối đi dạo biệt thự nhà vườn', 'Ốp tường rào nghệ thuật, tiểu cảnh nước chảy']
@@ -411,7 +411,7 @@ export const productsList = [
     desc: 'Đá rối đen Lai Châu chẻ tay ngẫu nhiên lát lối đi sân vườn mộc mạc và phong khoáng.',
     img: '/assets/img/project_1.jpg',
     gallery: ['/assets/img/project_1.jpg', '/assets/img/project_2.jpg', '/assets/img/slide_3.jpg'],
-    specs: { origin: 'Lai Châu, Việt Nam', sizes: 'Rối tự do ngẫu nhiên', thickness: '15 - 30 mm', surface: 'Chẻ thô tự nhiên phẳng mặt' },
+    specs: { origin: 'Lai Châu, Việt Nam', sizes: '30x20 cm', thickness: '0.5 cm', surface: 'Xén cạnh thủ công hoặc Cắt phẳng bằng máy' },
     features: ['Kích thước rối tự do tạo chất nghệ thuật hoang dã.', 'Bề mặt phẳng dễ đi lại dạo bước.', 'Không bám nước, không trơn trượt.'],
     techSpecs: { flexuralStrength: '63.0 MPa', waterAbsorption: '0.07%', density: '2.79 g/cm³', mohsHardness: '5.8 / 10', acidResistance: 'Kháng rêu mốc vĩnh viễn' },
     applications: ['Lát lối đi dạo cỏ vườn', 'Lát viền hồ bơi ngoài trời', 'Ốp chân tường mộc mạc']
@@ -424,7 +424,7 @@ export const productsList = [
     desc: 'Các thanh đá đa sắc nhỏ ghép keo thành tấm 15x60cm tạo hiệu ứng lồi lõm 3D trang trí tường.',
     img: '/assets/img/wall_cladding.jpg',
     gallery: ['/assets/img/wall_cladding.jpg', '/assets/img/about_stone.jpg'],
-    specs: { origin: 'Lai Châu, Việt Nam', sizes: '15x60 cm', thickness: '10 mm (±2mm)', surface: 'Ghép thanh lồi lõm tự nhiên' },
+    specs: { origin: 'Lai Châu, Việt Nam', sizes: '30x20 cm', thickness: '0.5 cm', surface: 'Xén cạnh thủ công hoặc Cắt phẳng bằng máy' },
     features: ['Hiệu ứng 3D nghệ thuật chiều sâu cực tốt dưới ánh đèn.', 'Tiết kiệm thời gian thi công nhờ kết cấu tấm ghép sẵn.', 'Cách âm tiêu âm tường rất tốt.'],
     techSpecs: { flexuralStrength: '55.5 MPa', waterAbsorption: '0.12%', density: '2.72 g/cm³', mohsHardness: '5.0 / 10', acidResistance: 'Bền vững thời tiết' },
     applications: ['Ốp giếng trời, vách thông tầng', 'Ốp trụ cổng, mặt tiền biệt thự']
@@ -437,7 +437,7 @@ export const productsList = [
     desc: 'Đá ghép thanh đa sắc Lai Châu chuẩn 15x60cm nghệ thuật.',
     img: '/assets/img/wall_cladding.jpg',
     gallery: ['/assets/img/wall_cladding.jpg', '/assets/img/about_stone.jpg', '/assets/img/project_4.jpg'],
-    specs: { origin: 'Lai Châu, Việt Nam', sizes: '15x60 cm', thickness: '10 mm (±2mm)', surface: 'Ghép thanh tự nhiên' },
+    specs: { origin: 'Lai Châu, Việt Nam', sizes: '30x20 cm', thickness: '0.5 cm', surface: 'Xén cạnh thủ công hoặc Cắt phẳng bằng máy' },
     features: ['Cách ghép modul dễ dàng nhanh gọn.', 'Chất liệu đá tự nhiên cách nhiệt tiêu âm cho tường.', 'Thiết kế lồi lõm tạo bóng đổ nghệ thuật.'],
     techSpecs: { flexuralStrength: '55.5 MPa', waterAbsorption: '0.12%', density: '2.72 g/cm³', mohsHardness: '5.0 / 10', acidResistance: 'Bền bỉ hóa chất' },
     applications: ['Ốp trang trí tường bao quanh nhà', 'Ốp trụ cổng đón khách']
@@ -450,7 +450,7 @@ export const productsList = [
     desc: 'Đá ghép đen 15x60cm vân sóng lồi lõm tạo vách ốp 3D sang trọng.',
     img: '/assets/img/wall_cladding.jpg',
     gallery: ['/assets/img/wall_cladding.jpg', '/assets/img/about_stone.jpg', '/assets/img/project_1.jpg'],
-    specs: { origin: 'Lai Châu, Việt Nam', sizes: '15x60 cm', thickness: '10 mm (±2mm)', surface: 'Ghép thanh gồ ghề' },
+    specs: { origin: 'Lai Châu, Việt Nam', sizes: '30x20 cm', thickness: '0.5 cm', surface: 'Xén cạnh thủ công hoặc Cắt phẳng bằng máy' },
     features: ['Màu sắc đen tuyền lịch lãm ấn tượng.', 'Tạo vách tường nghệ thuật 3D chiều sâu cực tốt.', 'Bảo vệ tường hoàn hảo khỏi ẩm mốc thấm dột.'],
     techSpecs: { flexuralStrength: '59.0 MPa', waterAbsorption: '0.08%', density: '2.78 g/cm³', mohsHardness: '5.5 / 10', acidResistance: 'Chống rêu mốc vĩnh viễn' },
     applications: ['Ốp vách trang trí sau sofa phòng khách', 'Ốp mặt tiền sảnh chung cư lâu đài']
@@ -463,7 +463,7 @@ export const productsList = [
     desc: 'Đá rối đen chẻ tay tự do ngẫu nhiên khổ đá nhỏ dạo sân vườn.',
     img: '/assets/img/project_1.jpg',
     gallery: ['/assets/img/project_1.jpg', '/assets/img/project_2.jpg'],
-    specs: { origin: 'Lai Châu, Việt Nam', sizes: 'Rối tự do nhỏ', thickness: '15 - 25 mm', surface: 'Chẻ tự nhiên thô nhám' },
+    specs: { origin: 'Lai Châu, Việt Nam', sizes: '30x20 cm', thickness: '0.5 cm', surface: 'Xén cạnh thủ công hoặc Cắt phẳng bằng máy' },
     features: ['Nhỏ gọn thích hợp cho các lối đi dạo cỏ rậm.', 'Tạo nét hoang sơ tự nhiên như núi rừng.', 'Kháng rêu mốc cực tốt.'],
     techSpecs: { flexuralStrength: '62.5 MPa', waterAbsorption: '0.07%', density: '2.79 g/cm³', mohsHardness: '5.8 / 10', acidResistance: 'Bền bỉ thời tiết' },
     applications: ['Lát lối đi dạo uốn lượn thảm cỏ sân vườn', 'Ốp tường suối nước hòn non bộ']
@@ -476,7 +476,7 @@ export const productsList = [
     desc: 'Sự phối hợp tinh tế giữa các thanh đá đen và đá đa sắc Lai Châu trên tấm ghép 15x60cm, tạo hiệu ứng phối màu độc đáo.',
     img: '/assets/img/wall_cladding.jpg',
     gallery: ['/assets/img/wall_cladding.jpg', '/assets/img/about_stone.jpg', '/assets/img/project_1.jpg'],
-    specs: { origin: 'Lai Châu, Việt Nam', sizes: '15x60 cm', thickness: '10 - 15 mm', surface: 'Ghép thanh hỗn hợp' },
+    specs: { origin: 'Lai Châu, Việt Nam', sizes: '30x20 cm', thickness: '0.5 cm', surface: 'Xén cạnh thủ công hoặc Cắt phẳng bằng máy' },
     features: ['Cách phối màu đen và đa sắc (vàng gỉ sét) tạo nét thô mộc cá tính.', 'Tường trang trí 3D tạo bóng đổ đẹp mắt dưới ánh nắng.', 'Không bong tróc cách nhiệt cực tốt cho giếng trời.'],
     techSpecs: { flexuralStrength: '57.5 MPa', waterAbsorption: '0.09%', density: '2.75 g/cm³', mohsHardness: '5.2 / 10', acidResistance: 'Kháng axit hoàn hảo' },
     applications: ['Ốp vách giếng trời', 'Ốp trụ cột cổng, tường trang trí lối vào']
@@ -484,10 +484,10 @@ export const productsList = [
 ];
 
 export const filters = [
-  { key: 'all', name: 'Tất cả sản phẩm' },
-  { key: 'da-den-lop-mai', name: 'Đá đen LỢP MÁI' },
-  { key: 'da-den-op-lat', name: 'Đá đen ỐP LÁT' },
-  { key: 'da-da-sac-lop-mai', name: 'Đá đa sắc LỢP MÁI' },
-  { key: 'da-da-sac-op-lat', name: 'Đá đa sắc ỐP LÁT' },
-  { key: 'da-trang-tri', name: 'Đá TRANG TRÍ' }
+  { key: 'all', name: 'Tất cả sản phẩm', name_en: 'All Products' },
+  { key: 'da-den-lop-mai', name: 'Đá Slate Đen Lợp Mái', name_en: 'Black Slate Roofing' },
+  { key: 'da-den-op-lat', name: 'Đá Slate Đen Ốp Lát', name_en: 'Black Slate Cladding & Paving' },
+  { key: 'da-da-sac-lop-mai', name: 'Đá Slate Đa Sắc Lợp Mái', name_en: 'Multicolor Slate Roofing' },
+  { key: 'da-da-sac-op-lat', name: 'Đá Slate Đa Sắc Ốp Lát', name_en: 'Multicolor Slate Cladding & Paving' },
+  { key: 'da-trang-tri', name: 'Đá Rối Tự Nhiên', name_en: 'Natural Random Slate' }
 ];

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Phone, Mail, MapPin, Send, HelpCircle } from 'lucide-react';
 import SEO from '../components/SEO';
+import { submitContactForm } from '../services/api';
 
 const Contact = () => {
   const { t } = useTranslation();
@@ -23,10 +24,13 @@ const Contact = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Simulate API Submission
-    setTimeout(() => {
+    setIsSubmitting(true);
+    try {
+      await submitContactForm(formData);
       setSubmitted(true);
       setFormData({
         name: '',
@@ -35,7 +39,12 @@ const Contact = () => {
         subject: '',
         message: ''
       });
-    }, 800);
+    } catch (error) {
+      console.error('Lỗi khi gửi liên hệ:', error);
+      alert('Có lỗi xảy ra khi gửi yêu cầu. Vui lòng thử lại sau.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -80,41 +89,56 @@ const Contact = () => {
               </div>
 
               <div className="space-y-6 font-body">
-                {/* Hanoi Office */}
+                {/* Hanoi Showroom */}
                 <div className="flex gap-4">
                   <div className="w-12 h-12 rounded-full border border-accent/25 flex items-center justify-center text-accent shrink-0 bg-surface shadow-sm">
                     <MapPin size={20} />
                   </div>
                   <div>
-                    <h4 className="text-sm font-semibold uppercase tracking-wider text-primary mb-1">Văn Phòng Đại Diện Hà Nội</h4>
+                    <h4 className="text-sm font-semibold uppercase tracking-wider text-primary mb-1">HT STONE – Showroom Hà Nội</h4>
                     <p className="text-sm text-secondary/90 leading-relaxed">
-                      Số 12, Đường 3, KĐT Him Lam, Phường Cổ Linh, Quận Long Biên, Hà Nội
+                      Số 8 ngõ 42 Trần Cung, TP Hà Nội
                     </p>
+                    <p className="text-xs font-bold text-accent mt-1">ĐT: 0909168587</p>
                   </div>
                 </div>
 
-                {/* Lai Chau Quarry */}
+                {/* Lai Chau Office */}
                 <div className="flex gap-4">
                   <div className="w-12 h-12 rounded-full border border-accent/25 flex items-center justify-center text-accent shrink-0 bg-surface shadow-sm">
                     <MapPin size={20} />
                   </div>
                   <div>
-                    <h4 className="text-sm font-semibold uppercase tracking-wider text-primary mb-1">Mỏ Khai Thác & Nhà Máy Gia Công</h4>
+                    <h4 className="text-sm font-semibold uppercase tracking-wider text-primary mb-1">HT STONE – Văn phòng Lai Châu</h4>
                     <p className="text-sm text-secondary/90 leading-relaxed">
-                      Xã Thân Thuộc, Huyện Tân Uyên, Tỉnh Lai Châu, Việt Nam
+                      206 Trần Hưng Đạo, phường Đoàn Kết, tỉnh Lai Châu
+                    </p>
+                    <p className="text-xs font-bold text-accent mt-1">ĐT: 0338.693.555</p>
+                  </div>
+                </div>
+
+                {/* Nam Ho Black Slate Quarry */}
+                <div className="flex gap-4">
+                  <div className="w-12 h-12 rounded-full border border-accent/25 flex items-center justify-center text-accent shrink-0 bg-surface shadow-sm">
+                    <MapPin size={20} />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-semibold uppercase tracking-wider text-primary mb-1">HT STONE – Mỏ đá Đen Nậm Ho</h4>
+                    <p className="text-sm text-secondary/90 leading-relaxed">
+                      Xã Pa Tần, Tỉnh Lai Châu
                     </p>
                   </div>
                 </div>
 
-                {/* Phone */}
+                {/* Phieng En Multicolor Slate Quarry */}
                 <div className="flex gap-4">
                   <div className="w-12 h-12 rounded-full border border-accent/25 flex items-center justify-center text-accent shrink-0 bg-surface shadow-sm">
-                    <Phone size={20} />
+                    <MapPin size={20} />
                   </div>
                   <div>
-                    <h4 className="text-sm font-semibold uppercase tracking-wider text-primary mb-1">Hotline Hỗ Trợ 24/7</h4>
-                    <p className="text-sm text-secondary hover:text-accent font-medium">
-                      <a href="tel:+84987654321">+84 987 654 321</a>
+                    <h4 className="text-sm font-semibold uppercase tracking-wider text-primary mb-1">HT STONE – Mỏ đá Đa Sắc Phiêng Én</h4>
+                    <p className="text-sm text-secondary/90 leading-relaxed">
+                      Xã Lê Lợi, Tỉnh Lai Châu
                     </p>
                   </div>
                 </div>
@@ -236,9 +260,10 @@ const Contact = () => {
                   <div className="pt-2">
                     <button 
                       type="submit" 
-                      className="w-full bg-accent text-surface py-4 font-body uppercase tracking-wider text-xs font-bold hover:bg-primary transition-all duration-400 flex items-center justify-center gap-2"
+                      disabled={isSubmitting}
+                      className={`w-full bg-accent text-surface py-4 font-body uppercase tracking-wider text-xs font-bold transition-all duration-400 flex items-center justify-center gap-2 ${isSubmitting ? 'opacity-70 cursor-not-allowed' : 'hover:bg-primary'}`}
                     >
-                      Gửi Thông Tin Yêu Cầu <Send size={14} />
+                      {isSubmitting ? 'Đang gửi...' : 'Gửi Thông Tin Yêu Cầu'} {!isSubmitting && <Send size={14} />}
                     </button>
                   </div>
                 </form>

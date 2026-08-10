@@ -14,9 +14,9 @@ import {
   X,
   ExternalLink,
   Crown,
-  Sparkles,
   UserCheck,
-  ChevronRight
+  ChevronRight,
+  Mail
 } from 'lucide-react';
 import { logoutAdmin } from '../services/api';
 import { isSupabaseConfigured } from '../lib/supabase';
@@ -40,6 +40,7 @@ export default function AdminLayout({ user, onLogout }) {
     { label: 'Dự Án Công Trình', path: '/admin/projects', icon: FolderKanban },
     { label: 'Sự Kiện Công Ty', path: '/admin/events', icon: CalendarDays },
     {label: 'Về Chúng Tôi & Chính Sách', path: '/admin/policies', icon: FileText },
+    { label: 'Yêu Cầu Liên Hệ', path: '/admin/contacts', icon: Mail },
     { label: 'Hotline & Footer', path: '/admin/settings', icon: Settings },
   ];
 

@@ -7,7 +7,8 @@ import { getProductsList } from '../services/api';
 import SEO from '../components/SEO';
 
 const Products = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isEn = i18n.language === 'en';
   const location = useLocation();
   const [activeFilter, setActiveFilter] = useState('all');
   const [products, setProducts] = useState([]);
@@ -140,7 +141,7 @@ const Products = () => {
                         {product.category === 'da-den-op-lat' && 'Đá đen ốp lát'}
                         {product.category === 'da-da-sac-lop-mai' && 'Đá đa sắc lợp mái'}
                         {product.category === 'da-da-sac-op-lat' && 'Đá đa sắc ốp lát'}
-                        {product.category === 'da-trang-tri' && 'Đá trang trí'}
+                        {product.category === 'da-trang-tri' && 'Đá rối'}
                       </span>
                     </div>
                     <Link to={`/products/${product.id}`} className="block">
@@ -148,9 +149,6 @@ const Products = () => {
                         {product.title}
                       </h3>
                     </Link>
-                    <p className="font-body text-sm text-secondary/90 leading-relaxed line-clamp-2">
-                      {product.desc}
-                    </p>
                   </div>
  
                   {/* Technical Specs Table */}
@@ -164,7 +162,7 @@ const Products = () => {
                       <span className="font-semibold text-primary text-right">{product.specs?.thickness || 'Liên hệ'}</span>
                     </div>
                     <div className="flex justify-between gap-2">
-                      <span className="font-medium text-secondary/70">Bề mặt:</span>
+                      <span className="font-medium text-secondary/70">Cạnh viền:</span>
                       <span className="font-semibold text-primary text-right">{product.specs?.surface || 'Liên hệ'}</span>
                     </div>
                   </div>
@@ -197,12 +195,14 @@ const Products = () => {
       <section className="py-16 md:py-20 lg:py-28 bg-muted/20 border-t border-muted">
         <div className="container mx-auto px-4 md:px-6 lg:px-8 text-center max-w-3xl">
           <Shield className="text-accent mx-auto mb-6" size={48} strokeWidth={1.5} />
-          <h2 className="text-3xl font-heading font-bold mb-4">Cam Kết Chất Lượng HT STONE</h2>
+          <h2 className="text-3xl font-heading font-bold mb-4">{isEn ? 'HT STONE Quality Commitment' : 'Cam Kết Chất Lượng HT STONE'}</h2>
           <p className="font-body text-secondary text-base leading-relaxed mb-8">
-            Chúng tôi tự tin bảo hành vĩnh viễn về màu sắc và độ bền tự nhiên của đá Slate Lai Châu cung cấp cho mọi hạng mục công trình. Tất cả sản phẩm đều được kiểm định chất lượng nghiêm ngặt trước khi xuất xưởng.
+            {isEn 
+              ? 'We prioritize quality at every stage—from quarrying and processing to final inspection—ensuring every stone preserves its authentic natural beauty and lasting value.'
+              : 'Chúng tôi đặt chất lượng lên hàng đầu, từ khâu khai thác, gia công đến hoàn thiện, để mỗi phiến đá đều giữ trọn vẻ đẹp tự nhiên và giá trị lâu dài.'}
           </p>
           <Link to="/contact" className="inline-flex items-center gap-2 bg-accent text-surface px-8 py-3.5 font-body uppercase tracking-wider text-xs font-bold hover:bg-primary transition-all duration-400">
-            <PhoneCall size={16} /> Liên hệ tư vấn kỹ thuật trực tiếp
+            <PhoneCall size={16} /> {isEn ? 'REQUEST A QUOTATION' : 'LIÊN HỆ NHẬN BÁO GIÁ'}
           </Link>
         </div>
       </section>

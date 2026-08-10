@@ -82,41 +82,19 @@ const ProjectDetail = () => {
           <div className="inline-flex items-center gap-1.5 bg-accent/15 text-accent text-xs font-bold uppercase tracking-wider px-3.5 py-1 rounded-full">
             <Sparkles size={12} />
             <span>
+              {project.category === 'iconic' && 'Kiến Trúc Biểu Tượng'}
+              {project.category === 'hotel' && 'Khách Sạn Sang Trọng'}
+              {project.category === 'urban' && 'Đô Thị Hiện Đại'}
+              {project.category === 'public' && 'Công Trình Công Cộng'}
+              {project.category === 'resort' && 'Nghỉ Dưỡng & Resort'}
               {project.category === 'villa' && 'Biệt Thự Cao Cấp'}
-              {project.category === 'resort' && 'Resort & Khách Sạn'}
-              {project.category === 'garden' && 'Sân Vườn & Cảnh Quan'}
-              {project.category !== 'villa' && project.category !== 'resort' && project.category !== 'garden' && 'Công Trình Tiêu Biểu'}
+              {project.category !== 'iconic' && project.category !== 'hotel' && project.category !== 'urban' && project.category !== 'public' && project.category !== 'resort' && project.category !== 'villa' && 'Công Trình Tiêu Biểu'}
             </span>
           </div>
 
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-primary leading-relaxed">
             {project.title}
           </h1>
-
-          {/* Quick Info Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-surface border border-muted p-5 rounded-sm shadow-xs font-body text-sm text-secondary mt-6">
-            <div className="flex items-center gap-3">
-              <MapPin className="text-accent shrink-0" size={20} />
-              <div>
-                <span className="text-xs uppercase text-secondary/60 block font-semibold">Địa điểm</span>
-                <strong className="text-primary font-medium">{project.location || 'Lai Châu / Việt Nam'}</strong>
-              </div>
-            </div>
-            <div className="flex items-center gap-3 border-t md:border-t-0 md:border-l border-muted/70 pt-3 md:pt-0 md:pl-4">
-              <Calendar className="text-accent shrink-0" size={20} />
-              <div>
-                <span className="text-xs uppercase text-secondary/60 block font-semibold">Năm hoàn thành</span>
-                <strong className="text-primary font-medium">{project.year || '2024'}</strong>
-              </div>
-            </div>
-            <div className="flex items-center gap-3 border-t md:border-t-0 md:border-l border-muted/70 pt-3 md:pt-0 md:pl-4">
-              <Layers className="text-accent shrink-0" size={20} />
-              <div>
-                <span className="text-xs uppercase text-secondary/60 block font-semibold">Quy mô hạng mục</span>
-                <strong className="text-primary font-medium">{project.scale || 'Đá lợp mái & ốp lát'}</strong>
-              </div>
-            </div>
-          </div>
         </header>
 
         {/* Hero Cover Image */}

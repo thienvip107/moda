@@ -25,6 +25,7 @@ import ProjectManager from './admin/pages/ProjectManager';
 import EventManager from './admin/pages/EventManager';
 import PolicyManager from './admin/pages/PolicyManager';
 import SettingsManager from './admin/pages/SettingsManager';
+import ContactManager from './admin/pages/ContactManager';
 
 
 
@@ -86,6 +87,7 @@ function App() {
             <Route path="events" element={<EventManager />} />
             <Route path="policies" element={<PolicyManager />} />
             <Route path="settings" element={<SettingsManager />} />
+            <Route path="contacts" element={<ContactManager />} />
           </Route>
         </Route>
 

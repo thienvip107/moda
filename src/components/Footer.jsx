@@ -2,16 +2,21 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { MapPin, Phone, Mail, Send } from 'lucide-react';
-import { FaFacebook, FaInstagram, FaLinkedin } from 'react-icons/fa';
+import { FaFacebook, FaInstagram } from 'react-icons/fa';
 import { getSiteSettings } from '../services/api';
 
 const Footer = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isEn = i18n.language === 'en';
   const [settings, setSettings] = useState({
-    hotline: '0988 123 456',
+    hotline: '0909168587',
     email: 'info@htstone.vn',
-    address_headquarters: 'Lô C2-4, KCN Thụy Vân, TP. Việt Trì, Phú Thọ',
-    address_factory: 'Mỏ đá Slate Nậm Nhùn, Tỉnh Lai Châu',
+    showroom_hanoi: 'Số 8 ngõ 42 Trần Cung, TP Hà Nội',
+    office_laichau: '206 Trần Hưng Đạo, phường Đoàn Kết, tỉnh Lai Châu',
+    quarry_namho: 'Xã Pa Tần, Tỉnh Lai Châu',
+    quarry_phiengen: 'Xã Lê Lợi, Tỉnh Lai Châu',
+    company_full_name: 'HT STONE là thương hiệu đá tự nhiên thuộc Công ty TNHH MTV Thương mại và Xây dựng Hiền Tài',
+    company_full_name_en: 'HT STONE is the natural stone brand of Hien Tai Trading & Construction One Member Co., Ltd.',
     facebook_url: '#',
     instagram_url: '#'
   });
@@ -20,7 +25,7 @@ const Footer = () => {
     async function fetchSettings() {
       try {
         const data = await getSiteSettings();
-        setSettings(data);
+        setSettings(prev => ({ ...prev, ...data }));
       } catch (err) {
         console.error(err);
       }
@@ -31,98 +36,92 @@ const Footer = () => {
   return (
     <footer className="bg-muted/30 text-secondary pt-16 pb-8 border-t border-muted">
       <div className="container mx-auto px-4 md:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-16">
           
           {/* Brand Info */}
-          <div className="space-y-6">
+          <div className="space-y-4">
             <Link to="/" className="inline-block">
               <img 
                 src="/assets/img/logo-black.png" 
                 alt="HT STONE" 
-                className="h-14 md:h-18 w-auto object-contain" 
+                className="h-14 md:h-16 w-auto object-contain" 
               />
             </Link>
-            <p className="font-body text-sm leading-relaxed text-secondary/80">
-              {t('slogan_1')} <br />
-              {t('slogan_2')}
+            <p className="font-body text-xs font-medium leading-relaxed text-secondary/90">
+              {isEn 
+                ? (settings.company_full_name_en || 'HT STONE is the natural stone brand of Hien Tai Trading & Construction One Member Co., Ltd.') 
+                : (settings.footer_about || settings.company_full_name || 'HT STONE là thương hiệu đá tự nhiên thuộc Công ty TNHH MTV Thương mại và Xây dựng Hiền Tài')}
             </p>
-            <div className="flex gap-4 pt-2">
-              <a href={settings.facebook_url || '#'} target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full border border-muted flex items-center justify-center text-primary/70 hover:bg-accent hover:text-surface hover:border-accent transition-all duration-300">
-                <FaFacebook size={18} />
+            <div className="flex gap-3 pt-2">
+              <a href={settings.facebook_url || '#'} target="_blank" rel="noreferrer" className="w-9 h-9 rounded-full border border-muted flex items-center justify-center text-primary/70 hover:bg-accent hover:text-surface hover:border-accent transition-all duration-300">
+                <FaFacebook size={16} />
               </a>
-              <a href={settings.instagram_url || '#'} target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full border border-muted flex items-center justify-center text-primary/70 hover:bg-accent hover:text-surface hover:border-accent transition-all duration-300">
-                <FaInstagram size={18} />
+              <a href={settings.instagram_url || '#'} target="_blank" rel="noreferrer" className="w-9 h-9 rounded-full border border-muted flex items-center justify-center text-primary/70 hover:bg-accent hover:text-surface hover:border-accent transition-all duration-300">
+                <FaInstagram size={16} />
               </a>
             </div>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-primary font-heading font-semibold text-lg mb-6 tracking-wide">HT STONE</h4>
-            <ul className="space-y-3 font-body text-sm">
+            <h4 className="text-primary font-heading font-semibold text-sm mb-4 uppercase tracking-wider">{isEn ? 'QUICK LINKS' : 'DANH MỤC'}</h4>
+            <ul className="space-y-2.5 font-body text-xs font-semibold uppercase tracking-wider">
               <li><Link to="/about" className="hover:text-accent transition-colors duration-300">{t('about')}</Link></li>
               <li><Link to="/products" className="hover:text-accent transition-colors duration-300">{t('products')}</Link></li>
               <li><Link to="/projects" className="hover:text-accent transition-colors duration-300">{t('projects')}</Link></li>
-              <li><Link to="/capabilities" className="hover:text-accent transition-colors duration-300">{t('capabilities')}</Link></li>
               <li><Link to="/news" className="hover:text-accent transition-colors duration-300">{t('news')}</Link></li>
+              <li><Link to="/contact" className="hover:text-accent transition-colors duration-300">{t('contact')}</Link></li>
             </ul>
           </div>
 
-          {/* Contact Info */}
-          <div>
-            <h4 className="text-primary font-heading font-semibold text-lg mb-6 tracking-wide">Liên hệ</h4>
-            <ul className="space-y-4 font-body text-sm">
-              <li className="flex items-start gap-3">
-                <MapPin size={18} className="text-accent shrink-0 mt-0.5" />
-                <span>Showroom/Văn phòng: {settings.address_headquarters}</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <MapPin size={18} className="text-accent shrink-0 mt-0.5" />
-                <span>Mỏ đá & Nhà máy: {settings.address_factory}</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <Phone size={18} className="text-accent shrink-0" />
-                <a href={`tel:${settings.hotline}`} className="hover:text-accent font-semibold">{settings.hotline}</a>
-              </li>
-              <li className="flex items-center gap-3">
-                <Mail size={18} className="text-accent shrink-0" />
-                <a href={`mailto:${settings.email}`} className="hover:text-accent">{settings.email}</a>
-              </li>
-            </ul>
-          </div>
+          {/* Contact Info (Google Sheet Detailed Specs) */}
+          <div className="lg:col-span-2">
+            <h4 className="text-primary font-heading font-semibold text-sm mb-4 uppercase tracking-wider">{isEn ? 'CONTACT & QUARRY LOCATIONS' : 'VĂN PHÒNG & MỎ ĐÁ HT STONE'}</h4>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 font-body text-xs leading-relaxed">
+              <div className="space-y-1.5 bg-surface/60 p-3 rounded-sm border border-muted/50">
+                <p className="font-bold text-primary flex items-center gap-1.5">
+                  <MapPin size={14} className="text-accent shrink-0" />
+                  <span>HT STONE – Showroom Hà Nội</span>
+                </p>
+                <p className="text-secondary/80 pl-5">Số 8 ngõ 42 Trần Cung, TP Hà Nội</p>
+                <p className="text-secondary/80 pl-5 font-semibold">ĐT: 0909168587</p>
+              </div>
 
-          {/* Catalogue / Newsletter */}
-          <div>
-            <h4 className="text-primary font-heading font-semibold text-lg mb-6 tracking-wide">Catalogue</h4>
-            <p className="font-body text-sm text-secondary/80 mb-4 leading-relaxed">
-              Liên hệ ngay với các chuyên gia của HT STONE để nhận tư vấn kỹ thuật chi tiết về đá Lai Châu và catalogue sản phẩm.
-            </p>
-            <form className="flex" onSubmit={(e) => { e.preventDefault(); alert('Cảm ơn bạn đã đăng ký nhận thông tin và Catalogue!'); }}>
-              <input 
-                type="email" 
-                placeholder="Nhập địa chỉ email của bạn..." 
-                className="bg-surface border border-muted text-primary font-body text-sm px-4 py-2.5 w-full focus:outline-none focus:border-accent transition-colors"
-                required
-              />
-              <button 
-                type="submit" 
-                className="bg-accent text-surface px-4 py-2.5 hover:bg-primary transition-colors shrink-0"
-                aria-label="Đăng ký nhận catalogue"
-              >
-                <Send size={18} />
-              </button>
-            </form>
+              <div className="space-y-1.5 bg-surface/60 p-3 rounded-sm border border-muted/50">
+                <p className="font-bold text-primary flex items-center gap-1.5">
+                  <MapPin size={14} className="text-accent shrink-0" />
+                  <span>HT STONE – Văn phòng Lai Châu</span>
+                </p>
+                <p className="text-secondary/80 pl-5">206 Trần Hưng Đạo, P. Đoàn Kết, Tỉnh Lai Châu</p>
+                <p className="text-secondary/80 pl-5 font-semibold">Ms. Hiền - ĐT: 0338.693.555</p>
+              </div>
+
+              <div className="space-y-1.5 bg-surface/60 p-3 rounded-sm border border-muted/50">
+                <p className="font-bold text-primary flex items-center gap-1.5">
+                  <MapPin size={14} className="text-accent shrink-0" />
+                  <span>HT STONE – Mỏ đá Đen Nậm Ho</span>
+                </p>
+                <p className="text-secondary/80 pl-5">Xã Pa Tần, Tỉnh Lai Châu (Mr. Tài)</p>
+              </div>
+
+              <div className="space-y-1.5 bg-surface/60 p-3 rounded-sm border border-muted/50">
+                <p className="font-bold text-primary flex items-center gap-1.5">
+                  <MapPin size={14} className="text-accent shrink-0" />
+                  <span>HT STONE – Mỏ đá Đa Sắc Phiêng Én</span>
+                </p>
+                <p className="text-secondary/80 pl-5">Xã Lê Lợi, Tỉnh Lai Châu</p>
+              </div>
+            </div>
           </div>
 
         </div>
 
         {/* Copyright */}
-        <div className="pt-8 border-t border-muted flex flex-col md:flex-row items-center justify-between gap-4 font-body text-xs text-secondary/70">
-          <p>© {new Date().getFullYear()} <strong className="text-primary">HT STONE</strong>. All Rights Reserved.</p>
-          <div className="flex gap-4">
-            <Link to="#" className="hover:text-accent transition-colors">Privacy Policy</Link>
-            <Link to="#" className="hover:text-accent transition-colors">Terms of Service</Link>
-          </div>
+        <div className="pt-6 border-t border-muted flex flex-col md:flex-row items-center justify-between gap-3 font-body text-xs text-secondary/70">
+          <p>© {new Date().getFullYear()} <strong className="text-primary">HT STONE</strong>. {isEn ? 'All Rights Reserved.' : 'Bảo lưu mọi quyền.'}</p>
+          <p className="text-[11px] text-secondary/70">
+            {isEn ? 'HT STONE is the natural stone brand of Hien Tai Trading & Construction One Member Co., Ltd.' : 'HT STONE là thương hiệu đá tự nhiên thuộc Công ty TNHH MTV Thương mại và Xây dựng Hiền Tài'}
+          </p>
         </div>
       </div>
     </footer>

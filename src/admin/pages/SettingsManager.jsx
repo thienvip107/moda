@@ -10,7 +10,10 @@ export default function SettingsManager() {
     address_headquarters: '',
     address_factory: '',
     facebook_url: '',
-    instagram_url: ''
+    instagram_url: '',
+    home_intro_title: '',
+    home_intro_desc: '',
+    footer_about: ''
   });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -172,6 +175,49 @@ export default function SettingsManager() {
                     onChange={e => setSettings({ ...settings, instagram_url: e.target.value })}
                     placeholder="https://instagram.com/htstone"
                     className="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3 text-sm text-[#171717] focus:border-[#171717] focus:outline-none transition-all font-medium"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Nội dung tĩnh */}
+            <div className="space-y-4 pt-2">
+              <h2 className="text-xs font-extrabold text-[#171717] uppercase tracking-wider flex items-center space-x-2 border-b border-stone-200 pb-3">
+                <Globe className="w-4 h-4 text-[#D4AF37]" />
+                <span>Nội Dung Tĩnh (Trang Chủ & Footer)</span>
+              </h2>
+
+              <div className="space-y-5">
+                <div>
+                  <label className="block text-[11px] font-extrabold text-[#171717] uppercase tracking-wider mb-2">Tiêu đề Giới thiệu Trang Chủ</label>
+                  <input
+                    type="text"
+                    value={settings.home_intro_title}
+                    onChange={e => setSettings({ ...settings, home_intro_title: e.target.value })}
+                    placeholder="Làm Chủ Nguồn Đá Slate Tự Nhiên Từ Lai Châu"
+                    className="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3 text-sm text-[#171717] focus:border-[#171717] focus:outline-none transition-all font-medium"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-extrabold text-[#171717] uppercase tracking-wider mb-2">Nội dung Giới thiệu Trang Chủ</label>
+                  <textarea
+                    rows={4}
+                    value={settings.home_intro_desc}
+                    onChange={e => setSettings({ ...settings, home_intro_desc: e.target.value })}
+                    placeholder="HT STONE sở hữu mỏ đá Slate tự nhiên tại Lai Châu..."
+                    className="w-full bg-stone-50 border border-stone-200 rounded-xl p-4 text-sm text-[#171717] focus:border-[#171717] focus:outline-none transition-all font-medium"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-extrabold text-[#171717] uppercase tracking-wider mb-2">Đoạn mô tả Footer</label>
+                  <textarea
+                    rows={2}
+                    value={settings.footer_about}
+                    onChange={e => setSettings({ ...settings, footer_about: e.target.value })}
+                    placeholder="HT STONE là thương hiệu đá tự nhiên thuộc Công ty..."
+                    className="w-full bg-stone-50 border border-stone-200 rounded-xl p-4 text-sm text-[#171717] focus:border-[#171717] focus:outline-none transition-all font-medium"
                   />
                 </div>
               </div>

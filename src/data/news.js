@@ -1,19 +1,19 @@
 export const newsList = [
   {
     id: 'huong-dan-thi-cong-lop-mai',
-    title: 'Hướng dẫn thi công lợp mái đá Slate Lai Châu đúng kỹ thuật',
+    title: 'Hướng Dẫn Thi Công Lợp Mái Đá Slate Lai Châu Đúng Kỹ Thuật',
     category: 'Kỹ thuật thi công',
     date: '2026-06-15',
     author: 'KTS. Nguyễn Minh Hải',
-    excerpt: 'Lợp mái đá tự nhiên Lai Châu đòi hỏi kỹ thuật cao và sự tỉ mỉ. Bài viết này sẽ hướng dẫn chi tiết quy trình lợp mái đá Slate chuẩn chỉ từ chuyên gia HT STONE.',
+    excerpt: 'Tìm hiểu quy trình thi công lợp mái đá Slate Lai Châu đúng kỹ thuật từ khâu chuẩn bị, lắp đặt đến hoàn thiện giúp mái đá bền đẹp, chống thấm và trường tồn cùng thời gian.',
     img: '/assets/img/roofing_slate.jpg',
     content: [
-      'Đá Slate Lai Châu lợp mái là dòng vật liệu cao cấp mang lại vẻ đẹp cổ kính, trường tồn cho biệt thự, lâu đài. Tuy nhiên, để đảm bảo mái đá không bị thấm dột và chịu được gió bão cấp độ cao, quy trình thi công cần tuân thủ nghiêm ngặt các tiêu chuẩn kỹ thuật.',
-      'Bước 1: Chuẩn bị hệ cầu phong, lito. Khoảng cách lito phải được tính toán chính xác dựa trên kích thước ngói đá (ví dụ ngói 20x30cm thì khoảng cách lito thường là 10-12cm tùy độ dốc). Khung kèo sắt hoặc gỗ cần phẳng phiu, không cong vênh.',
-      'Bước 2: Chống thấm mái. Trước khi lợp đá, bắt buộc phải trải một lớp màng chống thấm chuyên dụng (Waterproof Membrane) lên toàn bộ bề mặt mái để ngăn ngừa nước mưa len lỏi qua các kẽ đá.',
-      'Bước 3: Định vị và lợp hàng ngói đá đầu tiên. Hàng ngói chân mái cần được lợp nhô ra khỏi mép máng xối khoảng 3-5cm. Mỗi viên ngói đá được cố định bằng 2 đinh vít inox chống gỉ chuyên dụng qua lỗ đã khoan sẵn trên đá.',
-      'Bước 4: Lợp giật cấp so le. Các hàng ngói tiếp theo được lợp so le xếp chồng lên nhau (overlap) tối thiểu 7-10cm để che kín các khe nối của hàng bên dưới. Điều này đảm bảo nước mưa sẽ chảy tuột xuống mà không thể thấm ngược vào trong.',
-      'Bước 5: Xử lý đỉnh mái và bờ chảy. Phần úp nóc và các đường bờ chảy cần được xử lý bằng các tấm đá úp nóc chuyên dụng hoặc nẹp đồng trang trí để đảm bảo tính thẩm mỹ hoàng gia Pháp và độ kín nước hoàn hảo.'
+      'Trong xu hướng kiến trúc hiện đại, đá Slate tự nhiên ngày càng được ưa chuộng. Tìm hiểu quy trình thi công lợp mái đá Slate Lai Châu đúng kỹ thuật từ khâu chuẩn bị, lắp đặt đến hoàn thiện giúp mái đá bền đẹp, chống thấm và trường tồn cùng thời gian.',
+      'Bước 1: Kiểm tra kết cấu mái trước khi lợp (Độ dốc, xà gồ, bề mặt phẳng, khoảng cách thanh mè...)',
+      'Bước 2: Lựa chọn đúng quy cách đá Slate (Đá Slate hình chữ nhật, vảy cá, lục giác...)',
+      'Bước 3: Lợp đá theo nguyên tắc chồng mí (Lợp từ dưới lên trên, từ mép vào tâm...)',
+      'Bước 4: Cố định từng viên đá chắc chắn',
+      'Bước 5: Hoàn thiện các chi tiết kỹ thuật'
     ]
   },
   {
