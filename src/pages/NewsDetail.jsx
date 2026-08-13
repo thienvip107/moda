@@ -133,17 +133,52 @@ const NewsDetail = () => {
         </div>
 
         {/* 4. Article Body Content */}
-        <div className="prose prose-lg max-w-none text-left space-y-6 font-body text-base md:text-lg text-secondary leading-relaxed mb-16">
-          {Array.isArray(post.content) ? (
-            post.content.map((paragraph, index) => (
-              <p key={index} className="first-letter:text-5xl first-letter:font-heading first-letter:font-bold first-letter:float-left first-letter:mr-3 first-letter:text-accent first-letter:mt-1 first-letter:leading-none">
+        <div className="prose prose-lg max-w-none text-left space-y-6 font-body text-base md:text-lg text-secondary leading-relaxed mb-12">
+          {(() => {
+            const rawContent = (i18n.language === 'en' && post.content_en) ? post.content_en : post.content;
+            let paragraphs = [];
+            if (Array.isArray(rawContent)) {
+              paragraphs = rawContent;
+            } else if (typeof rawContent === 'string') {
+              paragraphs = rawContent.split(/\n+/).filter(Boolean);
+            }
+            if (paragraphs.length === 0) {
+              paragraphs = [rawContent || ''];
+            }
+
+            return paragraphs.map((paragraph, index) => (
+              <p 
+                key={index} 
+                className={`whitespace-pre-line leading-relaxed ${
+                  index === 0 ? 'first-letter:text-5xl first-letter:font-heading first-letter:font-bold first-letter:float-left first-letter:mr-3 first-letter:text-accent first-letter:mt-1 first-letter:leading-none' : ''
+                }`}
+              >
                 {paragraph}
               </p>
-            ))
-          ) : (
-            <p>{post.content}</p>
-          )}
+            ));
+          })()}
         </div>
+
+        {/* 4.5 Article Photo Gallery (If multiple images present) */}
+        {post.gallery && post.gallery.length > 0 && (
+          <div className="mb-16 space-y-4 border-t border-muted/50 pt-8">
+            <h3 className="text-xl md:text-2xl font-heading font-bold text-primary text-left flex items-center gap-2">
+              <Sparkles className="w-5 h-5 text-accent" />
+              <span>Bộ Ảnh Bài Viết</span>
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+              {post.gallery.map((imgUrl, gIdx) => (
+                <div key={gIdx} className="aspect-[4/3] rounded-sm overflow-hidden border border-muted/80 bg-surface shadow-sm group">
+                  <img 
+                    src={imgUrl} 
+                    alt={`${post.title} - Ảnh ${gIdx + 1}`} 
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* 5. Related Articles Section */}
         <div className="space-y-8 border-t border-muted/50 pt-12">

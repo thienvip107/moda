@@ -3,6 +3,8 @@ import { newsList as initialNews } from '../data/news';
 import { productsList as initialProducts } from '../data/products';
 import { optimizeCloudinaryUrl } from './cloudinary';
 
+const isUuid = (val) => typeof val === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(val);
+
 // Data mẫu ban đầu dùng làm fallback khi DB chưa có hoặc lỗi
 const defaultBanners = [
   {
@@ -258,30 +260,48 @@ export async function deleteBanner(id) {
 // 2. NEWS & ARTICLES API
 // ==========================================
 export async function getNewsList() {
+  const mapNewsData = (item) => {
+    let gal = [];
+    if (Array.isArray(item.gallery)) {
+      gal = item.gallery.map(u => optimizeCloudinaryUrl(u, 800));
+    } else if (typeof item.gallery === 'string') {
+      try {
+        const parsed = JSON.parse(item.gallery);
+        if (Array.isArray(parsed)) gal = parsed.map(u => optimizeCloudinaryUrl(u, 800));
+      } catch (e) {
+        if (item.gallery) gal = [optimizeCloudinaryUrl(item.gallery, 800)];
+      }
+    }
+    const cover = optimizeCloudinaryUrl(item.cover_image || item.img, 800);
+    if (cover && !gal.includes(cover)) {
+      gal.unshift(cover);
+    }
+    return {
+      ...item,
+      img: cover,
+      cover_image: cover,
+      gallery: gal,
+      excerpt: item.summary || item.excerpt || 'Thông tin bài viết kỹ thuật thi công đá tự nhiên...',
+      content: item.content || '',
+      date: item.created_at ? new Date(item.created_at).toLocaleDateString('vi-VN') : (item.date || 'Gần đây')
+    };
+  };
+
   if (isSupabaseConfigured) {
     try {
       const { data, error } = await supabase
         .from('news')
         .select('*')
         .order('created_at', { ascending: false });
-      if (!error && data?.length) {
-        return data.map(item => ({
-          ...item,
-          img: optimizeCloudinaryUrl(item.cover_image || item.img, 800),
-          excerpt: item.summary || item.excerpt || 'Thông tin bài viết kỹ thuật thi công đá tự nhiên...',
-          content: typeof item.content === 'string' ? [item.content] : item.content,
-          date: item.created_at ? new Date(item.created_at).toLocaleDateString('vi-VN') : 'Gần đây'
-        }));
+      if (!error && data) {
+        return data.map(mapNewsData);
       }
     } catch (e) {
       console.warn('Supabase fetch news failed, falling back:', e);
     }
   }
   const news = getLocalData('news', initialNews);
-  return news.map(item => ({
-    ...item,
-    img: optimizeCloudinaryUrl(item.img || item.cover_image, 800)
-  }));
+  return news.map(mapNewsData);
 }
 
 export async function getNewsBySlugOrId(idOrSlug) {
@@ -291,6 +311,12 @@ export async function getNewsBySlugOrId(idOrSlug) {
 
 export async function saveNews(newsItem) {
   const slug = newsItem.slug || newsItem.title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+  const mainImg = newsItem.img || newsItem.cover_image || '';
+  let gal = Array.isArray(newsItem.gallery) ? [...newsItem.gallery] : [];
+  if (mainImg && !gal.includes(mainImg)) {
+    gal.unshift(mainImg);
+  }
+
   const payload = {
     title: newsItem.title,
     title_en: newsItem.title_en || '',
@@ -299,9 +325,10 @@ export async function saveNews(newsItem) {
     summary_en: newsItem.summary_en || newsItem.excerpt_en || '',
     content: Array.isArray(newsItem.content) ? newsItem.content.join('\n\n') : newsItem.content,
     content_en: Array.isArray(newsItem.content_en) ? newsItem.content_en.join('\n\n') : (newsItem.content_en || ''),
-    cover_image: newsItem.img || newsItem.cover_image,
+    cover_image: mainImg,
     category: newsItem.category || 'Tin tức',
-    status: newsItem.status || 'published'
+    status: newsItem.status || 'published',
+    gallery: gal
   };
 
   if (isSupabaseConfigured) {
@@ -323,9 +350,9 @@ export async function saveNews(newsItem) {
   const list = getLocalData('news', initialNews);
   let updated;
   if (newsItem.id) {
-    updated = list.map(n => n.id === newsItem.id ? { ...n, ...newsItem, slug } : n);
+    updated = list.map(n => n.id === newsItem.id ? { ...n, ...newsItem, ...payload, slug } : n);
   } else {
-    updated = [{ ...newsItem, id: `news_${Date.now()}`, slug }, ...list];
+    updated = [{ ...newsItem, ...payload, id: `news_${Date.now()}`, slug }, ...list];
   }
   setLocalData('news', updated);
   return newsItem;
@@ -333,12 +360,18 @@ export async function saveNews(newsItem) {
 
 export async function deleteNews(id) {
   if (isSupabaseConfigured) {
-    const { error } = await supabase.from('news').delete().eq('id', id);
-    if (error) throw error;
-    return true;
+    try {
+      if (isUuid(id)) {
+        await supabase.from('news').delete().eq('id', id);
+      } else {
+        await supabase.from('news').delete().eq('slug', id);
+      }
+    } catch (e) {
+      console.warn('Supabase delete news failed:', e);
+    }
   }
   const list = getLocalData('news', initialNews);
-  setLocalData('news', list.filter(n => n.id !== id));
+  setLocalData('news', list.filter(n => n.id !== id && n.slug !== id));
   return true;
 }
 
@@ -396,14 +429,8 @@ export async function getProductsList() {
         .from('products')
         .select('*')
         .order('created_at', { ascending: false });
-      if (!error && data?.length) {
-        const dbProducts = data.map(mapProductData);
-        if (dbProducts.length < initialProducts.length) {
-          const dbSlugs = new Set(dbProducts.map(p => p.slug || p.id));
-          const extra = initialProducts.filter(p => !dbSlugs.has(p.id) && !dbSlugs.has(p.slug)).map(mapProductData);
-          return [...dbProducts, ...extra];
-        }
-        return dbProducts;
+      if (!error && data) {
+        return data.map(mapProductData);
       }
     } catch (e) {
       console.warn('Supabase fetch products failed, falling back:', e);
@@ -437,7 +464,7 @@ export async function saveProduct(productData) {
     description: productData.description || productData.desc || '',
     description_en: productData.description_en || productData.desc_en || '',
     image_url: mainImg,
-    category: productData.category || 'Đá lợp mái',
+    category: productData.category || 'da-den-lop-mai',
     is_new: productData.is_new ?? true,
     specs: specsObj,
     gallery: gal,
@@ -511,12 +538,18 @@ export async function saveProduct(productData) {
 
 export async function deleteProduct(id) {
   if (isSupabaseConfigured) {
-    const { error } = await supabase.from('products').delete().eq('id', id);
-    if (error) throw error;
-    return true;
+    try {
+      if (isUuid(id)) {
+        await supabase.from('products').delete().eq('id', id);
+      } else {
+        await supabase.from('products').delete().eq('slug', id);
+      }
+    } catch (e) {
+      console.warn('Supabase delete product failed:', e);
+    }
   }
-  const list = await getProductsList();
-  setLocalData('products', list.filter(p => p.id !== id));
+  const list = getLocalData('products', initialProducts);
+  setLocalData('products', list.filter(p => p.id !== id && p.slug !== id));
   return true;
 }
 

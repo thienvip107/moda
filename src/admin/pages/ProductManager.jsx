@@ -15,7 +15,7 @@ export default function ProductManager() {
     name: '',
     name_en: '',
     price: 'Liên hệ',
-    category: 'Đá lợp mái',
+    category: 'da-den-lop-mai',
     description: '',
     description_en: '',
     img: '',
@@ -183,7 +183,7 @@ export default function ProductManager() {
       name: prod.name || prod.title || '',
       name_en: prod.name_en || prod.title_en || prod.engTitle || '',
       price: prod.price || 'Liên hệ',
-      category: prod.category || 'Đá lợp mái',
+      category: prod.category || 'da-den-lop-mai',
       description: prod.description || prod.desc || '',
       description_en: prod.description_en || prod.desc_en || '',
       img: mainImg,
@@ -219,7 +219,7 @@ export default function ProductManager() {
       name: '',
       name_en: '',
       price: 'Liên hệ',
-      category: 'Đá lợp mái',
+      category: 'da-den-lop-mai',
       description: '',
       description_en: '',
       img: '',
@@ -363,17 +363,13 @@ export default function ProductManager() {
               <select
                 value={form.category}
                 onChange={e => setForm({ ...form, category: e.target.value })}
-                className="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3 text-sm text-[#171717] focus:border-[#171717] focus:outline-none transition-all font-medium"
+                className="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3 text-sm text-[#171717] focus:border-[#171717] focus:outline-none transition-all font-medium font-bold"
               >
-                <option value="Đá lợp mái">Đá lợp mái</option>
-                <option value="Đá ốp tường">Đá ốp tường</option>
-                <option value="Đá lát sân vườn">Đá lát sân vườn</option>
-                <option value="Đá chẻ thủ công">Đá chẻ thủ công</option>
-                <option value="da-den-lop-mai">Đá đen LỢP MÁI</option>
-                <option value="da-den-op-lat">Đá đen ỐP LÁT</option>
-                <option value="da-da-sac-lop-mai">Đá đa sắc LỢP MÁI</option>
-                <option value="da-da-sac-op-lat">Đá đa sắc ỐP LÁT</option>
-                <option value="da-trang-tri">Đá RỐI</option>
+                <option value="da-den-lop-mai">Đá Slate Đen Lợp Mái</option>
+                <option value="da-den-op-lat">Đá Slate Đen Ốp Lát</option>
+                <option value="da-da-sac-lop-mai">Đá Slate Đa Sắc Lợp Mái</option>
+                <option value="da-da-sac-op-lat">Đá Slate Đa Sắc Ốp Lát</option>
+                <option value="da-trang-tri">Đá Rối Tự Nhiên</option>
               </select>
             </div>
 

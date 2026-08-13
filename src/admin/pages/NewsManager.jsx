@@ -19,6 +19,7 @@ export default function NewsManager() {
     content: '',
     content_en: '',
     img: '',
+    gallery: [],
     status: 'published'
   });
 
@@ -45,12 +46,62 @@ export default function NewsManager() {
     setUploading(true);
     try {
       const cdnUrl = await uploadToCloudinary(file);
-      setForm(prev => ({ ...prev, img: cdnUrl }));
+      setForm(prev => {
+        const gal = Array.isArray(prev.gallery) ? [...prev.gallery] : [];
+        if (!gal.includes(cdnUrl)) gal.unshift(cdnUrl);
+        return { ...prev, img: cdnUrl, gallery: gal };
+      });
     } catch (err) {
       alert('Upload ảnh bài viết thất bại: ' + err.message);
     } finally {
       setUploading(false);
     }
+  };
+
+  const handleMultipleFileChange = async (e) => {
+    const files = Array.from(e.target.files);
+    if (files.length === 0) return;
+
+    setUploading(true);
+    try {
+      const uploadPromises = files.map(file => uploadToCloudinary(file));
+      const uploadedUrls = await Promise.all(uploadPromises);
+
+      setForm(prev => {
+        const currentGallery = Array.isArray(prev.gallery) ? [...prev.gallery] : [];
+        uploadedUrls.forEach(url => {
+          if (!currentGallery.includes(url)) {
+            currentGallery.push(url);
+          }
+        });
+        const mainImg = prev.img || currentGallery[0] || '';
+        return {
+          ...prev,
+          img: mainImg,
+          gallery: currentGallery
+        };
+      });
+    } catch (err) {
+      alert('Upload ảnh thất bại: ' + err.message);
+    } finally {
+      setUploading(false);
+      e.target.value = '';
+    }
+  };
+
+  const handleSetMainImage = (url) => {
+    setForm(prev => ({ ...prev, img: url }));
+  };
+
+  const handleRemoveGalleryImage = (urlToRemove) => {
+    setForm(prev => {
+      const newGal = (prev.gallery || []).filter(u => u !== urlToRemove);
+      let newMain = prev.img;
+      if (prev.img === urlToRemove) {
+        newMain = newGal[0] || '';
+      }
+      return { ...prev, img: newMain, gallery: newGal };
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -70,14 +121,21 @@ export default function NewsManager() {
   };
 
   const handleEdit = (item) => {
+    const mainImg = item.img || item.cover_image || '';
+    let gal = Array.isArray(item.gallery) ? [...item.gallery] : [];
+    if (mainImg && !gal.includes(mainImg)) {
+      gal.unshift(mainImg);
+    }
+
     setForm({
       ...item,
       title_en: item.title_en || '',
       excerpt: item.excerpt || item.summary || '',
       excerpt_en: item.excerpt_en || item.summary_en || '',
-      content: Array.isArray(item.content) ? item.content.join('\n\n') : item.content,
+      content: Array.isArray(item.content) ? item.content.join('\n\n') : (item.content || ''),
       content_en: Array.isArray(item.content_en) ? item.content_en.join('\n\n') : (item.content_en || ''),
-      img: item.img || item.cover_image
+      img: mainImg,
+      gallery: gal
     });
     setEditing(true);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -101,6 +159,7 @@ export default function NewsManager() {
       content: '',
       content_en: '',
       img: '',
+      gallery: [],
       status: 'published'
     });
     setEditing(false);
@@ -243,31 +302,80 @@ export default function NewsManager() {
             </>
           )}
 
-          {/* Upload Dropzone */}
-          <div className="space-y-3">
-            <label className="block text-[11px] font-extrabold text-[#171717] uppercase tracking-wider">Ảnh Bìa Bài Viết (Cloudinary CDN Upload)</label>
-            
-            <div className="p-5 rounded-2xl border-2 border-dashed border-stone-300 bg-stone-50 hover:bg-stone-100/80 transition-all text-center relative cursor-pointer">
+            <div className="flex items-center justify-between text-[11px] text-stone-500 bg-stone-100/70 p-2.5 rounded-lg border border-stone-200">
+              <span>💡 <strong>Mẹo trình bày:</strong> Bạn có thể nhấn <code>Enter</code> để xuống dòng phân đoạn bài viết. Giao diện trang chủ sẽ tự động xuống dòng và phân đoạn chuẩn đẹp.</span>
+            </div>
+
+          {/* Upload Dropzone: Multi-image Gallery */}
+          <div className="space-y-4 pt-2 border-t border-stone-200">
+            <div className="flex items-center justify-between">
+              <label className="block text-[11px] font-extrabold text-[#171717] uppercase tracking-wider">
+                BỘ ẢNH BÀI VIẾT / GALLERY (CÓ THỂ UPLOAD NHIỀU ẢNH VÀO 1 BÀI)
+              </label>
+              <span className="text-[10px] text-stone-500 font-medium">Đã chọn: {form.gallery?.length || 0} hình ảnh</span>
+            </div>
+
+            <div className="p-6 rounded-2xl border-2 border-dashed border-stone-300 bg-stone-50 hover:bg-stone-100/80 transition-all text-center relative cursor-pointer">
               <input 
                 type="file" 
+                multiple
                 accept="image/*" 
                 className="absolute inset-0 opacity-0 cursor-pointer w-full h-full z-10" 
-                onChange={handleFileChange}
+                onChange={handleMultipleFileChange}
                 disabled={uploading}
               />
-              <div className="space-y-1 pointer-events-none">
+              <div className="space-y-2 pointer-events-none">
                 <div className="w-10 h-10 rounded-xl bg-white border border-stone-200 text-[#D4AF37] flex items-center justify-center mx-auto shadow-sm">
                   {uploading ? <Loader2 className="w-5 h-5 animate-spin" /> : <UploadCloud className="w-5 h-5" />}
                 </div>
-                <p className="text-xs font-bold text-[#171717]">
-                  {uploading ? 'Đang Upload Ảnh Bìa...' : 'Tải Ảnh Bìa Mới (f_auto, q_auto)'}
-                </p>
+                <div>
+                  <p className="text-xs font-bold text-[#171717]">
+                    {uploading ? 'Đang Upload Các Ảnh...' : 'Click hoặc Kéo Thả Nhiều Ảnh Vào Đây'}
+                  </p>
+                  <p className="text-[10px] text-stone-500 font-medium mt-0.5">Tự động tối ưu dung lượng & chuyển đổi định dạng WebP qua Cloudinary CDN</p>
+                </div>
               </div>
             </div>
 
-            {form.img && (
-              <div className="w-36 h-24 rounded-xl overflow-hidden border border-stone-300 bg-stone-100 shadow-sm">
-                <img src={form.img} alt="Cover Preview" className="w-full h-full object-cover" />
+            {/* Gallery Thumbnails List */}
+            {form.gallery && form.gallery.length > 0 && (
+              <div className="space-y-2">
+                <p className="text-[10px] font-extrabold text-[#171717] uppercase tracking-wider">Danh Sách Ảnh Trong Bài Viết (Bấm ngôi sao để chọn Ảnh Bìa chính)</p>
+                <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
+                  {form.gallery.map((url, idx) => {
+                    const isMain = form.img === url;
+                    return (
+                      <div key={idx} className={`relative group aspect-square rounded-xl overflow-hidden border-2 transition-all ${isMain ? 'border-[#D4AF37] ring-2 ring-[#D4AF37]/30 shadow-md' : 'border-stone-200'}`}>
+                        <img src={url} alt={`Gallery ${idx}`} className="w-full h-full object-cover" />
+                        
+                        <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-1.5 p-1">
+                          <button
+                            type="button"
+                            onClick={() => handleSetMainImage(url)}
+                            title="Đặt làm ảnh đại diện chính"
+                            className={`p-1.5 rounded-lg transition-colors ${isMain ? 'bg-[#D4AF37] text-white' : 'bg-white/80 text-stone-800 hover:bg-white'}`}
+                          >
+                            <Sparkles className="w-3.5 h-3.5" />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => handleRemoveGalleryImage(url)}
+                            title="Xóa ảnh này"
+                            className="p-1.5 rounded-lg bg-rose-600/90 text-white hover:bg-rose-600 transition-colors"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+
+                        {isMain && (
+                          <span className="absolute top-1 left-1 bg-[#D4AF37] text-white text-[9px] font-black px-1.5 py-0.5 rounded shadow">
+                            Ảnh bìa
+                          </span>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             )}
           </div>
