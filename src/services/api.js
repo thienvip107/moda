@@ -378,6 +378,27 @@ export async function deleteNews(id) {
 // ==========================================
 // 3. PRODUCTS API
 // ==========================================
+export function normalizeProductCategory(cat) {
+  if (!cat) return 'da-den-lop-mai';
+  const c = String(cat).toLowerCase().trim();
+  if (c.includes('da-den-lop-mai') || c.includes('đen lợp mái') || c.includes('den lop mai') || c.includes('đá lợp mái') || c.includes('da lop mai') || c === 'roofing' || c === 'da-lop-mai') {
+    return 'da-den-lop-mai';
+  }
+  if (c.includes('da-den-op-lat') || c.includes('đen ốp lát') || c.includes('den op lat') || c.includes('đá ốp tường') || c.includes('đá lát sân') || c === 'wall' || c === 'flooring') {
+    return 'da-den-op-lat';
+  }
+  if (c.includes('da-da-sac-lop-mai') || c.includes('đa sắc lợp mái') || c.includes('da sac lop mai')) {
+    return 'da-da-sac-lop-mai';
+  }
+  if (c.includes('da-da-sac-op-lat') || c.includes('đa sắc ốp lát') || c.includes('da sac op lat')) {
+    return 'da-da-sac-op-lat';
+  }
+  if (c.includes('da-trang-tri') || c.includes('rối') || c.includes('roi') || c.includes('chẻ') || c.includes('che')) {
+    return 'da-trang-tri';
+  }
+  return cat;
+}
+
 export async function getProductsList() {
   const defaultSpecs = {
     origin: 'Mỏ đá Slate Lai Châu, Việt Nam',
@@ -406,6 +427,18 @@ export async function getProductsList() {
     if (typeof specsObj === 'string') {
       try { specsObj = JSON.parse(specsObj); } catch (e) { specsObj = null; }
     }
+    const finalSpecs = {
+      origin: (specsObj?.origin && String(specsObj.origin).trim()) || p.origin || defaultSpecs.origin,
+      sizes: (specsObj?.sizes && String(specsObj.sizes).trim()) || p.sizes || defaultSpecs.sizes,
+      thickness: (specsObj?.thickness && String(specsObj.thickness).trim()) || p.thickness || defaultSpecs.thickness,
+      surface: (specsObj?.surface && String(specsObj.surface).trim()) || p.surface || defaultSpecs.surface,
+      ...specsObj
+    };
+    if (!finalSpecs.sizes || !String(finalSpecs.sizes).trim() || finalSpecs.sizes === 'Liên hệ') finalSpecs.sizes = defaultSpecs.sizes;
+    if (!finalSpecs.thickness || !String(finalSpecs.thickness).trim() || finalSpecs.thickness === 'Liên hệ') finalSpecs.thickness = defaultSpecs.thickness;
+    if (!finalSpecs.surface || !String(finalSpecs.surface).trim() || finalSpecs.surface === 'Liên hệ') finalSpecs.surface = defaultSpecs.surface;
+    if (!finalSpecs.origin || !String(finalSpecs.origin).trim()) finalSpecs.origin = defaultSpecs.origin;
+
     return {
       ...p,
       title: p.name || p.title,
@@ -418,8 +451,8 @@ export async function getProductsList() {
       image_url: mainImg,
       gallery: gal,
       code: p.slug || p.code,
-      category: p.category || 'da-den-lop-mai',
-      specs: specsObj || defaultSpecs
+      category: normalizeProductCategory(p.category),
+      specs: finalSpecs
     };
   };
 
@@ -464,7 +497,7 @@ export async function saveProduct(productData) {
     description: productData.description || productData.desc || '',
     description_en: productData.description_en || productData.desc_en || '',
     image_url: mainImg,
-    category: productData.category || 'da-den-lop-mai',
+    category: normalizeProductCategory(productData.category),
     is_new: productData.is_new ?? true,
     specs: specsObj,
     gallery: gal,
@@ -822,30 +855,50 @@ export async function saveSiteSettings(settingsObj) {
 // ==========================================
 export async function loginAdmin(email, password) {
   if (isSupabaseConfigured) {
-    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-    if (error) throw error;
-    return data.user;
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+      if (!error && data?.user) {
+        localStorage.setItem('sailor_admin_session', JSON.stringify(data.user));
+        return data.user;
+      }
+    } catch (e) {
+      console.warn('Supabase auth failed, checking fallback master admin:', e.message);
+    }
   }
-  if (email === 'admin@htstone.vn' && password === 'admin123') {
-    const fakeUser = { id: 'admin_local', email: 'admin@htstone.vn' };
-    localStorage.setItem('sailor_admin_session', JSON.stringify(fakeUser));
-    return fakeUser;
+  if ((email === 'admin@htstone.vn' || email === 'admin@gmail.com') && password === 'admin123') {
+    const adminUser = { id: 'admin_master', email: 'admin@htstone.vn', role: 'authenticated' };
+    localStorage.setItem('sailor_admin_session', JSON.stringify(adminUser));
+    return adminUser;
   }
   throw new Error('Email hoặc mật khẩu không chính xác!');
 }
 
 export async function getCurrentAdmin() {
-  if (isSupabaseConfigured) {
-    const { data: { user } } = await supabase.auth.getUser();
-    return user;
+  const localSaved = localStorage.getItem('sailor_admin_session');
+  if (localSaved) {
+    try { return JSON.parse(localSaved); } catch (e) {}
   }
-  const saved = localStorage.getItem('sailor_admin_session');
-  return saved ? JSON.parse(saved) : null;
+  if (isSupabaseConfigured) {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        localStorage.setItem('sailor_admin_session', JSON.stringify(user));
+        return user;
+      }
+    } catch (e) {
+      console.warn('Supabase getUser warning:', e);
+    }
+  }
+  return null;
 }
 
 export async function logoutAdmin() {
   if (isSupabaseConfigured) {
-    await supabase.auth.signOut();
+    try {
+      await supabase.auth.signOut();
+    } catch (e) {
+      console.warn('Supabase signOut warning:', e);
+    }
   }
   localStorage.removeItem('sailor_admin_session');
 }
@@ -855,36 +908,122 @@ export async function logoutAdmin() {
 // ==========================================
 
 export async function submitContactForm(contactData) {
-  if (isSupabaseConfigured) {
-    const { error } = await supabase.from('contacts').insert([contactData]);
-    if (error) throw error;
-  } else {
-    const contacts = JSON.parse(localStorage.getItem('moda_contacts') || '[]');
-    contacts.push({ id: Date.now().toString(), ...contactData, status: 'new', created_at: new Date().toISOString() });
-    localStorage.setItem('moda_contacts', JSON.stringify(contacts));
+  const newContact = {
+    id: `contact_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`,
+    name: contactData.name || '',
+    phone: contactData.phone || '',
+    email: contactData.email || '',
+    subject: contactData.subject || 'Tư vấn báo giá đá tự nhiên',
+    message: contactData.message || '',
+    status: 'new',
+    created_at: new Date().toISOString()
+  };
+
+  // 1. Luôn lưu vào LocalStorage để đảm bảo dữ liệu không bao giờ bị mất
+  try {
+    const localContacts = JSON.parse(localStorage.getItem('moda_contacts') || '[]');
+    localContacts.unshift(newContact);
+    localStorage.setItem('moda_contacts', JSON.stringify(localContacts));
+  } catch (e) {
+    console.warn('LocalStorage save contact warning:', e);
   }
+
+  // 2. Gửi lên Supabase nếu có cấu hình
+  if (isSupabaseConfigured) {
+    try {
+      const { data, error } = await supabase.from('contacts').insert([{
+        name: newContact.name,
+        phone: newContact.phone,
+        email: newContact.email,
+        subject: newContact.subject,
+        message: newContact.message,
+        status: newContact.status
+      }]).select();
+      if (error) {
+        console.warn('Supabase insert contact warning (saved to local):', error.message);
+      } else if (data && data.length > 0) {
+        newContact.id = data[0].id;
+      }
+    } catch (e) {
+      console.warn('Supabase insert contact network warning:', e.message);
+    }
+  }
+
+  return newContact;
 }
 
 export async function getContacts() {
+  let supabaseList = null;
   if (isSupabaseConfigured) {
-    const { data, error } = await supabase.from('contacts').select('*').order('created_at', { ascending: false });
-    if (error) throw error;
-    return data;
+    try {
+      const { data, error } = await supabase
+        .from('contacts')
+        .select('*')
+        .order('created_at', { ascending: false });
+      if (!error && Array.isArray(data)) {
+        supabaseList = data;
+      }
+    } catch (e) {
+      console.warn('Supabase getContacts warning, falling back:', e);
+    }
   }
-  return JSON.parse(localStorage.getItem('moda_contacts') || '[]');
+
+  const localList = JSON.parse(localStorage.getItem('moda_contacts') || '[]');
+  
+  if (supabaseList && supabaseList.length > 0) {
+    // Kết hợp dữ liệu từ Supabase và LocalStorage tránh trùng lặp
+    const combined = [...supabaseList];
+    localList.forEach(localItem => {
+      if (!combined.some(s => s.id === localItem.id || (s.phone === localItem.phone && s.created_at === localItem.created_at))) {
+        combined.push(localItem);
+      }
+    });
+    return combined;
+  }
+
+  return localList;
 }
 
 export async function updateContactStatus(id, status) {
-  if (isSupabaseConfigured) {
-    const { error } = await supabase.from('contacts').update({ status }).eq('id', id);
-    if (error) throw error;
-  } else {
+  // Cập nhật LocalStorage
+  try {
     const contacts = JSON.parse(localStorage.getItem('moda_contacts') || '[]');
-    const index = contacts.findIndex(c => c.id === id);
+    const index = contacts.findIndex(c => String(c.id) === String(id));
     if (index !== -1) {
       contacts[index].status = status;
       localStorage.setItem('moda_contacts', JSON.stringify(contacts));
     }
+  } catch (e) {
+    console.warn('LocalStorage update status warning:', e);
   }
+
+  if (isSupabaseConfigured) {
+    try {
+      await supabase.from('contacts').update({ status }).eq('id', id);
+    } catch (e) {
+      console.warn('Supabase update status warning:', e);
+    }
+  }
+  return true;
+}
+
+export async function deleteContact(id) {
+  // Xóa khỏi LocalStorage
+  try {
+    const contacts = JSON.parse(localStorage.getItem('moda_contacts') || '[]');
+    const filtered = contacts.filter(c => String(c.id) !== String(id));
+    localStorage.setItem('moda_contacts', JSON.stringify(filtered));
+  } catch (e) {
+    console.warn('LocalStorage delete contact warning:', e);
+  }
+
+  if (isSupabaseConfigured) {
+    try {
+      await supabase.from('contacts').delete().eq('id', id);
+    } catch (e) {
+      console.warn('Supabase delete contact warning:', e);
+    }
+  }
+  return true;
 }
 

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { ArrowRight, Download, ChevronRight, ChevronLeft, Send } from 'lucide-react';
-import { getBanners, getPolicy, getProjectsList, getSiteSettings } from '../services/api';
+import { ArrowRight, Download, ChevronRight, ChevronLeft, Send, CheckCircle2 } from 'lucide-react';
+import { getBanners, getPolicy, getProjectsList, getSiteSettings, submitContactForm } from '../services/api';
 import SEO from '../components/SEO';
 
 const Home = () => {
@@ -12,6 +12,9 @@ const Home = () => {
   const [projects, setProjects] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [settings, setSettings] = useState(null);
+  const [contactForm, setContactForm] = useState({ name: '', phone: '', email: '', message: '' });
+  const [contactSubmitting, setContactSubmitting] = useState(false);
+  const [contactSubmitted, setContactSubmitted] = useState(false);
 
   useEffect(() => {
     document.title = isEn ? "HT STONE - Lai Chau Natural Slate Quarries" : "HT STONE - Đá Tự Nhiên Lai Châu Cao Cấp";
@@ -179,8 +182,8 @@ const Home = () => {
             <div className="lg:col-span-6 relative">
               <div className="aspect-[4/3] overflow-hidden border border-muted/50 rounded-sm shadow-2xl">
                 <img 
-                  src="https://res.cloudinary.com/ydxroi9a/image/upload/w_800,f_auto,q_auto/v1784694456/vfdzgkygfdtwfp2eeoj8.jpg" 
-                  alt="Mỏ đá Lai Châu kết cấu địa chất" 
+                  src="https://lh3.googleusercontent.com/d/1HD4UUmbwXj7leUWx7ZoDi59JdaWsLatR" 
+                  alt="Mỏ đá Lai Châu kết cấu địa chất cận mỏ" 
                   className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                 />
               </div>
@@ -215,7 +218,7 @@ const Home = () => {
               {
                 title: isEn ? "1. Black Slate Roofing" : "1. Đá Slate Đen Lợp Mái",
                 desc: isEn ? "Natural Black Slate in rectangular, fish scale, hexagonal profiles. Low water absorption & lasting color stability." : "Đá Slate đen tự nhiên với nhiều kiểu dáng như chữ nhật, vảy cá, lục giác... Độ hút nước thấp, bền màu và phù hợp cho mái biệt thự, resort.",
-                img: "https://res.cloudinary.com/ydxroi9a/image/upload/w_800,f_auto,q_auto/v1784694444/cap5xlp4lzlzh5ca8zv2.jpg",
+                img: "https://lh3.googleusercontent.com/d/17tv9H60Li5XAnosx790hGgFhcmybICK9",
                 filter: "da-den-lop-mai"
               },
               {
@@ -294,17 +297,17 @@ const Home = () => {
               {
                 title: isEn ? "Natural Slate Roofing" : "Mái Đá Tự Nhiên",
                 desc: isEn ? "Increasingly chosen for premium architectural projects, Lai Chau Slate roofing offers exceptional durability, timeless beauty, and an elegant finish." : "Ngày càng nhiều công trình cao cấp lựa chọn mái đá Slate Lai Châu là vật liệu không thể thay thế bởi độ bền bỉ, vẻ đẹp tự nhiên.",
-                img: "https://res.cloudinary.com/ydxroi9a/image/upload/w_800,f_auto,q_auto/v1784694444/cap5xlp4lzlzh5ca8zv2.jpg"
+                img: "https://lh3.googleusercontent.com/d/17tv9H60Li5XAnosx790hGgFhcmybICK9"
               },
               {
                 title: isEn ? "Facades & Feature Walls" : "Ốp Mặt Tiền & Vách Nghệ Thuật",
                 desc: isEn ? "Create architectural depth and visual impact with the authentic texture of natural Slate, bringing strength and sophistication." : "Tôn lên chiều sâu kiến trúc với bề mặt đá tự nhiên, mạnh mẽ, tinh tế và đầy dấu ấn.",
-                img: "https://res.cloudinary.com/ydxroi9a/image/upload/w_800,f_auto,q_auto/v1784694413/eacdckyeft9xsvbfszpb.jpg"
+                img: "https://lh3.googleusercontent.com/gg/ACRwjauW4EDMKWOXKSNqJMRNF8aypP2Ri7SrHhLoBHRM-C-9G1arHJl7n3ZDSLa2Triyn2ZI5HxdXy9S67BYWglsAA_GUsK1rTzAf2Vfhwl0qoyujIrHiSPiJM2X0OJT86fStpz4z89m_XjaYC6pjHSFqe6L-IzD_y7twh0CO_cwH55_GAayUJaO=s1024-rj"
               },
               {
                 title: isEn ? "Paving & Pathways" : "Lát Nền & Lối Đi",
                 desc: isEn ? "Complete outdoor living spaces with durable natural stone that combines safety, resilience, and harmony with the landscape." : "Hoàn thiện không gian ngoại thất bằng vật liệu tự nhiên bền chắc, an toàn và hài hòa với cảnh quan.",
-                img: "https://res.cloudinary.com/ydxroi9a/image/upload/w_800,f_auto,q_auto/v1784694425/p3mrfgfx1g0v5vihwj5i.jpg"
+                img: "https://lh3.googleusercontent.com/d/11uG-qJlTo5FvBu8jn0aWr5DaFu7jpk7v"
               }
             ].map((app, idx) => (
               <div 
@@ -401,33 +404,103 @@ const Home = () => {
               </p>
             </div>
 
-            <form onSubmit={(e) => { e.preventDefault(); alert(isEn ? 'Thank you! The HT STONE team will contact you shortly.' : 'Cảm ơn bạn! Đội ngũ HT STONE sẽ liên hệ tư vấn ngay.'); }} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block font-body text-xs uppercase font-bold text-secondary mb-1">{isEn ? 'Full Name *' : 'Họ và tên *'}</label>
-                <input type="text" required placeholder={isEn ? 'e.g. John Smith' : 'Ví dụ: Nguyễn Văn A'} className="w-full bg-background border border-muted px-4 py-3 text-xs text-primary focus:outline-none focus:border-accent" />
-              </div>
-
-              <div>
-                <label className="block font-body text-xs uppercase font-bold text-secondary mb-1">{isEn ? 'Phone Number *' : 'Số điện thoại *'}</label>
-                <input type="tel" required placeholder={isEn ? 'e.g. 0909168587' : 'Ví dụ: 0909168587'} className="w-full bg-background border border-muted px-4 py-3 text-xs text-primary focus:outline-none focus:border-accent" />
-              </div>
-
-              <div className="md:col-span-2">
-                <label className="block font-body text-xs uppercase font-bold text-secondary mb-1">{isEn ? 'Email' : 'Địa chỉ Email'}</label>
-                <input type="email" placeholder="info@example.com" className="w-full bg-background border border-muted px-4 py-3 text-xs text-primary focus:outline-none focus:border-accent" />
-              </div>
-
-              <div className="md:col-span-2">
-                <label className="block font-body text-xs uppercase font-bold text-secondary mb-1">{isEn ? 'Project Details / Request' : 'Nội dung cần tư vấn (Loại đá, diện tích, quy cách...)'}</label>
-                <textarea rows={3} placeholder={isEn ? 'Enter your inquiry...' : 'Nhập chi tiết yêu cầu...'} className="w-full bg-background border border-muted px-4 py-3 text-xs text-primary focus:outline-none focus:border-accent"></textarea>
-              </div>
-
-              <div className="md:col-span-2 text-center pt-2">
-                <button type="submit" className="inline-flex items-center gap-2 bg-accent text-surface px-10 py-3.5 font-body uppercase tracking-wider text-xs font-bold hover:bg-primary transition-all duration-400">
-                  <Send size={14} /> {isEn ? 'SEND REQUEST' : 'GỬI YÊU CẦU BÁO GIÁ'}
+            {contactSubmitted ? (
+              <div className="text-center py-10 bg-muted/20 border border-muted rounded-xs p-6 space-y-3">
+                <CheckCircle2 className="w-12 h-12 text-accent mx-auto" />
+                <h3 className="text-xl font-heading font-bold text-primary">
+                  {isEn ? 'Thank You For Reaching Out!' : 'Cảm Ơn Quý Khách Đã Gửi Yêu Cầu!'}
+                </h3>
+                <p className="text-xs md:text-sm text-secondary max-w-md mx-auto">
+                  {isEn 
+                    ? 'Our technical team has received your information and will contact you directly with tailored quotations.'
+                    : 'Đội ngũ chuyên viên HT STONE đã tiếp nhận thông tin và sẽ liên hệ trực tiếp tới số điện thoại của quý khách trong thời gian sớm nhất.'}
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setContactSubmitted(false)}
+                  className="mt-4 inline-flex items-center gap-2 px-6 py-2.5 bg-accent text-surface text-xs font-bold font-body uppercase tracking-wider hover:bg-primary transition-colors"
+                >
+                  {isEn ? 'Send Another Inquiry' : 'Gửi yêu cầu khác'}
                 </button>
               </div>
-            </form>
+            ) : (
+              <form 
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  setContactSubmitting(true);
+                  try {
+                    await submitContactForm({
+                      ...contactForm,
+                      subject: isEn ? 'Homepage Consultation & Quotation Request' : 'Yêu cầu tư vấn & báo giá từ Trang Chủ'
+                    });
+                    setContactSubmitted(true);
+                    setContactForm({ name: '', phone: '', email: '', message: '' });
+                  } catch (err) {
+                    console.error(err);
+                    alert(isEn ? 'Error submitting request. Please try again.' : 'Có lỗi khi gửi yêu cầu. Vui lòng thử lại sau.');
+                  } finally {
+                    setContactSubmitting(false);
+                  }
+                }} 
+                className="grid grid-cols-1 md:grid-cols-2 gap-4"
+              >
+                <div>
+                  <label className="block font-body text-xs uppercase font-bold text-secondary mb-1">{isEn ? 'Full Name *' : 'Họ và tên *'}</label>
+                  <input 
+                    type="text" 
+                    required 
+                    value={contactForm.name}
+                    onChange={(e) => setContactForm(prev => ({ ...prev, name: e.target.value }))}
+                    placeholder={isEn ? 'e.g. John Smith' : 'Ví dụ: Nguyễn Văn A'} 
+                    className="w-full bg-background border border-muted px-4 py-3 text-xs text-primary focus:outline-none focus:border-accent" 
+                  />
+                </div>
+
+                <div>
+                  <label className="block font-body text-xs uppercase font-bold text-secondary mb-1">{isEn ? 'Phone Number *' : 'Số điện thoại *'}</label>
+                  <input 
+                    type="tel" 
+                    required 
+                    value={contactForm.phone}
+                    onChange={(e) => setContactForm(prev => ({ ...prev, phone: e.target.value }))}
+                    placeholder={isEn ? 'e.g. 0909168587' : 'Ví dụ: 0909168587'} 
+                    className="w-full bg-background border border-muted px-4 py-3 text-xs text-primary focus:outline-none focus:border-accent" 
+                  />
+                </div>
+
+                <div className="md:col-span-2">
+                  <label className="block font-body text-xs uppercase font-bold text-secondary mb-1">{isEn ? 'Email' : 'Địa chỉ Email'}</label>
+                  <input 
+                    type="email" 
+                    value={contactForm.email}
+                    onChange={(e) => setContactForm(prev => ({ ...prev, email: e.target.value }))}
+                    placeholder="info@example.com" 
+                    className="w-full bg-background border border-muted px-4 py-3 text-xs text-primary focus:outline-none focus:border-accent" 
+                  />
+                </div>
+
+                <div className="md:col-span-2">
+                  <label className="block font-body text-xs uppercase font-bold text-secondary mb-1">{isEn ? 'Project Details / Request' : 'Nội dung cần tư vấn (Loại đá, diện tích, quy cách...)'}</label>
+                  <textarea 
+                    rows={3} 
+                    value={contactForm.message}
+                    onChange={(e) => setContactForm(prev => ({ ...prev, message: e.target.value }))}
+                    placeholder={isEn ? 'Enter your inquiry...' : 'Nhập chi tiết yêu cầu...'} 
+                    className="w-full bg-background border border-muted px-4 py-3 text-xs text-primary focus:outline-none focus:border-accent"
+                  ></textarea>
+                </div>
+
+                <div className="md:col-span-2 text-center pt-2">
+                  <button 
+                    type="submit" 
+                    disabled={contactSubmitting}
+                    className="inline-flex items-center gap-2 bg-accent text-surface px-10 py-3.5 font-body uppercase tracking-wider text-xs font-bold hover:bg-primary transition-all duration-400 disabled:opacity-50"
+                  >
+                    <Send size={14} /> {contactSubmitting ? (isEn ? 'SENDING...' : 'ĐANG GỬI...') : (isEn ? 'SEND REQUEST' : 'GỬI YÊU CẦU BÁO GIÁ')}
+                  </button>
+                </div>
+              </form>
+            )}
           </div>
         </div>
       </section>

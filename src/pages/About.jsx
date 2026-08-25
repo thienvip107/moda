@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Award, Shield, Leaf, Download } from 'lucide-react';
+import { Download } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { getPolicy } from '../services/api';
 import SEO from '../components/SEO';
@@ -53,7 +53,7 @@ const About = () => {
             <div className="lg:col-span-6 relative">
               <div className="aspect-[16/10] overflow-hidden border border-muted/50 rounded-sm shadow-xl">
                 <img 
-                  src="https://res.cloudinary.com/ydxroi9a/image/upload/w_800,f_auto,q_auto/v1784694456/vfdzgkygfdtwfp2eeoj8.jpg" 
+                  src="https://lh3.googleusercontent.com/d/1HD4UUmbwXj7leUWx7ZoDi59JdaWsLatR" 
                   alt="Mỏ đá Lai Châu HT STONE" 
                   className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                 />
@@ -104,8 +104,10 @@ const About = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
             <div className="bg-surface border border-muted p-8 rounded-sm shadow-sm hover:shadow-lg transition-all duration-400">
-              <Award className="text-accent mb-6" size={36} strokeWidth={1.5} />
-              <h3 className="text-xl font-heading font-bold mb-3">{isEn ? 'Card 1 – Rigorous Selection' : 'Card 1 - Tuyển chọn khắt khe'}</h3>
+              <div className="w-10 h-1 bg-accent mb-6 rounded-full"></div>
+              <h3 className="text-xl md:text-2xl font-heading font-bold text-primary mb-3">
+                {isEn ? 'Rigorous Selection' : 'Tuyển Chọn Khắt Khe'}
+              </h3>
               <p className="font-body text-xs md:text-sm text-secondary leading-relaxed">
                 {isEn 
                   ? 'Every slab undergoes a rigorous selection process. Only stone that meets strict standards for quality and structural integrity is chosen for craftsmanship.'
@@ -114,8 +116,10 @@ const About = () => {
             </div>
 
             <div className="bg-surface border border-muted p-8 rounded-sm shadow-sm hover:shadow-lg transition-all duration-400">
-              <Shield className="text-accent mb-6" size={36} strokeWidth={1.5} />
-              <h3 className="text-xl font-heading font-bold mb-3">{isEn ? 'Card 2 – Expert Craftsmanship' : 'Card 2 - Nghệ thuật chế tác tinh xảo'}</h3>
+              <div className="w-10 h-1 bg-accent mb-6 rounded-full"></div>
+              <h3 className="text-xl md:text-2xl font-heading font-bold text-primary mb-3">
+                {isEn ? 'Expert Craftsmanship' : 'Nghệ Thuật Chế Tác Tinh Xảo'}
+              </h3>
               <p className="font-body text-xs md:text-sm text-secondary leading-relaxed">
                 {isEn 
                   ? 'Finished by experienced artisans, every cut and surface is carefully refined to reveal the authentic beauty and distinctive character of natural Slate.'
@@ -124,8 +128,10 @@ const About = () => {
             </div>
 
             <div className="bg-surface border border-muted p-8 rounded-sm shadow-sm hover:shadow-lg transition-all duration-400">
-              <Leaf className="text-accent mb-6" size={36} strokeWidth={1.5} />
-              <h3 className="text-xl font-heading font-bold mb-3">{isEn ? 'Card 3 – Built to Last' : 'Card 3 - Độ bền vĩnh cửu'}</h3>
+              <div className="w-10 h-1 bg-accent mb-6 rounded-full"></div>
+              <h3 className="text-xl md:text-2xl font-heading font-bold text-primary mb-3">
+                {isEn ? 'Built to Last' : 'Độ Bền Vĩnh Cửu'}
+              </h3>
               <p className="font-body text-xs md:text-sm text-secondary leading-relaxed">
                 {isEn 
                   ? 'A gift from the earth, shaped over millions of years. Its dense structure and exceptionally low water absorption help Lai Chau Slate preserve its rich natural color and enduring beauty for generations.'
@@ -180,7 +186,7 @@ const About = () => {
             <div className="order-1 lg:order-2">
               <div className="aspect-[4/3] overflow-hidden border border-muted/50 rounded-sm shadow-xl">
                 <img 
-                  src="https://res.cloudinary.com/ydxroi9a/image/upload/w_800,f_auto,q_auto/v1784694423/kcnmsxbnasrbezglaqmy.jpg" 
+                  src="https://lh3.googleusercontent.com/gg/ACRwjavnJkWuLXX-uPkNNJPgsMGI1IxoVday62lqWMeJnLhLFdwt915fiYYfUKe_1Eri17wlArh0a9oJXyKN7hjugLKBUDlYLYme3cTpUwRZbMf6DGEJIoSbTh9xPX9UZWiItpfoKBQbOD4NW0xi6jbCTAAaPpeHwQPyuyufSi4LdS5ydjoDMDo=s1024-rj" 
                   alt="Nhà xưởng đóng gói palet đá Slate Lai Châu" 
                   className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                 />

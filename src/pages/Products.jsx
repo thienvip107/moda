@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Shield, Sparkles, MoveRight, PhoneCall, FileText } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { filters } from '../data/products';
-import { getProductsList } from '../services/api';
+import { getProductsList, normalizeProductCategory } from '../services/api';
 import SEO from '../components/SEO';
 
 const Products = () => {
@@ -34,28 +34,43 @@ const Products = () => {
 
   const filteredProducts = activeFilter === 'all'
     ? products
-    : products.filter(p => p.category === activeFilter);
+    : products.filter(p => normalizeProductCategory(p.category) === activeFilter);
 
 
   const getSeoData = () => {
     switch (activeFilter) {
+      case 'da-den-lop-mai':
       case 'roofing':
         return {
           title: "Đá Đen Lợp Mái Lai Châu - Đá Slate Vảy Cá, Mái Biệt Thự | HT STONE",
           description: "Báo giá đá đen lợp mái Lai Châu tự nhiên cao cấp, đá vảy cá, đá lợp mái hình chữ nhật từ mỏ khai thác trực tiếp. Không thấm nước, độ bền vĩnh cửu 100 năm.",
           keywords: "đá lợp mái, đá đen lợp mái, đá slate lai châu lợp mái, đá vảy cá, đá lợp mái biệt thự, đá đen lai châu"
         };
+      case 'da-den-op-lat':
       case 'wall':
         return {
           title: "Đá Đen & Đá Đa Sắc Ốp Tường - Đá Slate Lai Châu Cao Cấp | HT STONE",
           description: "Các mẫu đá đen Lai Châu ốp tường, đá đa sắc ốp mặt tiền, chân tường biệt thự, resort sang trọng. Sản xuất trực tiếp tại mỏ, chống rêu mốc tối đa.",
           keywords: "đá ốp tường, đá đen ốp tường, đá đa sắc ốp tường, đá lai châu ốp tường, đá slate lai châu ốp tường"
         };
+      case 'da-da-sac-lop-mai':
+        return {
+          title: "Đá Đa Sắc Lợp Mái Lai Châu - Ngói Đá Tự Nhiên Độc Bản | HT STONE",
+          description: "Đá Slate đa sắc lợp mái biệt thự, lâu đài tạo điểm nhấn kiến trúc độc bản sang trọng từ mỏ đá Lai Châu.",
+          keywords: "đá đa sắc lợp mái, ngói đá đa sắc, đá slate đa sắc"
+        };
+      case 'da-da-sac-op-lat':
       case 'flooring':
         return {
-          title: "Đá Đen Lát Sân Vườn, Lát Nền - Đá Slate Lai Châu Chịu Lực | HT STONE",
-          description: "Đá đen lát sân vườn, lát lối đi biệt thự, quảng trường. Đá tự nhiên chẻ thô chống trơn trượt, chịu tải trọng lớn, độ bền hơn 100 năm.",
-          keywords: "đá lát sân vườn, đá đen lát sân, đá lai châu lát nền, đá slate lát lối đi, đá đen lai châu"
+          title: "Đá Đa Sắc Lát Sân Vườn, Ốp Tường - Đá Slate Lai Châu Chịu Lực | HT STONE",
+          description: "Đá đa sắc lát sân vườn, lát lối đi biệt thự, quảng trường. Đá tự nhiên chẻ thô chống trơn trượt, chịu tải trọng lớn, độ bền hơn 100 năm.",
+          keywords: "đá lát sân vườn, đá đa sắc lát sân, đá lai châu lát nền, đá slate lát lối đi, đá đa sắc lai châu"
+        };
+      case 'da-trang-tri':
+        return {
+          title: "Đá Rối Tự Nhiên Lai Châu - Đá Chẻ Trang Trí Ốp Lát | HT STONE",
+          description: "Đá rối tự nhiên Slate Lai Châu ốp chân tường, kè hồ cá, lối đi sân vườn độc đáo.",
+          keywords: "đá rối tự nhiên, đá chẻ tự nhiên, đá slate rối"
         };
       default:
         return {
@@ -137,15 +152,15 @@ const Products = () => {
                     <div className="flex items-center gap-1.5 text-accent text-xs font-body uppercase tracking-wider font-semibold">
                       <Sparkles size={12} />
                       <span>
-                        {product.category === 'da-den-lop-mai' && 'Đá đen lợp mái'}
-                        {product.category === 'da-den-op-lat' && 'Đá đen ốp lát'}
-                        {product.category === 'da-da-sac-lop-mai' && 'Đá đa sắc lợp mái'}
-                        {product.category === 'da-da-sac-op-lat' && 'Đá đa sắc ốp lát'}
-                        {product.category === 'da-trang-tri' && 'Đá rối'}
+                        {normalizeProductCategory(product.category) === 'da-den-lop-mai' && (isEn ? 'Black Slate Roofing' : 'Đá đen lợp mái')}
+                        {normalizeProductCategory(product.category) === 'da-den-op-lat' && (isEn ? 'Black Slate Cladding & Paving' : 'Đá đen ốp lát')}
+                        {normalizeProductCategory(product.category) === 'da-da-sac-lop-mai' && (isEn ? 'Multicolor Slate Roofing' : 'Đá đa sắc lợp mái')}
+                        {normalizeProductCategory(product.category) === 'da-da-sac-op-lat' && (isEn ? 'Multicolor Slate Cladding & Paving' : 'Đá đa sắc ốp lát')}
+                        {normalizeProductCategory(product.category) === 'da-trang-tri' && (isEn ? 'Natural Random Slate' : 'Đá rối tự nhiên')}
                       </span>
                     </div>
-                    <Link to={`/products/${product.id}`} className="block">
-                      <h3 className="text-lg md:text-xl font-heading font-bold text-primary group-hover:text-accent transition-colors line-clamp-2 min-h-[3rem] flex items-center">
+                    <Link to={`/products/${product.id}`} className="block group/title">
+                      <h3 className="text-base md:text-lg font-heading font-bold text-[#171717] group-hover/title:text-accent transition-colors line-clamp-2 min-h-[3.25rem] flex items-center">
                         {product.title}
                       </h3>
                     </Link>
@@ -155,15 +170,15 @@ const Products = () => {
                   <div className="mt-5 pt-4 border-t border-muted/70 space-y-2.5 font-body text-sm text-secondary">
                     <div className="flex justify-between gap-2">
                       <span className="font-medium text-secondary/70">Kích thước:</span>
-                      <span className="font-semibold text-primary text-right">{product.specs?.sizes || 'Liên hệ'}</span>
+                      <span className="font-semibold text-primary text-right">{product.specs?.sizes || '30x30, 30x60, 40x40 cm'}</span>
                     </div>
                     <div className="flex justify-between gap-2">
                       <span className="font-medium text-secondary/70">Độ dày:</span>
-                      <span className="font-semibold text-primary text-right">{product.specs?.thickness || 'Liên hệ'}</span>
+                      <span className="font-semibold text-primary text-right">{product.specs?.thickness || '1.0 - 1.5 cm'}</span>
                     </div>
                     <div className="flex justify-between gap-2">
                       <span className="font-medium text-secondary/70">Cạnh viền:</span>
-                      <span className="font-semibold text-primary text-right">{product.specs?.surface || 'Liên hệ'}</span>
+                      <span className="font-semibold text-primary text-right">{product.specs?.surface || 'Chẻ tự nhiên / Mài thô'}</span>
                     </div>
                   </div>
  

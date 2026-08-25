@@ -12,7 +12,7 @@ import {
   Layers 
 } from 'lucide-react';
 import { productsList } from '../data/products';
-import { getProductsList } from '../services/api';
+import { getProductsList, normalizeProductCategory } from '../services/api';
 import SEO from '../components/SEO';
 
 const ProductDetail = () => {
@@ -20,6 +20,7 @@ const ProductDetail = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [product, setProduct] = useState(null);
+  const [allProductsList, setAllProductsList] = useState([]);
   const [activeTab, setActiveTab] = useState('features');
   const [selectedImage, setSelectedImage] = useState('');
   const [loading, setLoading] = useState(true);
@@ -28,6 +29,7 @@ const ProductDetail = () => {
     async function loadProduct() {
       try {
         const allProds = await getProductsList();
+        setAllProductsList(allProds);
         const found = allProds.find(p => String(p.id) === String(productId) || String(p.slug) === String(productId) || String(p.code) === String(productId))
           || productsList.find(p => String(p.id) === String(productId) || String(p.slug) === String(productId));
 
@@ -60,18 +62,28 @@ const ProductDetail = () => {
 
   if (!product) return null;
 
-  // Get related products (same category, excluding current product)
-  const relatedProducts = productsList
-    .filter(p => p.category === product.category && p.id !== product.id)
-    .slice(0, 3);
+  // Get related products (same category first, then other products from catalog)
+  const candidatePool = allProductsList.length > 0 ? allProductsList : productsList;
+  const sameCategory = candidatePool.filter(p => 
+    normalizeProductCategory(p.category) === normalizeProductCategory(product.category) && 
+    String(p.id) !== String(product.id) &&
+    String(p.slug) !== String(product.slug)
+  );
+  const otherCategory = candidatePool.filter(p => 
+    String(p.id) !== String(product.id) && 
+    String(p.slug) !== String(product.slug) && 
+    !sameCategory.some(sc => String(sc.id) === String(p.id))
+  );
+  const relatedProducts = [...sameCategory, ...otherCategory].slice(0, 3);
 
   const getCategoryLabel = (cat) => {
-    switch (cat) {
-      case 'da-den-lop-mai': return 'Đá đen LỢP MÁI';
-      case 'da-den-op-lat': return 'Đá đen ỐP LÁT';
-      case 'da-da-sac-lop-mai': return 'Đá đa sắc LỢP MÁI';
-      case 'da-da-sac-op-lat': return 'Đá đa sắc ỐP LÁT';
-      case 'da-trang-tri': return 'Đá Rối';
+    const normalized = normalizeProductCategory(cat);
+    switch (normalized) {
+      case 'da-den-lop-mai': return 'Đá Slate Đen Lợp Mái';
+      case 'da-den-op-lat': return 'Đá Slate Đen Ốp Lát';
+      case 'da-da-sac-lop-mai': return 'Đá Slate Đa Sắc Lợp Mái';
+      case 'da-da-sac-op-lat': return 'Đá Slate Đa Sắc Ốp Lát';
+      case 'da-trang-tri': return 'Đá Rối Tự Nhiên';
       default: return 'Đá Tự Nhiên';
     }
   };
@@ -398,8 +410,8 @@ const ProductDetail = () => {
         {relatedProducts.length > 0 && (
           <div className="space-y-8 border-t border-muted/50 pt-16">
             <div className="text-center md:text-left">
-              <h2 className="text-2xl md:text-3xl font-heading font-bold text-primary">Sản Phẩm Cùng Danh Mục</h2>
-              <p className="font-body text-sm text-secondary/60 mt-1">Các tùy chọn đá Lai Châu tự nhiên chất lượng khác có thể bạn quan tâm</p>
+              <h2 className="text-2xl md:text-3xl font-heading font-bold text-primary">Sản Phẩm Liên Quan</h2>
+              <p className="font-body text-sm text-secondary/60 mt-1">Các tùy chọn đá Slate Lai Châu tự nhiên chất lượng cao khác có thể bạn quan tâm</p>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -411,19 +423,19 @@ const ProductDetail = () => {
                 >
                   <div className="aspect-square overflow-hidden mb-6 rounded-xs relative">
                     <img 
-                      src={relProduct.img} 
-                      alt={relProduct.title} 
+                      src={relProduct.img || relProduct.image_url} 
+                      alt={relProduct.title || relProduct.name} 
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   </div>
                   <div className="flex-grow flex flex-col justify-between text-left">
                     <div>
-                      <h3 className="font-heading text-lg font-bold text-primary group-hover:text-accent transition-colors line-clamp-1">
-                        {relProduct.title}
+                      <h3 className="font-heading text-lg font-bold text-[#171717] group-hover:text-accent transition-colors line-clamp-1">
+                        {relProduct.title || relProduct.name}
                       </h3>
                       <p className="font-body text-xs text-secondary/80 leading-relaxed mt-2 line-clamp-2">
-                        {relProduct.desc}
+                        {relProduct.desc || relProduct.description}
                       </p>
                     </div>
                     <span className="inline-flex items-center gap-1 text-accent font-body uppercase tracking-wider text-[10px] font-bold mt-4 border-b border-transparent group-hover:border-accent pb-1 w-fit">

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { ArrowLeft, Calendar, User, Sparkles, Share2 } from 'lucide-react';
+import { ArrowLeft, Calendar, User, Sparkles, Share2, Image as ImageIcon, X, ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react';
 import { FaFacebook } from 'react-icons/fa';
 import { getNewsBySlugOrId, getNewsList } from '../services/api';
 import SEO from '../components/SEO';
@@ -10,8 +10,10 @@ const NewsDetail = () => {
   const { newsId } = useParams();
   const navigate = useNavigate();
   const { i18n } = useTranslation();
+  const isEn = i18n.language === 'en';
   const [post, setPost] = useState(null);
   const [allNews, setAllNews] = useState([]);
+  const [lightboxIndex, setLightboxIndex] = useState(null);
 
   useEffect(() => {
     async function loadPost() {
@@ -124,18 +126,29 @@ const NewsDetail = () => {
         </header>
 
         {/* 3. Hero Image */}
-        <div className="aspect-[21/9] w-full overflow-hidden border border-muted bg-surface rounded-sm mb-10 shadow-md">
+        <div 
+          onClick={() => {
+            const allImgs = post.gallery && post.gallery.length > 0 ? post.gallery : [post.img];
+            setLightboxIndex(allImgs.indexOf(post.img) >= 0 ? allImgs.indexOf(post.img) : 0);
+          }}
+          className="aspect-[21/9] w-full overflow-hidden border border-muted bg-surface rounded-sm mb-10 shadow-md relative group cursor-pointer"
+        >
           <img 
             src={post.img} 
             alt={post.title} 
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
           />
+          <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+            <span className="bg-black/60 backdrop-blur-md text-white text-xs font-bold font-body px-3.5 py-1.5 rounded-full flex items-center gap-1.5 shadow-lg">
+              <Maximize2 size={13} /> {isEn ? 'Click to view full image' : 'Bấm xem ảnh phóng to'}
+            </span>
+          </div>
         </div>
 
         {/* 4. Article Body Content */}
         <div className="prose prose-lg max-w-none text-left space-y-6 font-body text-base md:text-lg text-secondary leading-relaxed mb-12">
           {(() => {
-            const rawContent = (i18n.language === 'en' && post.content_en) ? post.content_en : post.content;
+            const rawContent = (isEn && post.content_en) ? post.content_en : post.content;
             let paragraphs = [];
             if (Array.isArray(rawContent)) {
               paragraphs = rawContent;
@@ -159,21 +172,41 @@ const NewsDetail = () => {
           })()}
         </div>
 
-        {/* 4.5 Article Photo Gallery (If multiple images present) */}
+        {/* 4.5 Article Photo Gallery (Bộ Ảnh Tư Liệu & Công Trình) */}
         {post.gallery && post.gallery.length > 0 && (
-          <div className="mb-16 space-y-4 border-t border-muted/50 pt-8">
-            <h3 className="text-xl md:text-2xl font-heading font-bold text-primary text-left flex items-center gap-2">
-              <Sparkles className="w-5 h-5 text-accent" />
-              <span>Bộ Ảnh Bài Viết</span>
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          <div className="mb-16 space-y-4 border-t border-muted/50 pt-8 text-left">
+            <div className="flex items-center justify-between">
+              <div>
+                <span className="font-body uppercase tracking-widest text-accent text-xs font-bold">
+                  {isEn ? 'PHOTO GALLERY' : 'TƯ LIỆU HÌNH ẢNH'}
+                </span>
+                <h3 className="text-xl md:text-2xl font-heading font-bold text-primary mt-1 flex items-center gap-2">
+                  <ImageIcon className="w-5 h-5 text-accent" />
+                  <span>{isEn ? 'Article Image Collection' : 'Bộ Ảnh Tư Liệu Bài Viết'}</span>
+                </h3>
+              </div>
+              <span className="text-xs text-secondary/60 font-body">
+                {post.gallery.length} {isEn ? 'photos' : 'hình ảnh'}
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 pt-2">
               {post.gallery.map((imgUrl, gIdx) => (
-                <div key={gIdx} className="aspect-[4/3] rounded-sm overflow-hidden border border-muted/80 bg-surface shadow-sm group">
+                <div 
+                  key={gIdx} 
+                  onClick={() => setLightboxIndex(gIdx)}
+                  className="aspect-[4/3] rounded-sm overflow-hidden border border-muted/80 bg-surface shadow-sm group relative cursor-pointer"
+                >
                   <img 
                     src={imgUrl} 
                     alt={`${post.title} - Ảnh ${gIdx + 1}`} 
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                    className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500" 
                   />
+                  <div className="absolute inset-0 bg-primary/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <span className="bg-surface/90 text-primary p-2.5 rounded-full shadow-lg">
+                      <Maximize2 size={16} />
+                    </span>
+                  </div>
                 </div>
               ))}
             </div>
@@ -182,7 +215,9 @@ const NewsDetail = () => {
 
         {/* 5. Related Articles Section */}
         <div className="space-y-8 border-t border-muted/50 pt-12">
-          <h2 className="text-2xl md:text-3xl font-heading font-bold text-primary text-left">Bài Viết Liên Quan</h2>
+          <h2 className="text-2xl md:text-3xl font-heading font-bold text-primary text-left">
+            {isEn ? 'Related Articles' : 'Bài Viết Liên Quan'}
+          </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {backupRelated.map((relPost) => (
@@ -218,6 +253,55 @@ const NewsDetail = () => {
         </div>
 
       </div>
+
+      {/* Lightbox Modal */}
+      {lightboxIndex !== null && post.gallery && post.gallery[lightboxIndex] && (
+        <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4">
+          <button 
+            onClick={() => setLightboxIndex(null)}
+            className="absolute top-6 right-6 text-white/80 hover:text-white bg-white/10 hover:bg-white/20 p-2.5 rounded-full transition-colors z-50"
+            aria-label="Close photo"
+          >
+            <X size={24} />
+          </button>
+
+          {post.gallery.length > 1 && (
+            <>
+              <button 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setLightboxIndex((prev) => (prev > 0 ? prev - 1 : post.gallery.length - 1));
+                }}
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-white/80 hover:text-white bg-white/10 hover:bg-white/20 p-3 rounded-full transition-colors z-50"
+                aria-label="Previous photo"
+              >
+                <ChevronLeft size={28} />
+              </button>
+              <button 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setLightboxIndex((prev) => (prev < post.gallery.length - 1 ? prev + 1 : 0));
+                }}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-white/80 hover:text-white bg-white/10 hover:bg-white/20 p-3 rounded-full transition-colors z-50"
+                aria-label="Next photo"
+              >
+                <ChevronRight size={28} />
+              </button>
+            </>
+          )}
+
+          <div className="max-w-5xl max-h-[85vh] flex flex-col items-center justify-center">
+            <img 
+              src={post.gallery[lightboxIndex]} 
+              alt={`${post.title} full view`} 
+              className="max-w-full max-h-[80vh] object-contain rounded-sm shadow-2xl border border-white/10"
+            />
+            <p className="text-white/70 font-body text-xs mt-3">
+              {lightboxIndex + 1} / {post.gallery.length} — {post.title}
+            </p>
+          </div>
+        </div>
+      )}
     </main>
   );
 };

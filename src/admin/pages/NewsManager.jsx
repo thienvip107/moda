@@ -104,6 +104,23 @@ export default function NewsManager() {
     });
   };
 
+  const handleAddImageUrl = () => {
+    const url = prompt('Nhập đường dẫn URL hình ảnh (Cloudinary/Drive/Web):');
+    if (!url || !url.trim()) return;
+    const cleanUrl = url.trim();
+    setForm(prev => {
+      const currentGallery = Array.isArray(prev.gallery) ? [...prev.gallery] : [];
+      if (!currentGallery.includes(cleanUrl)) {
+        currentGallery.push(cleanUrl);
+      }
+      return {
+        ...prev,
+        img: prev.img || cleanUrl,
+        gallery: currentGallery
+      };
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!form.title || !form.content) {
@@ -312,7 +329,16 @@ export default function NewsManager() {
               <label className="block text-[11px] font-extrabold text-[#171717] uppercase tracking-wider">
                 BỘ ẢNH BÀI VIẾT / GALLERY (CÓ THỂ UPLOAD NHIỀU ẢNH VÀO 1 BÀI)
               </label>
-              <span className="text-[10px] text-stone-500 font-medium">Đã chọn: {form.gallery?.length || 0} hình ảnh</span>
+              <div className="flex items-center space-x-3">
+                <span className="text-[10px] text-stone-500 font-medium">Đã chọn: {form.gallery?.length || 0} hình ảnh</span>
+                <button
+                  type="button"
+                  onClick={handleAddImageUrl}
+                  className="px-2.5 py-1 text-[10px] font-bold bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-lg transition-colors border border-stone-300"
+                >
+                  + Thêm URL Ảnh
+                </button>
+              </div>
             </div>
 
             <div className="p-6 rounded-2xl border-2 border-dashed border-stone-300 bg-stone-50 hover:bg-stone-100/80 transition-all text-center relative cursor-pointer">

@@ -6,7 +6,13 @@ export const newsList = [
     date: '2026-06-15',
     author: 'KTS. Nguyễn Minh Hải',
     excerpt: 'Tìm hiểu quy trình thi công lợp mái đá Slate Lai Châu đúng kỹ thuật từ khâu chuẩn bị, lắp đặt đến hoàn thiện giúp mái đá bền đẹp, chống thấm và trường tồn cùng thời gian.',
-    img: '/assets/img/roofing_slate.jpg',
+    img: 'https://lh3.googleusercontent.com/d/17tv9H60Li5XAnosx790hGgFhcmybICK9',
+    gallery: [
+      'https://lh3.googleusercontent.com/d/17tv9H60Li5XAnosx790hGgFhcmybICK9',
+      '/assets/img/roofing_slate.jpg',
+      '/assets/img/slide_2.jpg',
+      '/assets/img/project_3.jpg'
+    ],
     content: [
       'Trong xu hướng kiến trúc hiện đại, đá Slate tự nhiên ngày càng được ưa chuộng. Tìm hiểu quy trình thi công lợp mái đá Slate Lai Châu đúng kỹ thuật từ khâu chuẩn bị, lắp đặt đến hoàn thiện giúp mái đá bền đẹp, chống thấm và trường tồn cùng thời gian.',
       'Bước 1: Kiểm tra kết cấu mái trước khi lợp (Độ dốc, xà gồ, bề mặt phẳng, khoảng cách thanh mè...)',
@@ -23,7 +29,13 @@ export const newsList = [
     date: '2026-06-10',
     author: 'Đỗ Quốc Tuấn (Chuyên gia Đá)',
     excerpt: 'Tại sao đá đen Lai Châu lại được mệnh danh là ông vua của các loại đá Slate thế giới? Hãy cùng khám phá những ưu điểm vật lý và thẩm mỹ vượt trội của dòng đá này.',
-    img: '/assets/img/paving_slate.jpg',
+    img: 'https://lh3.googleusercontent.com/d/1HD4UUmbwXj7leUWx7ZoDi59JdaWsLatR',
+    gallery: [
+      'https://lh3.googleusercontent.com/d/1HD4UUmbwXj7leUWx7ZoDi59JdaWsLatR',
+      '/assets/img/paving_slate.jpg',
+      '/assets/img/project_2.jpg',
+      '/assets/img/about_stone.jpg'
+    ],
     content: [
       'Đá Slate đen Lai Châu từ lâu đã nổi tiếng không chỉ trong nước mà còn xuất khẩu sang các thị trường khó tính như Châu Âu, Nhật Bản. Dưới góc nhìn khoa học và kiến trúc, dòng đá này sở hữu những ưu điểm vượt trội mà hiếm có loại đá nhân tạo hay tự nhiên nào sánh được.',
       'Thứ nhất, tuổi thọ địa chất hàng triệu năm giúp đá có liên kết cực kỳ chặt chẽ. Độ hút nước của đá đen Lai Châu chỉ dưới 0.1%, gần như không thấm nước. Điều này giúp đá không bao giờ bị nứt vỡ do đóng băng hay rêu mốc bám bẩn.',
@@ -39,7 +51,13 @@ export const newsList = [
     date: '2026-06-05',
     author: 'Kỹ sư mỏ Trần Văn Nam',
     excerpt: 'Khám phá hành trình đầy gian truân từ những khối đá khổng lồ trong lòng núi Tây Bắc đến những tấm đá Slate mỏng nhẹ tinh xảo dưới bàn tay nghệ nhân HT STONE.',
-    img: '/assets/img/about_stone.jpg',
+    img: 'https://lh3.googleusercontent.com/gg/ACRwjavnJkWuLXX-uPkNNJPgsMGI1IxoVday62lqWMeJnLhLFdwt915fiYYfUKe_1Eri17wlArh0a9oJXyKN7hjugLKBUDlYLYme3cTpUwRZbMf6DGEJIoSbTh9xPX9UZWiItpfoKBQbOD4NW0xi6jbCTAAaPpeHwQPyuyufSi4LdS5ydjoDMDo=s1024-rj',
+    gallery: [
+      'https://lh3.googleusercontent.com/gg/ACRwjavnJkWuLXX-uPkNNJPgsMGI1IxoVday62lqWMeJnLhLFdwt915fiYYfUKe_1Eri17wlArh0a9oJXyKN7hjugLKBUDlYLYme3cTpUwRZbMf6DGEJIoSbTh9xPX9UZWiItpfoKBQbOD4NW0xi6jbCTAAaPpeHwQPyuyufSi4LdS5ydjoDMDo=s1024-rj',
+      'https://lh3.googleusercontent.com/d/1HD4UUmbwXj7leUWx7ZoDi59JdaWsLatR',
+      '/assets/img/about_stone.jpg',
+      '/assets/img/slide_2.jpg'
+    ],
     content: [
       'Khai thác và chế tác đá Slate Lai Châu là một công việc đòi hỏi sự kết hợp giữa máy móc hiện đại và kỹ năng chẻ tay thủ công gia truyền. Tại mỏ đá của HT STONE ở Lai Châu, quy trình này được vận hành nghiêm ngặt để đảm bảo chất lượng đá tốt nhất.',
       'Giai đoạn 1: Khai thác khối đá lớn (Block). Khác với các mỏ đá thông thường dùng mìn phá đá gây rạn nứt cấu trúc, HT STONE sử dụng máy cắt dây kim cương cỡ lớn và nêm thủy lực để tách những khối đá Slate nguyên khối ra khỏi vỉa núi một cách nhẹ nhàng nhất, bảo toàn thớ đá tự nhiên.',
@@ -55,7 +73,13 @@ export const newsList = [
     date: '2026-05-28',
     author: 'Designer Lê Hoàng Anh',
     excerpt: 'Màu sắc biến chuyển kỳ ảo từ vàng cháy, đỏ đồng đến xám ghi giúp đá đa sắc Lai Châu trở thành lựa chọn hàng đầu cho các mảng tường mặt tiền đẳng cấp.',
-    img: '/assets/img/wall_cladding.jpg',
+    img: 'https://lh3.googleusercontent.com/gg/ACRwjauW4EDMKWOXKSNqJMRNF8aypP2Ri7SrHhLoBHRM-C-9G1arHJl7n3ZDSLa2Triyn2ZI5HxdXy9S67BYWglsAA_GUsK1rTzAf2Vfhwl0qoyujIrHiSPiJM2X0OJT86fStpz4z89m_XjaYC6pjHSFqe6L-IzD_y7twh0CO_cwH55_GAayUJaO=s1024-rj',
+    gallery: [
+      'https://lh3.googleusercontent.com/gg/ACRwjauW4EDMKWOXKSNqJMRNF8aypP2Ri7SrHhLoBHRM-C-9G1arHJl7n3ZDSLa2Triyn2ZI5HxdXy9S67BYWglsAA_GUsK1rTzAf2Vfhwl0qoyujIrHiSPiJM2X0OJT86fStpz4z89m_XjaYC6pjHSFqe6L-IzD_y7twh0CO_cwH55_GAayUJaO=s1024-rj',
+      '/assets/img/wall_cladding.jpg',
+      '/assets/img/project_3.jpg',
+      '/assets/img/slide_1.jpg'
+    ],
     content: [
       'Mặt tiền được coi là "bộ mặt" quyết định đẳng cấp của toàn bộ ngôi nhà. Thay vì sử dụng sơn ngoại thất đơn điệu hay đá granite bóng loáng thông thường, xu hướng kiến trúc biệt thự hiện đại đang chuyển dịch sang các vật liệu tự nhiên chẻ thô, tiêu biểu là đá đa sắc Lai Châu.',
       'Đá đa sắc Lai Châu sở hữu bảng màu vô cùng phong phú bao gồm màu xám đậm, vàng gỉ đồng, nâu đất và cam cháy xen kẽ. Sự phối màu này là hoàn toàn ngẫu nhiên do hàm lượng sắt oxit phân bổ tự nhiên trong các lớp địa chất tạo nên, không có hai viên đá nào giống hệt nhau.',
@@ -70,7 +94,13 @@ export const newsList = [
     date: '2026-05-20',
     author: 'Kỹ sư cảnh quan Vy Thảo',
     excerpt: 'Làm thế nào để giữ cho lối đi sân vườn lát đá Slate Lai Châu luôn sạch đẹp, nổi bật vân đá tự nhiên và bền bỉ theo năm tháng? Hãy tham khảo các mẹo cực kỳ đơn giản sau.',
-    img: '/assets/img/project_2.jpg',
+    img: 'https://lh3.googleusercontent.com/d/11uG-qJlTo5FvBu8jn0aWr5DaFu7jpk7v',
+    gallery: [
+      'https://lh3.googleusercontent.com/d/11uG-qJlTo5FvBu8jn0aWr5DaFu7jpk7v',
+      '/assets/img/project_2.jpg',
+      '/assets/img/paving_slate.jpg',
+      '/assets/img/project_1.jpg'
+    ],
     content: [
       'Đá lát sân vườn Lai Châu có độ bền rất cao và cực kỳ ít bám bẩn nhờ tính năng chống thấm nước tốt. Tuy nhiên, sau nhiều tháng chịu bụi bẩn, lá cây mục hay bùn đất mùa mưa, một số mẹo vệ sinh định kỳ sẽ giúp mặt sân luôn sáng đẹp như mới.',
       '1. Quét dọn lá cây thường xuyên: Lá cây ẩm ướt rụng trên sân lâu ngày có thể phân hủy giải phóng chất tannin gây ố nhẹ bề mặt đá đa sắc. Hãy thường xuyên quét dọn lá cây khô rụng.',
