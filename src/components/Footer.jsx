@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { MapPin, Phone, Mail, Send } from 'lucide-react';
+import { MapPin, Phone, Mail, Send, ExternalLink } from 'lucide-react';
 import { FaFacebook, FaInstagram } from 'react-icons/fa';
 import { getSiteSettings } from '../services/api';
 
@@ -78,38 +78,98 @@ const Footer = () => {
           <div className="lg:col-span-2">
             <h4 className="text-primary font-heading font-semibold text-sm mb-4 uppercase tracking-wider">{isEn ? 'CONTACT & QUARRY LOCATIONS' : 'VĂN PHÒNG & MỎ ĐÁ HT STONE'}</h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 font-body text-xs leading-relaxed">
-              <div className="space-y-1.5 bg-surface/60 p-3 rounded-sm border border-muted/50">
-                <p className="font-bold text-primary flex items-center gap-1.5">
-                  <MapPin size={14} className="text-accent shrink-0" />
-                  <span>HT STONE – Showroom Hà Nội</span>
-                </p>
-                <p className="text-secondary/80 pl-5">Số 8 ngõ 42 Trần Cung, TP Hà Nội</p>
-                <p className="text-secondary/80 pl-5 font-semibold">ĐT: 0909168587</p>
+              {/* Hanoi Showroom */}
+              <div className="space-y-1.5 bg-surface/80 p-3.5 rounded-lg border border-muted/70 hover:border-accent/40 transition-colors">
+                <div className="flex items-center justify-between">
+                  <p className="font-bold text-primary flex items-center gap-1.5">
+                    <MapPin size={14} className="text-accent shrink-0" />
+                    <span>HT STONE – Showroom Hà Nội</span>
+                  </p>
+                  <a 
+                    href="https://maps.app.goo.gl/G9J7XpJqBqSg9NgZ7" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    title="Mở Google Maps"
+                    className="text-accent hover:text-primary transition-colors p-1"
+                  >
+                    <ExternalLink size={13} />
+                  </a>
+                </div>
+                <p className="text-secondary/80 pl-5">Số 8 ngõ 42 Trần Cung, Hà Nội</p>
+                <div className="pl-5 flex items-center justify-between pt-0.5">
+                  <a href="tel:0909168587" className="text-accent font-semibold hover:underline flex items-center gap-1">
+                    <Phone size={11} /> ĐT: 0909168587
+                  </a>
+                  <a href="https://maps.app.goo.gl/G9J7XpJqBqSg9NgZ7" target="_blank" rel="noopener noreferrer" className="text-[10px] font-bold text-secondary/70 hover:text-accent hover:underline">
+                    Chỉ đường &rarr;
+                  </a>
+                </div>
               </div>
 
-              <div className="space-y-1.5 bg-surface/60 p-3 rounded-sm border border-muted/50">
-                <p className="font-bold text-primary flex items-center gap-1.5">
-                  <MapPin size={14} className="text-accent shrink-0" />
-                  <span>HT STONE – Văn phòng Lai Châu</span>
-                </p>
-                <p className="text-secondary/80 pl-5">206 Trần Hưng Đạo, P. Đoàn Kết, Tỉnh Lai Châu</p>
-                <p className="text-secondary/80 pl-5 font-semibold">Ms. Hiền - ĐT: 0338.693.555</p>
+              {/* Lai Chau Office */}
+              <div className="space-y-1.5 bg-surface/80 p-3.5 rounded-lg border border-muted/70 hover:border-accent/40 transition-colors">
+                <div className="flex items-center justify-between">
+                  <p className="font-bold text-primary flex items-center gap-1.5">
+                    <MapPin size={14} className="text-accent shrink-0" />
+                    <span>HT STONE – VP Lai Châu</span>
+                  </p>
+                  <a 
+                    href="https://maps.app.goo.gl/7Shh2TsFGunCtt6A7" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    title="Mở Google Maps"
+                    className="text-accent hover:text-primary transition-colors p-1"
+                  >
+                    <ExternalLink size={13} />
+                  </a>
+                </div>
+                <p className="text-secondary/80 pl-5">Số nhà 206 Trần Hưng Đạo, P. Đoàn Kết, Lai Châu</p>
+                <div className="pl-5 flex items-center justify-between pt-0.5">
+                  <a href="tel:0338693555" className="text-accent font-semibold hover:underline flex items-center gap-1">
+                    <Phone size={11} /> ĐT: 0338.693.555
+                  </a>
+                  <a href="https://maps.app.goo.gl/7Shh2TsFGunCtt6A7" target="_blank" rel="noopener noreferrer" className="text-[10px] font-bold text-secondary/70 hover:text-accent hover:underline">
+                    Chỉ đường &rarr;
+                  </a>
+                </div>
               </div>
 
-              <div className="space-y-1.5 bg-surface/60 p-3 rounded-sm border border-muted/50">
-                <p className="font-bold text-primary flex items-center gap-1.5">
-                  <MapPin size={14} className="text-accent shrink-0" />
-                  <span>HT STONE – Mỏ đá Đen Nậm Ho</span>
-                </p>
-                <p className="text-secondary/80 pl-5">Xã Pa Tần, Tỉnh Lai Châu (Mr. Tài)</p>
+              {/* Nam Ho Quarry */}
+              <div className="space-y-1.5 bg-surface/80 p-3.5 rounded-lg border border-muted/70 hover:border-accent/40 transition-colors">
+                <div className="flex items-center justify-between">
+                  <p className="font-bold text-primary flex items-center gap-1.5">
+                    <MapPin size={14} className="text-accent shrink-0" />
+                    <span>HT STONE – Mỏ Đen Nậm Ho</span>
+                  </p>
+                  <a 
+                    href="https://maps.app.goo.gl/hyjSR6VSaarHiCb87" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    title="Mở Google Maps"
+                    className="text-accent hover:text-primary transition-colors p-1"
+                  >
+                    <ExternalLink size={13} />
+                  </a>
+                </div>
+                <p className="text-secondary/80 pl-5">Xã Pa Tần, Tỉnh Lai Châu</p>
+                <div className="pl-5 flex items-center justify-between pt-0.5">
+                  <a href="tel:0968005321" className="text-accent font-semibold hover:underline flex items-center gap-1">
+                    <Phone size={11} /> ĐT: 0968005321
+                  </a>
+                  <a href="https://maps.app.goo.gl/hyjSR6VSaarHiCb87" target="_blank" rel="noopener noreferrer" className="text-[10px] font-bold text-secondary/70 hover:text-accent hover:underline">
+                    Chỉ đường &rarr;
+                  </a>
+                </div>
               </div>
 
-              <div className="space-y-1.5 bg-surface/60 p-3 rounded-sm border border-muted/50">
+              {/* Phieng En Quarry */}
+              <div className="space-y-1.5 bg-surface/80 p-3.5 rounded-lg border border-muted/70 hover:border-accent/40 transition-colors">
                 <p className="font-bold text-primary flex items-center gap-1.5">
                   <MapPin size={14} className="text-accent shrink-0" />
-                  <span>HT STONE – Mỏ đá Đa Sắc Phiêng Én</span>
+                  <span>HT STONE – Mỏ Đa Sắc Phiêng Én</span>
                 </p>
                 <p className="text-secondary/80 pl-5">Xã Lê Lợi, Tỉnh Lai Châu</p>
+                <p className="text-[10px] text-secondary/60 pl-5">Khai thác đá đa sắc tự nhiên</p>
               </div>
             </div>
           </div>

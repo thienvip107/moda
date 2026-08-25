@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Phone, Mail, MapPin, Send, HelpCircle } from 'lucide-react';
+import { Phone, Mail, MapPin, Send, HelpCircle, ExternalLink } from 'lucide-react';
 import SEO from '../components/SEO';
 import { submitContactForm } from '../services/api';
 
@@ -90,52 +90,92 @@ const Contact = () => {
 
               <div className="space-y-6 font-body">
                 {/* Hanoi Showroom */}
-                <div className="flex gap-4">
-                  <div className="w-12 h-12 rounded-full border border-accent/25 flex items-center justify-center text-accent shrink-0 bg-surface shadow-sm">
+                <div className="flex gap-4 p-4 rounded-xl bg-surface border border-muted/70 shadow-xs hover:border-accent/50 transition-colors">
+                  <div className="w-12 h-12 rounded-full border border-accent/25 flex items-center justify-center text-accent shrink-0 bg-background shadow-xs">
                     <MapPin size={20} />
                   </div>
-                  <div>
+                  <div className="flex-1">
                     <h4 className="text-sm font-semibold uppercase tracking-wider text-primary mb-1">HT STONE – Showroom Hà Nội</h4>
                     <p className="text-sm text-secondary/90 leading-relaxed">
-                      Số 8 ngõ 42 Trần Cung, TP Hà Nội
+                      Số 8 ngõ 42 Trần Cung, Hà Nội
                     </p>
-                    <p className="text-xs font-bold text-accent mt-1">ĐT: 0909168587</p>
+                    <div className="flex flex-wrap items-center gap-4 mt-2">
+                      <a href="tel:0909168587" className="text-xs font-bold text-accent hover:underline flex items-center gap-1">
+                        <Phone size={12} /> ĐT: 0909168587
+                      </a>
+                      <a 
+                        href="https://maps.app.goo.gl/G9J7XpJqBqSg9NgZ7" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="inline-flex items-center gap-1 text-xs font-semibold text-primary/80 hover:text-accent hover:underline bg-muted/30 px-2.5 py-1 rounded-md transition-colors"
+                      >
+                        <span>Chỉ đường trên Google Maps</span>
+                        <ExternalLink size={11} />
+                      </a>
+                    </div>
                   </div>
                 </div>
 
                 {/* Lai Chau Office */}
-                <div className="flex gap-4">
-                  <div className="w-12 h-12 rounded-full border border-accent/25 flex items-center justify-center text-accent shrink-0 bg-surface shadow-sm">
+                <div className="flex gap-4 p-4 rounded-xl bg-surface border border-muted/70 shadow-xs hover:border-accent/50 transition-colors">
+                  <div className="w-12 h-12 rounded-full border border-accent/25 flex items-center justify-center text-accent shrink-0 bg-background shadow-xs">
                     <MapPin size={20} />
                   </div>
-                  <div>
+                  <div className="flex-1">
                     <h4 className="text-sm font-semibold uppercase tracking-wider text-primary mb-1">HT STONE – Văn phòng Lai Châu</h4>
                     <p className="text-sm text-secondary/90 leading-relaxed">
-                      206 Trần Hưng Đạo, phường Đoàn Kết, tỉnh Lai Châu
+                      Số nhà 206 Trần Hưng Đạo, phường Đoàn Kết, tỉnh Lai Châu
                     </p>
-                    <p className="text-xs font-bold text-accent mt-1">ĐT: 0338.693.555</p>
+                    <div className="flex flex-wrap items-center gap-4 mt-2">
+                      <a href="tel:0338693555" className="text-xs font-bold text-accent hover:underline flex items-center gap-1">
+                        <Phone size={12} /> ĐT: 0338.693.555
+                      </a>
+                      <a 
+                        href="https://maps.app.goo.gl/7Shh2TsFGunCtt6A7" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="inline-flex items-center gap-1 text-xs font-semibold text-primary/80 hover:text-accent hover:underline bg-muted/30 px-2.5 py-1 rounded-md transition-colors"
+                      >
+                        <span>Chỉ đường trên Google Maps</span>
+                        <ExternalLink size={11} />
+                      </a>
+                    </div>
                   </div>
                 </div>
 
                 {/* Nam Ho Black Slate Quarry */}
-                <div className="flex gap-4">
-                  <div className="w-12 h-12 rounded-full border border-accent/25 flex items-center justify-center text-accent shrink-0 bg-surface shadow-sm">
+                <div className="flex gap-4 p-4 rounded-xl bg-surface border border-muted/70 shadow-xs hover:border-accent/50 transition-colors">
+                  <div className="w-12 h-12 rounded-full border border-accent/25 flex items-center justify-center text-accent shrink-0 bg-background shadow-xs">
                     <MapPin size={20} />
                   </div>
-                  <div>
+                  <div className="flex-1">
                     <h4 className="text-sm font-semibold uppercase tracking-wider text-primary mb-1">HT STONE – Mỏ đá Đen Nậm Ho</h4>
                     <p className="text-sm text-secondary/90 leading-relaxed">
                       Xã Pa Tần, Tỉnh Lai Châu
                     </p>
+                    <div className="flex flex-wrap items-center gap-4 mt-2">
+                      <a href="tel:0968005321" className="text-xs font-bold text-accent hover:underline flex items-center gap-1">
+                        <Phone size={12} /> ĐT: 0968005321
+                      </a>
+                      <a 
+                        href="https://maps.app.goo.gl/hyjSR6VSaarHiCb87" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="inline-flex items-center gap-1 text-xs font-semibold text-primary/80 hover:text-accent hover:underline bg-muted/30 px-2.5 py-1 rounded-md transition-colors"
+                      >
+                        <span>Chỉ đường trên Google Maps</span>
+                        <ExternalLink size={11} />
+                      </a>
+                    </div>
                   </div>
                 </div>
 
                 {/* Phieng En Multicolor Slate Quarry */}
-                <div className="flex gap-4">
-                  <div className="w-12 h-12 rounded-full border border-accent/25 flex items-center justify-center text-accent shrink-0 bg-surface shadow-sm">
+                <div className="flex gap-4 p-4 rounded-xl bg-surface border border-muted/70 shadow-xs hover:border-accent/50 transition-colors">
+                  <div className="w-12 h-12 rounded-full border border-accent/25 flex items-center justify-center text-accent shrink-0 bg-background shadow-xs">
                     <MapPin size={20} />
                   </div>
-                  <div>
+                  <div className="flex-1">
                     <h4 className="text-sm font-semibold uppercase tracking-wider text-primary mb-1">HT STONE – Mỏ đá Đa Sắc Phiêng Én</h4>
                     <p className="text-sm text-secondary/90 leading-relaxed">
                       Xã Lê Lợi, Tỉnh Lai Châu
@@ -144,8 +184,8 @@ const Contact = () => {
                 </div>
 
                 {/* Email */}
-                <div className="flex gap-4">
-                  <div className="w-12 h-12 rounded-full border border-accent/25 flex items-center justify-center text-accent shrink-0 bg-surface shadow-sm">
+                <div className="flex gap-4 p-4 rounded-xl bg-surface border border-muted/70 shadow-xs">
+                  <div className="w-12 h-12 rounded-full border border-accent/25 flex items-center justify-center text-accent shrink-0 bg-background shadow-xs">
                     <Mail size={20} />
                   </div>
                   <div>
