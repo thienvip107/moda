@@ -53,7 +53,7 @@ const About = () => {
             <div className="lg:col-span-6 relative">
               <div className="aspect-[16/10] overflow-hidden border border-muted/50 rounded-sm shadow-xl">
                 <img 
-                  src="https://lh3.googleusercontent.com/d/1HD4UUmbwXj7leUWx7ZoDi59JdaWsLatR" 
+                  src="/assets/img/damoimage.png" 
                   alt="Mỏ đá Lai Châu HT STONE" 
                   className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                 />
