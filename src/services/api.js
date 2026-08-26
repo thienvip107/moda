@@ -5,16 +5,15 @@ import { optimizeCloudinaryUrl } from './cloudinary';
 
 const isUuid = (val) => typeof val === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(val);
 
-// Data mẫu ban đầu dùng làm fallback khi DB chưa có hoặc lỗi
-const defaultBanners = [
+export const defaultBanners = [
   {
     id: 'b1',
-    title: '(1) KHAI THÁC - SẢN XUẤT - PHÂN PHỐI - THI CÔNG',
-    title_en: '(01) QUARRYING - PROCESSING - SUPPLY - INSTALLATION',
-    subtitle: 'Sở hữu mỏ đá, HT STONE làm chủ toàn bộ quy trình từ khai thác đến thi công, đảm bảo nguồn cung ổn định và đáp ứng các dự án quy mô lớn.',
-    subtitle_en: 'Owning and operating our own Slate quarries, HT STONE manages every stage-from quarrying and processing to supply and professional installation. This integrated approach ensures a stable source of premium natural stone and the capability to deliver projects of every scale.',
-    image_url: 'https://res.cloudinary.com/ydxroi9a/image/upload/w_1920,f_auto,q_auto/v1784694449/xhcldvnhsangyaor75uz.jpg',
-    link_url: '/products',
+    title: '(1) KHÔNG CHỈ LÀ ĐÁ TỰ NHIÊN',
+    title_en: '(01) TIMELESS STONE. TIMELESS ARCHITECTURE',
+    subtitle: 'Là vật liệu được kiến tạo qua hàng triệu năm, tuyển chọn từ những mỏ đá Lai Châu và hoàn thiện để trở thành một phần của những công trình mang giá trị vượt thời gian.',
+    subtitle_en: 'Shaped over millions of years and carefully quarried from Lai Chau, our natural Slate is crafted to become part of architecture that endures across generations.',
+    image_url: 'https://res.cloudinary.com/ydxroi9a/image/upload/w_1920,f_auto,q_auto/v1785832466/znz0urwu8jp8fu54bz5k.png',
+    link_url: '/about',
     order_index: 1,
     is_active: true
   },
@@ -24,23 +23,37 @@ const defaultBanners = [
     title_en: '(02) BESPOKE STONE CRAFTSMANSHIP',
     subtitle: 'Không có hai phiến đá nào giống nhau. Mỗi sản phẩm là dấu ấn độc bản của thiên nhiên, được chẻ tay thủ công để lưu giữ trọn vẹn những đường vân nguyên bản, tạo nên vẻ đẹp mộc mạc, tinh tế và sang trọng.',
     subtitle_en: 'No two pieces of Slate are ever the same. Each stone is a unique expression of nature, carefully hand-split to preserve its authentic texture and distinctive character, creating architectural spaces defined by timeless elegance and individuality.',
-    image_url: 'https://res.cloudinary.com/ydxroi9a/image/upload/w_1920,f_auto,q_auto/v1784694451/gfdazhqzcrw0asamtbnw.jpg',
+    image_url: 'https://res.cloudinary.com/ydxroi9a/image/upload/w_1920,f_auto,q_auto/v1786936942/o31d4gsbiblvqwxvbkx2.png',
     link_url: '/projects',
     order_index: 2,
     is_active: true
   },
   {
     id: 'b3',
-    title: '(3) KHÔNG CHỈ LÀ ĐÁ TỰ NHIÊN',
-    title_en: '(03) MORE THAN NATURAL STONE',
-    subtitle: 'Chúng tôi tin rằng mỗi phiến đá đều mang một giá trị riêng. Không chỉ làm đẹp cho công trình, đá tự nhiên còn góp phần kiến tạo những không gian đáng tự hào, gần gũi với thiên nhiên, hòa quyện cùng nguồn năng lượng của đất trời.',
-    subtitle_en: 'At HT STONE, we believe every piece of stone tells a story. Beyond its natural beauty, Slate shapes spaces that inspire, connect people with nature, and stand as enduring expressions of architecture and craftsmanship.',
-    image_url: 'https://res.cloudinary.com/ydxroi9a/image/upload/w_1920,f_auto,q_auto/v1784694456/vfdzgkygfdtwfp2eeoj8.jpg',
-    link_url: '/about',
+    title: '(3) ĐÁ SLATE LAI CHÂU TỰ NHIÊN',
+    title_en: '(03) LAI CHAU NATURAL SLATE',
+    subtitle: 'Giải pháp ốp lát & lợp mái cao cấp trường tồn theo thời gian. Trực tiếp từ mỏ khai thác Lai Châu.',
+    subtitle_en: 'Premium roofing, cladding, and paving solutions crafted directly from Lai Chau natural stone quarries.',
+    image_url: 'https://res.cloudinary.com/ydxroi9a/image/upload/w_1920,f_auto,q_auto/v1786937020/j4rexyaqfdvqejovgaxx.jpg',
+    link_url: '/products',
     order_index: 3,
     is_active: true
   }
 ];
+
+const TEST_BANNER_KEYWORDS = [
+  'xhcldvnhsangyaor75uz',
+  'gfdazhqzcrw0asamtbnw',
+  'vfdzgkygfdtwfp2eeoj8',
+  'đá slate lai châu tự nhiên high-end'
+];
+
+export function isTestBanner(banner) {
+  if (!banner) return false;
+  const img = String(banner.image_url || banner.img || '').toLowerCase();
+  const title = String(banner.title || '').toLowerCase();
+  return TEST_BANNER_KEYWORDS.some(kw => img.includes(kw) || title.includes(kw));
+}
 
 const defaultPolicies = {
   sales_policy: {
@@ -194,7 +207,6 @@ const setLocalData = (key, data) => {
 
 // ==========================================
 // 1. BANNER API
-// ==========================================
 export async function getBanners() {
   if (isSupabaseConfigured) {
     try {
@@ -203,17 +215,24 @@ export async function getBanners() {
         .select('*')
         .order('order_index', { ascending: true });
       if (!error && data?.length) {
-        return data.map(b => ({
-          ...b,
-          image_url: optimizeCloudinaryUrl(b.image_url, 1920)
-        }));
+        const cleanList = data.filter(b => !isTestBanner(b) && b.is_active !== false);
+        if (cleanList.length > 0) {
+          return cleanList.map(b => ({
+            ...b,
+            image_url: optimizeCloudinaryUrl(b.image_url, 1920)
+          }));
+        }
       }
     } catch (e) {
       console.warn('Supabase fetch banners failed, falling back:', e);
     }
   }
   const banners = getLocalData('banners', defaultBanners);
-  return banners.map(b => ({ ...b, image_url: optimizeCloudinaryUrl(b.image_url, 1920) }));
+  const cleanList = banners.filter(b => !isTestBanner(b) && b.is_active !== false);
+  return (cleanList.length ? cleanList : defaultBanners).map(b => ({ 
+    ...b, 
+    image_url: optimizeCloudinaryUrl(b.image_url, 1920) 
+  }));
 }
 
 export async function saveBanner(bannerData) {
@@ -399,6 +418,25 @@ export function normalizeProductCategory(cat) {
   return cat;
 }
 
+// Filter out old test / dummy products from initial setups
+const TEST_PRODUCT_KEYWORDS = [
+  'da-roi-tu-nhien-op-san-resort',
+  'da-den-lai-chau-lop-mai-vay-ca',
+  'da-den-lai-chau-lat-san-vuon',
+  'da-da-sac-lai-chau-op-tuong',
+  'đá rối tự nhiên ốp sân resort',
+  'đá đen lai châu lợp mái vảy cá',
+  'đá đen lai châu lát sân vườn',
+  'đá đa sắc lai châu ốp tường'
+];
+
+export function isTestProduct(product) {
+  if (!product) return false;
+  const slug = String(product.slug || product.code || product.id || '').toLowerCase().trim();
+  const name = String(product.name || product.title || '').toLowerCase().trim();
+  return TEST_PRODUCT_KEYWORDS.some(kw => slug === kw || name === kw || slug.includes(kw) || name.includes(kw));
+}
+
 export async function getProductsList() {
   const defaultSpecs = {
     origin: 'Mỏ đá Slate Lai Châu, Việt Nam',
@@ -408,7 +446,7 @@ export async function getProductsList() {
   };
 
   const mapProductData = (p) => {
-    const mainImg = optimizeCloudinaryUrl(p.image_url || p.img, 800);
+    const mainImg = optimizeCloudinaryUrl(p.image_url || p.img || '', 800);
     let gal = [];
     if (Array.isArray(p.gallery)) {
       gal = p.gallery.map(u => optimizeCloudinaryUrl(u, 800));
@@ -462,8 +500,8 @@ export async function getProductsList() {
         .from('products')
         .select('*')
         .order('created_at', { ascending: false });
-      if (!error && data) {
-        return data.map(mapProductData);
+      if (!error && data && data.length > 0) {
+        return data.filter(p => !isTestProduct(p)).map(mapProductData);
       }
     } catch (e) {
       console.warn('Supabase fetch products failed, falling back:', e);
@@ -471,7 +509,7 @@ export async function getProductsList() {
   }
   const localProducts = getLocalData('products', initialProducts);
   const list = Array.isArray(localProducts) ? localProducts : Object.values(localProducts).flat();
-  return list.map(mapProductData);
+  return list.filter(p => !isTestProduct(p)).map(mapProductData);
 }
 
 export async function saveProduct(productData) {
@@ -705,6 +743,23 @@ export async function deleteEvent(id) {
   return true;
 }
 
+// Filter out old test / dummy projects
+const TEST_PROJECT_KEYWORDS = [
+  'hotel de la coupole',
+  'hotel-de-la-coupole',
+  'vinhomes riverside',
+  'vinhomes-riverside',
+  'amanoi resort',
+  'amanoi-resort'
+];
+
+export function isTestProject(project) {
+  if (!project) return false;
+  const slug = String(project.slug || project.id || '').toLowerCase().trim();
+  const title = String(project.title || project.name || '').toLowerCase().trim();
+  return TEST_PROJECT_KEYWORDS.some(kw => slug === kw || title === kw || slug.includes(kw) || title.includes(kw));
+}
+
 // ==========================================
 // 6. PROJECTS & PORTFOLIO API
 // ==========================================
@@ -716,21 +771,25 @@ export async function getProjectsList() {
         .select('*')
         .order('created_at', { ascending: false });
       if (!error && data?.length) {
-        return data.map(p => ({
-          ...p,
-          img: optimizeCloudinaryUrl(p.image_url || p.img, 800),
-          desc: p.description || p.desc
-        }));
+        return data
+          .filter(p => !isTestProject(p))
+          .map(p => ({
+            ...p,
+            img: optimizeCloudinaryUrl(p.image_url || p.img, 800),
+            desc: p.description || p.desc
+          }));
       }
     } catch (e) {
       console.warn('Supabase fetch projects failed, falling back:', e);
     }
   }
   const projects = getLocalData('projects', defaultProjects);
-  return projects.map(p => ({
-    ...p,
-    img: optimizeCloudinaryUrl(p.img || p.image_url, 800)
-  }));
+  return projects
+    .filter(p => !isTestProject(p))
+    .map(p => ({
+      ...p,
+      img: optimizeCloudinaryUrl(p.img || p.image_url, 800)
+    }));
 }
 
 export async function saveProject(projectData) {

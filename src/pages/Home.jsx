@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ArrowRight, Download, ChevronRight, ChevronLeft, Send, CheckCircle2 } from 'lucide-react';
-import { getBanners, getPolicy, getProjectsList, getSiteSettings, submitContactForm } from '../services/api';
+import { getBanners, defaultBanners, getPolicy, getProjectsList, getSiteSettings, submitContactForm } from '../services/api';
 import SEO from '../components/SEO';
 
 const Home = () => {
   const { t, i18n } = useTranslation();
   const isEn = i18n.language === 'en';
-  const [banners, setBanners] = useState([]);
+  const [banners, setBanners] = useState(defaultBanners);
   const [projects, setProjects] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [settings, setSettings] = useState(null);
@@ -21,7 +21,9 @@ const Home = () => {
     async function fetchHomeData() {
       try {
         const data = await getBanners();
-        setBanners(data);
+        if (data && data.length > 0) {
+          setBanners(data);
+        }
         const projData = await getProjectsList();
         setProjects(projData);
         const siteSettings = await getSiteSettings();
@@ -33,19 +35,12 @@ const Home = () => {
     fetchHomeData();
   }, [isEn]);
 
-  const slides = banners.length > 0 ? banners.map(b => ({
+  const slides = (banners && banners.length > 0 ? banners : defaultBanners).map(b => ({
     image: b.image_url,
     title: isEn ? (b.title_en || b.title) : b.title,
     subtitle: isEn ? (b.subtitle_en || b.subtitle) : b.subtitle,
     link: b.link_url || '/products'
-  })) : [
-    {
-      image: "https://res.cloudinary.com/ydxroi9a/image/upload/w_1920,f_auto,q_auto/v1784694449/xhcldvnhsangyaor75uz.jpg",
-      title: isEn ? "(01) QUARRYING - PROCESSING - SUPPLY - INSTALLATION" : "(1) KHAI THÁC - SẢN XUẤT - PHÂN PHỐI - THI CÔNG",
-      subtitle: isEn ? "Owning and operating our own Slate quarries, HT STONE manages every stage-from quarrying and processing to supply and professional installation." : "Sở hữu mỏ đá, HT STONE làm chủ toàn bộ quy trình từ khai thác đến thi công, đảm bảo nguồn cung ổn định và đáp ứng các dự án quy mô lớn.",
-      link: "/products"
-    }
-  ];
+  }));
 
   useEffect(() => {
     if (slides.length <= 1) return;
@@ -65,19 +60,22 @@ const Home = () => {
       />
       
       {/* 1. Hero Banner (Slideshow) */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden bg-black">
+      <section className="relative h-screen flex items-center justify-center overflow-hidden bg-stone-950">
         {/* Slides */}
         {slides.map((slide, idx) => (
           <div 
             key={idx}
-            className={`absolute inset-0 z-0 transition-opacity duration-1000 ease-in-out ${
-              idx === currentSlide ? 'opacity-100' : 'opacity-0'
+            className={`absolute inset-0 z-0 transition-opacity duration-1000 ease-in-out bg-stone-950 ${
+              idx === currentSlide ? 'opacity-100' : 'opacity-0 pointer-events-none'
             }`}
           >
             <img 
               src={slide.image} 
               alt={slide.title} 
-              className="w-full h-full object-cover"
+              loading={idx === 0 ? 'eager' : 'lazy'}
+              decoding="async"
+              fetchpriority={idx === 0 ? 'high' : 'auto'}
+              className="w-full h-full object-cover transition-transform duration-[6000ms] scale-100"
             />
           </div>
         ))}
