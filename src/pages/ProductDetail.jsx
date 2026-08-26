@@ -18,7 +18,8 @@ import SEO from '../components/SEO';
 const ProductDetail = () => {
   const { productId } = useParams();
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isEn = i18n?.language === 'en';
   const [product, setProduct] = useState(null);
   const [allProductsList, setAllProductsList] = useState([]);
   const [activeTab, setActiveTab] = useState('features');
@@ -222,7 +223,7 @@ const ProductDetail = () => {
                   <span className="font-semibold text-primary">{product.specs?.thickness || '1.0 - 1.5 cm'}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-primary/70">Bề mặt hoàn thiện:</span>
+                  <span className="text-primary/70">{isEn ? 'Edge Profile:' : 'Cạnh viền:'}</span>
                   <span className="font-semibold text-primary">{product.specs?.surface || 'Chẻ tự nhiên / Mài thô'}</span>
                 </div>
                 <div className="flex justify-between">

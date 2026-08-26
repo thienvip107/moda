@@ -446,7 +446,7 @@ export default function ProductManager() {
 
               <div>
                 <label className="block text-[10px] font-extrabold text-[#171717] uppercase tracking-wider mb-1">
-                  Bề Mặt Hoàn Thiện (Surface) {langTab === 'en' ? '(EN)' : ''}
+                  Cạnh Viền / Bề Mặt (Edge Profile) {langTab === 'en' ? '(EN)' : ''}
                 </label>
                 <input
                   type="text"
