@@ -222,25 +222,25 @@ const Home = () => {
               {
                 title: isEn ? "2. Black Slate Cladding & Paving" : "2. Đá Slate Đen Ốp Lát",
                 desc: isEn ? "Suitable for wall cladding, courtyards, pathways. Slip-resistant surface balancing rustic charm with sophistication." : "Đá Slate đen dùng cho ốp tường, lát sân và lối đi. Bề mặt tự nhiên, chống trơn trượt, chịu thời tiết tốt và mang vẻ đẹp sang trọng.",
-                img: "https://res.cloudinary.com/ydxroi9a/image/upload/w_800,f_auto,q_auto/v1784694419/khg9fw7wkqnqssrksraj.jpg",
+                img: "https://lh3.googleusercontent.com/d/11uG-qJlTo5FvBu8jn0aWr5DaFu7jpk7v",
                 filter: "da-den-op-lat"
               },
               {
                 title: isEn ? "3. Multicolor Slate Roofing" : "3. Đá Slate Đa Sắc Lợp Mái",
                 desc: isEn ? "A harmonious blend of natural colors creating one-of-a-kind slate roofs celebrating authentic architecture." : "Sự hòa quyện của những gam màu tự nhiên tạo nên mái đá độc bản, tôn vinh vẻ đẹp tự nhiên, là dấu ấn riêng cho từng công trình.",
-                img: "https://res.cloudinary.com/ydxroi9a/image/upload/w_800,f_auto,q_auto/v1784694413/eacdckyeft9xsvbfszpb.jpg",
+                img: "https://res.cloudinary.com/ydxroi9a/image/upload/w_800,f_auto,q_auto/v1786936942/o31d4gsbiblvqwxvbkx2.png",
                 filter: "da-da-sac-lop-mai"
               },
               {
                 title: isEn ? "4. Multicolor Slate Cladding & Paving" : "4. Đá Slate Đa Sắc Ốp Lát",
                 desc: isEn ? "Designed for wall cladding, paving, and landscape applications with naturally balanced warm tones." : "Đá Slate đa sắc dùng cho ốp tường, lát sân và cảnh quan. Màu sắc tự nhiên hài hòa, bền chắc cho cả nội và ngoại thất.",
-                img: "https://res.cloudinary.com/ydxroi9a/image/upload/w_800,f_auto,q_auto/v1784694413/eacdckyeft9xsvbfszpb.jpg",
+                img: "https://lh3.googleusercontent.com/gg/ACRwjauW4EDMKWOXKSNqJMRNF8aypP2Ri7SrHhLoBHRM-C-9G1arHJl7n3ZDSLa2Triyn2ZI5HxdXy9S67BYWglsAA_GUsK1rTzAf2Vfhwl0qoyujIrHiSPiJM2X0OJT86fStpz4z89m_XjaYC6pjHSFqe6L-IzD_y7twh0CO_cwH55_GAayUJaO=s1024-rj",
                 filter: "da-da-sac-op-lat"
               },
               {
                 title: isEn ? "5. Natural Random Slate" : "5. Đá Rối Tự Nhiên",
                 desc: isEn ? "Ideal for wall cladding, retaining walls, garden paving, and decorative architectural features." : "Đá Slate rối phù hợp ốp tường, kè cảnh quan, lát sân vườn và các hạng mục trang trí ngoài trời lẫn trong nhà.",
-                img: "https://res.cloudinary.com/ydxroi9a/image/upload/w_800,f_auto,q_auto/v1784694459/cbxamzsfpfvto5g5hi4q.jpg",
+                img: "/assets/img/damoimage.png",
                 filter: "da-trang-tri"
               }
             ].map((cat, idx) => (

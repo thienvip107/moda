@@ -84,15 +84,17 @@ const NewsDetail = () => {
             to="/news" 
             className="inline-flex items-center gap-2 text-secondary hover:text-accent font-body text-sm font-semibold transition-colors"
           >
-            <ArrowLeft size={16} /> Quay lại tin tức
+            <ArrowLeft size={16} /> {isEn ? 'Back to all articles' : 'Quay lại tin tức'}
           </Link>
           
           <nav className="font-body text-xs text-secondary/70 flex items-center gap-2">
-            <Link to="/" className="hover:text-accent transition-colors">Trang chủ</Link>
+            <Link to="/" className="hover:text-accent transition-colors">{isEn ? 'Home' : 'Trang chủ'}</Link>
             <span>/</span>
-            <Link to="/news" className="hover:text-accent transition-colors">Tin tức</Link>
+            <Link to="/news" className="hover:text-accent transition-colors">{isEn ? 'News' : 'Tin tức'}</Link>
             <span>/</span>
-            <span className="text-primary font-semibold truncate max-w-[200px] md:max-w-xs">{post.title}</span>
+            <span className="text-primary font-semibold truncate max-w-[200px] md:max-w-xs">
+              {(isEn && post.title_en) ? post.title_en : post.title}
+            </span>
           </nav>
         </div>
 
@@ -103,21 +105,23 @@ const NewsDetail = () => {
           </span>
           
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-primary leading-relaxed">
-            {(i18n.language === 'en' && post.title_en) ? post.title_en : post.title}
+            {(isEn && post.title_en) ? post.title_en : post.title}
           </h1>
 
           {/* Meta Info */}
           <div className="flex flex-wrap items-center gap-6 text-xs text-secondary/80 font-body border-y border-muted/50 py-4">
             <span className="flex items-center gap-1.5">
-              <User size={14} className="text-accent" /> Đăng bởi: <strong className="text-primary">{post.author}</strong>
+              <User size={14} className="text-accent" /> {isEn ? 'Published by:' : 'Đăng bởi:'} <strong className="text-primary">{post.author || 'HT STONE'}</strong>
             </span>
             <span className="flex items-center gap-1.5">
-              <Calendar size={14} className="text-accent" /> Ngày: <strong>{post.date}</strong>
+              <Calendar size={14} className="text-accent" /> {isEn ? 'Date:' : 'Ngày:'} <strong>{post.date}</strong>
             </span>
             
             {/* Mock Social Share */}
             <div className="ml-auto flex items-center gap-3">
-              <span className="text-[10px] uppercase tracking-wider text-secondary/50 flex items-center gap-1"><Share2 size={10} /> Chia sẻ:</span>
+              <span className="text-[10px] uppercase tracking-wider text-secondary/50 flex items-center gap-1">
+                <Share2 size={10} /> {isEn ? 'Share:' : 'Chia sẻ:'}
+              </span>
               <button className="text-secondary hover:text-accent transition-colors" aria-label="Share Facebook">
                 <FaFacebook size={16} />
               </button>
@@ -135,7 +139,7 @@ const NewsDetail = () => {
         >
           <img 
             src={post.img} 
-            alt={post.title} 
+            alt={(isEn && post.title_en) ? post.title_en : post.title} 
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
           />
           <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
@@ -199,13 +203,11 @@ const NewsDetail = () => {
                 >
                   <img 
                     src={imgUrl} 
-                    alt={`${post.title} - Ảnh ${gIdx + 1}`} 
-                    className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500" 
+                    alt={`Gallery ${gIdx + 1}`} 
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
                   />
-                  <div className="absolute inset-0 bg-primary/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                    <span className="bg-surface/90 text-primary p-2.5 rounded-full shadow-lg">
-                      <Maximize2 size={16} />
-                    </span>
+                  <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <Maximize2 className="text-white drop-shadow-md w-5 h-5" />
                   </div>
                 </div>
               ))}
@@ -213,10 +215,13 @@ const NewsDetail = () => {
           </div>
         )}
 
-        {/* 5. Related Articles Section */}
-        <div className="space-y-8 border-t border-muted/50 pt-12">
-          <h2 className="text-2xl md:text-3xl font-heading font-bold text-primary text-left">
-            {isEn ? 'Related Articles' : 'Bài Viết Liên Quan'}
+        {/* 5. Related Articles */}
+        <div className="border-t border-muted pt-12 text-left">
+          <span className="font-body uppercase tracking-widest text-accent text-xs font-bold">
+            {isEn ? 'RELATED ARTICLES' : 'CÙNG CHUYÊN MỤC'}
+          </span>
+          <h2 className="text-2xl font-heading font-bold text-primary mb-8 mt-2">
+            {isEn ? 'You May Also Like' : 'Bài Viết Liên Quan'}
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -229,7 +234,7 @@ const NewsDetail = () => {
                 <div className="md:w-1/3 aspect-[4/3] md:aspect-auto overflow-hidden relative">
                   <img 
                     src={relPost.img} 
-                    alt={relPost.title} 
+                    alt={(isEn && relPost.title_en) ? relPost.title_en : relPost.title} 
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
@@ -240,7 +245,7 @@ const NewsDetail = () => {
                       {relPost.category}
                     </span>
                     <h3 className="font-heading text-base font-bold text-primary group-hover:text-accent transition-colors line-clamp-2 leading-tight">
-                      {relPost.title}
+                      {(isEn && relPost.title_en) ? relPost.title_en : relPost.title}
                     </h3>
                   </div>
                   <span className="font-body text-[10px] text-secondary/60 block mt-4">

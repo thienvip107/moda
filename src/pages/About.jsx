@@ -32,14 +32,22 @@ const About = () => {
         canonical="/about"
       />
       {/* 1. Page Header */}
-      <section className="py-20 lg:py-28 bg-muted/20 border-b border-muted">
-        <div className="container mx-auto px-4 md:px-6 lg:px-8 text-center">
-          <div className="flex items-center justify-center gap-4 mb-4">
-            <div className="w-12 h-[1px] bg-accent"></div>
-            <span className="font-body uppercase tracking-widest text-accent text-xs font-bold">{t('about')}</span>
-            <div className="w-12 h-[1px] bg-accent"></div>
+      <section className="relative h-[450px] md:h-[540px] lg:h-[600px] flex items-center justify-center overflow-hidden bg-stone-950">
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="/assets/img/banners/banner_about.jpg" 
+            alt="About HT STONE - Lai Chau Slate Quarries" 
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-black/30 z-10"></div>
+        </div>
+        <div className="container mx-auto px-4 md:px-6 lg:px-8 text-center relative z-20 max-w-4xl animate-fade-in-up">
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <div className="w-10 h-[1px] bg-accent"></div>
+            <span className="font-body uppercase tracking-[0.2em] text-accent text-xs font-bold">{t('about')}</span>
+            <div className="w-10 h-[1px] bg-accent"></div>
           </div>
-          <h1 className="text-3xl md:text-5xl lg:text-6xl font-heading font-light text-primary leading-relaxed">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-heading font-light text-white leading-tight drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]">
             {isEn ? 'Timeless Stone. Timeless Architecture.' : 'Đá Trường Tồn - Kiến Trúc Trường Tồn'}
           </h1>
         </div>

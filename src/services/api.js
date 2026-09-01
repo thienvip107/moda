@@ -300,8 +300,14 @@ export async function getNewsList() {
       img: cover,
       cover_image: cover,
       gallery: gal,
+      title: item.title || '',
+      title_en: item.title_en || '',
+      summary: item.summary || item.excerpt || '',
+      summary_en: item.summary_en || item.excerpt_en || '',
       excerpt: item.summary || item.excerpt || 'Thông tin bài viết kỹ thuật thi công đá tự nhiên...',
+      excerpt_en: item.summary_en || item.excerpt_en || '',
       content: item.content || '',
+      content_en: item.content_en || '',
       date: item.created_at ? new Date(item.created_at).toLocaleDateString('vi-VN') : (item.date || 'Gần đây')
     };
   };

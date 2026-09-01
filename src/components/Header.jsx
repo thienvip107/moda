@@ -31,11 +31,12 @@ const Header = () => {
     { name: t('contact'), path: '/contact' },
   ];
 
-  const showSolidHeader = isScrolled || location.pathname !== '/' || mobileMenuOpen;
+  const hasDarkHeroBanner = ['/', '/about', '/projects', '/products', '/news', '/contact'].includes(location.pathname);
+  const showSolidHeader = isScrolled || (!hasDarkHeroBanner) || mobileMenuOpen;
 
   return (
     <>
-      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${showSolidHeader ? 'bg-surface/90 backdrop-blur-md py-3 shadow-sm border-b border-muted/50' : 'bg-transparent py-5'}`}>
+      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${showSolidHeader ? 'bg-surface/95 backdrop-blur-md py-3 shadow-md border-b border-muted/50' : 'bg-gradient-to-b from-black/60 to-transparent py-4 md:py-5'}`}>
         <div className="container mx-auto px-4 md:px-6 lg:px-8 flex items-center justify-between">
           
           {/* Logo */}

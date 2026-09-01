@@ -5,11 +5,12 @@ import SEO from '../components/SEO';
 import { submitContactForm } from '../services/api';
 
 const Contact = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isEn = i18n?.language === 'en';
 
   React.useEffect(() => {
-    document.title = "Liên hệ & báo giá | HT STONE";
-  }, []);
+    document.title = isEn ? "Contact & Quotation | HT STONE - Lai Chau Slate" : "Liên hệ & báo giá | HT STONE";
+  }, [isEn]);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -48,7 +49,7 @@ const Contact = () => {
   };
 
   return (
-    <main className="min-h-screen bg-background text-primary pt-24">
+    <main className="min-h-screen bg-background text-primary">
       <SEO 
         title="Liên Hệ Báo Giá Đá Đen & Đá Đa Sắc Lai Châu Tận Mỏ | HT STONE"
         description="Liên hệ HT STONE để nhận báo giá đá Slate Lai Châu lợp mái, ốp tường, lát sân vườn trực tiếp tại mỏ. Tư vấn kỹ thuật và gửi mẫu đá miễn phí toàn quốc."
@@ -56,16 +57,24 @@ const Contact = () => {
         canonical="/contact"
       />
       {/* 1. Header Section */}
-      <section className="py-16 md:py-20 lg:py-28 bg-muted/20 border-b border-muted">
-        <div className="container mx-auto px-4 md:px-6 lg:px-8 text-center">
-          <div className="flex items-center justify-center gap-4 mb-4">
-            <div className="w-12 h-[1px] bg-accent"></div>
-            <span className="font-body uppercase tracking-widest text-accent text-xs font-bold">{t('contact')}</span>
-            <div className="w-12 h-[1px] bg-accent"></div>
+      <section className="relative h-[450px] md:h-[540px] lg:h-[600px] flex items-center justify-center overflow-hidden bg-stone-950">
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="/assets/img/banners/banner_contact.jpg" 
+            alt="Contact HT STONE - Direct Quarry Support" 
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-black/30 z-10"></div>
+        </div>
+        <div className="container mx-auto px-4 md:px-6 lg:px-8 text-center relative z-20 max-w-4xl animate-fade-in-up">
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <div className="w-10 h-[1px] bg-accent"></div>
+            <span className="font-body uppercase tracking-[0.2em] text-accent text-xs font-bold">{t('contact')}</span>
+            <div className="w-10 h-[1px] bg-accent"></div>
           </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-light text-primary leading-relaxed">
-            Kết Nối Để Kiến Tạo <br />
-            <span className="font-bold">Không Gian Độc Bản</span>
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-heading font-light text-white leading-tight drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]">
+            {isEn ? 'CONNECT WITH US' : 'KẾT NỐI ĐỂ KIẾN TẠO'} <br />
+            <span className="font-bold">{isEn ? 'Bespoke Architecture' : 'Không Gian Độc Bản'}</span>
           </h1>
         </div>
       </section>

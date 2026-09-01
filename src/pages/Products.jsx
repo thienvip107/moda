@@ -84,7 +84,7 @@ const Products = () => {
   const seoInfo = getSeoData();
 
   return (
-    <main className="min-h-screen bg-background text-primary pt-24">
+    <main className="min-h-screen bg-background text-primary">
       <SEO 
         title={seoInfo.title}
         description={seoInfo.description}
@@ -92,16 +92,23 @@ const Products = () => {
         canonical="/products"
       />
       {/* 1. Header Section */}
-      <section className="py-16 md:py-20 lg:py-28 bg-muted/20 border-b border-muted">
-        <div className="container mx-auto px-4 md:px-6 lg:px-8 text-center">
-          <div className="flex items-center justify-center gap-4 mb-4">
-            <div className="w-12 h-[1px] bg-accent"></div>
-            <span className="font-body uppercase tracking-widest text-accent text-xs font-bold">{t('products')}</span>
-            <div className="w-12 h-[1px] bg-accent"></div>
+      <section className="relative h-[450px] md:h-[540px] lg:h-[600px] flex items-center justify-center overflow-hidden bg-white border-b border-stone-200">
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="/assets/img/banners/banner_products.jpg" 
+            alt="HT STONE Natural Slate Products Catalog" 
+            className="w-full h-full object-cover object-center"
+          />
+        </div>
+        <div className="container mx-auto px-4 md:px-6 lg:px-8 text-center relative z-20 max-w-xl animate-fade-in-up">
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <div className="w-10 h-[1px] bg-accent"></div>
+            <span className="font-body uppercase tracking-[0.2em] text-accent text-xs font-bold">{t('products')}</span>
+            <div className="w-10 h-[1px] bg-accent"></div>
           </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-light text-primary leading-relaxed">
-            Tuyệt Tác Kiến Trúc <br />
-            <span className="font-bold">Đá Tự Nhiên Cao Cấp</span>
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-heading font-light text-stone-900 leading-tight">
+            {isEn ? 'ARCHITECTURAL MASTERPIECES' : 'TUYỆT TÁC KIẾN TRÚC'} <br />
+            <span className="font-bold text-stone-950">{isEn ? 'Premium Natural Slate' : 'Đá Tự Nhiên Cao Cấp'}</span>
           </h1>
         </div>
       </section>
