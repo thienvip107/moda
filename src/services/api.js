@@ -357,20 +357,34 @@ export async function saveNews(newsItem) {
   };
 
   if (isSupabaseConfigured) {
-    if (newsItem.id) {
-      const { data, error } = await supabase
-        .from('news')
-        .update(payload)
-        .eq('id', newsItem.id)
-        .select();
-      if (!error && data?.length) return data[0];
+    try {
+      if (newsItem.id) {
+        const { data, error } = await supabase
+          .from('news')
+          .update(payload)
+          .eq('id', newsItem.id)
+          .select();
+        if (!error && data?.length) {
+          const list = getLocalData('news', initialNews);
+          setLocalData('news', list.map(n => n.id === newsItem.id ? { ...n, ...payload, id: newsItem.id } : n));
+          return data[0];
+        }
+        if (error) console.error('Supabase update news error:', error);
+      } else {
+        const { data, error } = await supabase
+          .from('news')
+          .insert([payload])
+          .select();
+        if (!error && data?.length) {
+          const list = getLocalData('news', initialNews);
+          setLocalData('news', [data[0], ...list]);
+          return data[0];
+        }
+        if (error) console.error('Supabase insert news error:', error);
+      }
+    } catch (e) {
+      console.warn('Supabase saveNews error, falling back to local:', e);
     }
-    const { data, error } = await supabase
-      .from('news')
-      .insert([payload])
-      .select();
-    if (error) throw error;
-    return data[0];
   }
   const list = getLocalData('news', initialNews);
   let updated;
@@ -858,9 +872,6 @@ const defaultSettings = {
   hotline: '0909168587',
   zalo: '0909168587',
   email: 'info@htstone.vn',
-  showroom_hanoi: 'Số 8 ngõ 42 Trần Cung, Hà Nội',
-  showroom_hanoi_phone: '0909168587',
-  showroom_hanoi_map: 'https://maps.app.goo.gl/G9J7XpJqBqSg9NgZ7',
   office_laichau: 'Số nhà 206 Trần Hưng Đạo, phường Đoàn Kết, tỉnh Lai Châu',
   office_laichau_phone: '0338.693.555',
   office_laichau_map: 'https://maps.app.goo.gl/7Shh2TsFGunCtt6A7',
@@ -868,7 +879,7 @@ const defaultSettings = {
   quarry_namho_phone: '0968005321',
   quarry_namho_map: 'https://maps.app.goo.gl/hyjSR6VSaarHiCb87',
   quarry_phiengen: 'Xã Lê Lợi, Tỉnh Lai Châu',
-  address_headquarters: 'Số 8 ngõ 42 Trần Cung, Hà Nội & 206 Trần Hưng Đạo, Lai Châu',
+  address_headquarters: 'Số nhà 206 Trần Hưng Đạo, phường Đoàn Kết, tỉnh Lai Châu',
   address_factory: 'Mỏ Nậm Ho (Xã Pa Tần) & Mỏ Phiêng Én (Xã Lê Lợi), Tỉnh Lai Châu',
   company_full_name: 'HT STONE là thương hiệu đá tự nhiên thuộc Công ty TNHH MTV Thương mại và Xây dựng Hiền Tài',
   company_full_name_en: 'HT STONE is the natural stone brand of Hien Tai Trading & Construction One Member Co., Ltd.',

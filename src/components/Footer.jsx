@@ -11,7 +11,6 @@ const Footer = () => {
   const [settings, setSettings] = useState({
     hotline: '0909168587',
     email: 'info@htstone.vn',
-    showroom_hanoi: 'Số 8 ngõ 42 Trần Cung, TP Hà Nội',
     office_laichau: '206 Trần Hưng Đạo, phường Đoàn Kết, tỉnh Lai Châu',
     quarry_namho: 'Xã Pa Tần, Tỉnh Lai Châu',
     quarry_phiengen: 'Xã Lê Lợi, Tỉnh Lai Châu',
@@ -78,34 +77,6 @@ const Footer = () => {
           <div className="lg:col-span-2">
             <h4 className="text-primary font-heading font-semibold text-sm mb-4 uppercase tracking-wider">{isEn ? 'CONTACT & QUARRY LOCATIONS' : 'VĂN PHÒNG & MỎ ĐÁ HT STONE'}</h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 font-body text-xs leading-relaxed">
-              {/* Hanoi Showroom */}
-              <div className="space-y-1.5 bg-surface/80 p-3.5 rounded-lg border border-muted/70 hover:border-accent/40 transition-colors">
-                <div className="flex items-center justify-between">
-                  <p className="font-bold text-primary flex items-center gap-1.5">
-                    <MapPin size={14} className="text-accent shrink-0" />
-                    <span>HT STONE – Showroom Hà Nội</span>
-                  </p>
-                  <a 
-                    href="https://maps.app.goo.gl/G9J7XpJqBqSg9NgZ7" 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    title="Mở Google Maps"
-                    className="text-accent hover:text-primary transition-colors p-1"
-                  >
-                    <ExternalLink size={13} />
-                  </a>
-                </div>
-                <p className="text-secondary/80 pl-5">Số 8 ngõ 42 Trần Cung, Hà Nội</p>
-                <div className="pl-5 flex items-center justify-between pt-0.5">
-                  <a href="tel:0909168587" className="text-accent font-semibold hover:underline flex items-center gap-1">
-                    <Phone size={11} /> ĐT: 0909168587
-                  </a>
-                  <a href="https://maps.app.goo.gl/G9J7XpJqBqSg9NgZ7" target="_blank" rel="noopener noreferrer" className="text-[10px] font-bold text-secondary/70 hover:text-accent hover:underline">
-                    Chỉ đường &rarr;
-                  </a>
-                </div>
-              </div>
-
               {/* Lai Chau Office */}
               <div className="space-y-1.5 bg-surface/80 p-3.5 rounded-lg border border-muted/70 hover:border-accent/40 transition-colors">
                 <div className="flex items-center justify-between">

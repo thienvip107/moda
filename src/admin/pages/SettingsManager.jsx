@@ -134,46 +134,9 @@ export default function SettingsManager() {
                 <span>Địa Chỉ Showroom, Văn Phòng & Mỏ Đá (Kèm Link Google Maps)</span>
               </h2>
 
-              {/* Showroom Hà Nội */}
-              <div className="p-4 rounded-2xl bg-stone-50 border border-stone-200/80 space-y-4">
-                <h3 className="text-xs font-bold text-[#171717] uppercase tracking-wider">1. Showroom Hà Nội</h3>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="md:col-span-1">
-                    <label className="block text-[10px] font-extrabold text-[#171717] uppercase tracking-wider mb-1">Địa chỉ</label>
-                    <input
-                      type="text"
-                      value={settings.showroom_hanoi}
-                      onChange={e => setSettings({ ...settings, showroom_hanoi: e.target.value })}
-                      placeholder="Số 8 ngõ 42 Trần Cung, Hà Nội"
-                      className="w-full bg-white border border-stone-200 rounded-xl px-3.5 py-2.5 text-xs text-[#171717] focus:border-[#171717] focus:outline-none transition-all font-medium"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-[10px] font-extrabold text-[#171717] uppercase tracking-wider mb-1">Số điện thoại</label>
-                    <input
-                      type="text"
-                      value={settings.showroom_hanoi_phone}
-                      onChange={e => setSettings({ ...settings, showroom_hanoi_phone: e.target.value })}
-                      placeholder="0909168587"
-                      className="w-full bg-white border border-stone-200 rounded-xl px-3.5 py-2.5 text-xs text-[#171717] focus:border-[#171717] focus:outline-none transition-all font-medium"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-[10px] font-extrabold text-[#171717] uppercase tracking-wider mb-1">Link Google Maps</label>
-                    <input
-                      type="text"
-                      value={settings.showroom_hanoi_map}
-                      onChange={e => setSettings({ ...settings, showroom_hanoi_map: e.target.value })}
-                      placeholder="https://maps.app.goo.gl/..."
-                      className="w-full bg-white border border-stone-200 rounded-xl px-3.5 py-2.5 text-xs text-[#171717] focus:border-[#171717] focus:outline-none transition-all font-medium"
-                    />
-                  </div>
-                </div>
-              </div>
-
               {/* Văn phòng Lai Châu */}
               <div className="p-4 rounded-2xl bg-stone-50 border border-stone-200/80 space-y-4">
-                <h3 className="text-xs font-bold text-[#171717] uppercase tracking-wider">2. Văn phòng Lai Châu</h3>
+                <h3 className="text-xs font-bold text-[#171717] uppercase tracking-wider">1. Văn phòng Lai Châu</h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className="md:col-span-1">
                     <label className="block text-[10px] font-extrabold text-[#171717] uppercase tracking-wider mb-1">Địa chỉ</label>
@@ -210,7 +173,7 @@ export default function SettingsManager() {
 
               {/* Mỏ đá Đen Nậm Ho & Mỏ Đa Sắc */}
               <div className="p-4 rounded-2xl bg-stone-50 border border-stone-200/80 space-y-4">
-                <h3 className="text-xs font-bold text-[#171717] uppercase tracking-wider">3. Hệ Thống Mỏ Đá Lai Châu</h3>
+                <h3 className="text-xs font-bold text-[#171717] uppercase tracking-wider">2. Hệ Thống Mỏ Đá Lai Châu</h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div>
                     <label className="block text-[10px] font-extrabold text-[#171717] uppercase tracking-wider mb-1">Mỏ đá Đen Nậm Ho</label>

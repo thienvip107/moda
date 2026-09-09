@@ -10,7 +10,7 @@ const NewsDetail = () => {
   const { newsId } = useParams();
   const navigate = useNavigate();
   const { i18n } = useTranslation();
-  const isEn = i18n.language === 'en';
+  const isEn = Boolean(i18n?.language && i18n.language.toLowerCase().startsWith('en'));
   const [post, setPost] = useState(null);
   const [allNews, setAllNews] = useState([]);
   const [lightboxIndex, setLightboxIndex] = useState(null);
@@ -23,7 +23,6 @@ const NewsDetail = () => {
 
       if (foundPost) {
         setPost(foundPost);
-        document.title = `${foundPost.title} | HT STONE - Đá Tự Nhiên Lai Châu`;
       } else {
         navigate('/news');
       }
@@ -32,7 +31,28 @@ const NewsDetail = () => {
     window.scrollTo(0, 0);
   }, [newsId, navigate]);
 
+  useEffect(() => {
+    if (post) {
+      const activeTitle = isEn ? (post.title_en || post.title) : post.title;
+      document.title = `${activeTitle} | HT STONE - ${isEn ? 'Lai Chau Natural Slate' : 'Đá Tự Nhiên Lai Châu'}`;
+    }
+  }, [post, isEn]);
+
   if (!post) return null;
+
+  const categoryNamesEn = {
+    'Tin tức công ty': 'Company News',
+    'Kỹ thuật thi công': 'Installation Techniques',
+    'Kiến thức vật liệu': 'Material Knowledge',
+    'Vận hành mỏ': 'Quarry Operations',
+    'Ý tưởng thiết kế': 'Design Inspiration',
+    'Chăm sóc nhà cửa': 'Home Care'
+  };
+  const getCategoryLabel = (cat) => (isEn && categoryNamesEn[cat]) ? categoryNamesEn[cat] : cat;
+
+  const postTitle = isEn ? (post.title_en || post.title) : post.title;
+  const postExcerpt = isEn ? (post.summary_en || post.excerpt_en || post.excerpt || post.summary) : (post.excerpt || post.summary);
+  const postImg = post.img || post.cover_image || '/assets/img/banners/banner_news.jpg';
 
   // Get related posts (same category, excluding current post)
   const relatedPosts = allNews
@@ -47,9 +67,9 @@ const NewsDetail = () => {
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": post.title,
-    "image": post.image_url ? `https://www.modalaichau.com${post.image_url}` : "https://www.modalaichau.com/assets/img/roofing_slate.jpg",
-    "description": post.excerpt || post.summary || post.title,
+    "headline": postTitle,
+    "image": post.cover_image || post.img || "https://www.modalaichau.com/assets/img/roofing_slate.jpg",
+    "description": postExcerpt || postTitle,
     "author": {
       "@type": "Organization",
       "name": "HT STONE"
@@ -68,11 +88,11 @@ const NewsDetail = () => {
   return (
     <main className="min-h-screen bg-background text-primary pt-28 pb-20">
       <SEO 
-        title={`${post.title} | HT STONE - Đá Tự Nhiên Lai Châu`}
-        description={post.excerpt || post.summary || `${post.title} - Bài viết chuyên sâu về đá Slate Lai Châu, đá đen lợp mái, đá ốp tường sân vườn từ mỏ HT STONE.`}
-        keywords={`${post.title}, đá lai châu, đá đen, mỏ đá lai châu, đá slate, ht stone`}
+        title={`${postTitle} | HT STONE - ${isEn ? 'Lai Chau Natural Slate' : 'Đá Tự Nhiên Lai Châu'}`}
+        description={postExcerpt || `${postTitle} - ${isEn ? 'In-depth article on Lai Chau natural Slate by HT STONE.' : 'Bài viết chuyên sâu về đá Slate Lai Châu, đá đen lợp mái, đá ốp tường sân vườn từ mỏ HT STONE.'}`}
+        keywords={`${postTitle}, đá lai châu, đá đen, mỏ đá lai châu, đá slate, ht stone`}
         canonical={`/news/${post.slug || post.id}`}
-        ogImage={post.image_url}
+        ogImage={postImg}
         ogType="article"
         schemaData={articleSchema}
       />
@@ -93,7 +113,7 @@ const NewsDetail = () => {
             <Link to="/news" className="hover:text-accent transition-colors">{isEn ? 'News' : 'Tin tức'}</Link>
             <span>/</span>
             <span className="text-primary font-semibold truncate max-w-[200px] md:max-w-xs">
-              {(isEn && post.title_en) ? post.title_en : post.title}
+              {postTitle}
             </span>
           </nav>
         </div>
@@ -101,11 +121,11 @@ const NewsDetail = () => {
         {/* 2. Article Header */}
         <header className="space-y-6 text-left mb-10">
           <span className="inline-flex items-center gap-1 bg-accent/15 text-accent text-xs font-bold font-body uppercase tracking-wider px-3.5 py-1 rounded-full">
-            <Sparkles size={12} /> {post.category}
+            <Sparkles size={12} /> {getCategoryLabel(post.category)}
           </span>
           
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-primary leading-relaxed">
-            {(isEn && post.title_en) ? post.title_en : post.title}
+            {postTitle}
           </h1>
 
           {/* Meta Info */}
@@ -132,14 +152,14 @@ const NewsDetail = () => {
         {/* 3. Hero Image */}
         <div 
           onClick={() => {
-            const allImgs = post.gallery && post.gallery.length > 0 ? post.gallery : [post.img];
-            setLightboxIndex(allImgs.indexOf(post.img) >= 0 ? allImgs.indexOf(post.img) : 0);
+            const allImgs = post.gallery && post.gallery.length > 0 ? post.gallery : [postImg];
+            setLightboxIndex(allImgs.indexOf(postImg) >= 0 ? allImgs.indexOf(postImg) : 0);
           }}
           className="aspect-[21/9] w-full overflow-hidden border border-muted bg-surface rounded-sm mb-10 shadow-md relative group cursor-pointer"
         >
           <img 
-            src={post.img} 
-            alt={(isEn && post.title_en) ? post.title_en : post.title} 
+            src={postImg} 
+            alt={postTitle} 
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
           />
           <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
@@ -152,7 +172,7 @@ const NewsDetail = () => {
         {/* 4. Article Body Content */}
         <div className="prose prose-lg max-w-none text-left space-y-6 font-body text-base md:text-lg text-secondary leading-relaxed mb-12">
           {(() => {
-            const rawContent = (isEn && post.content_en) ? post.content_en : post.content;
+            const rawContent = isEn ? (post.content_en || post.content) : post.content;
             let paragraphs = [];
             if (Array.isArray(rawContent)) {
               paragraphs = rawContent;
@@ -225,35 +245,41 @@ const NewsDetail = () => {
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {backupRelated.map((relPost) => (
-              <Link 
-                key={relPost.id}
-                to={`/news/${relPost.id}`}
-                className="group flex flex-col md:flex-row bg-surface border border-muted rounded-sm overflow-hidden shadow-xs hover:shadow-lg transition-all duration-400"
-              >
-                <div className="md:w-1/3 aspect-[4/3] md:aspect-auto overflow-hidden relative">
-                  <img 
-                    src={relPost.img} 
-                    alt={(isEn && relPost.title_en) ? relPost.title_en : relPost.title} 
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                </div>
-                <div className="md:w-2/3 p-4 flex flex-col justify-between text-left">
-                  <div>
-                    <span className="text-[9px] font-bold font-body uppercase text-accent tracking-wider block mb-1">
-                      {relPost.category}
-                    </span>
-                    <h3 className="font-heading text-base font-bold text-primary group-hover:text-accent transition-colors line-clamp-2 leading-tight">
-                      {(isEn && relPost.title_en) ? relPost.title_en : relPost.title}
-                    </h3>
+            {backupRelated.map((relPost) => {
+              const relTitle = isEn ? (relPost.title_en || relPost.title) : relPost.title;
+              const relSlug = relPost.slug || relPost.id;
+              const relImg = relPost.img || relPost.cover_image || '/assets/img/banners/banner_news.jpg';
+
+              return (
+                <Link 
+                  key={relPost.id}
+                  to={`/news/${relSlug}`}
+                  className="group flex flex-col md:flex-row bg-surface border border-muted rounded-sm overflow-hidden shadow-xs hover:shadow-lg transition-all duration-400"
+                >
+                  <div className="md:w-1/3 aspect-[4/3] md:aspect-auto overflow-hidden relative">
+                    <img 
+                      src={relImg} 
+                      alt={relTitle} 
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                   </div>
-                  <span className="font-body text-[10px] text-secondary/60 block mt-4">
-                    {relPost.date}
-                  </span>
-                </div>
-              </Link>
-            ))}
+                  <div className="md:w-2/3 p-4 flex flex-col justify-between text-left">
+                    <div>
+                      <span className="text-[9px] font-bold font-body uppercase text-accent tracking-wider block mb-1">
+                        {getCategoryLabel(relPost.category)}
+                      </span>
+                      <h3 className="font-heading text-base font-bold text-primary group-hover:text-accent transition-colors line-clamp-2 leading-tight">
+                        {relTitle}
+                      </h3>
+                    </div>
+                    <span className="font-body text-[10px] text-secondary/60 block mt-4">
+                      {relPost.date}
+                    </span>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </div>
 

@@ -7,7 +7,7 @@ import SEO from '../components/SEO';
 
 const News = () => {
   const { t, i18n } = useTranslation();
-  const isEn = i18n?.language === 'en';
+  const isEn = Boolean(i18n?.language && i18n.language.toLowerCase().startsWith('en'));
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [news, setNews] = useState([]);
@@ -36,7 +36,8 @@ const News = () => {
     { key: 'Kỹ thuật thi công', name_vi: 'Kỹ thuật thi công', name_en: 'Installation Techniques' },
     { key: 'Kiến thức vật liệu', name_vi: 'Kiến thức vật liệu', name_en: 'Material Knowledge' },
     { key: 'Vận hành mỏ', name_vi: 'Vận hành mỏ', name_en: 'Quarry Operations' },
-    { key: 'Ý tưởng thiết kế', name_vi: 'Ý tưởng thiết kế', name_en: 'Design Inspiration' }
+    { key: 'Ý tưởng thiết kế', name_vi: 'Ý tưởng thiết kế', name_en: 'Design Inspiration' },
+    { key: 'Chăm sóc nhà cửa', name_vi: 'Chăm sóc nhà cửa', name_en: 'Home Care' }
   ];
 
   const getPostCategoryLabel = (cat) => {
@@ -46,9 +47,9 @@ const News = () => {
   };
 
   const filteredNews = news.filter(post => {
-    const title = (isEn && post.title_en) ? post.title_en : (post.title || '');
-    const excerpt = (isEn && (post.excerpt_en || post.summary_en)) ? (post.excerpt_en || post.summary_en) : (post.excerpt || post.summary || '');
-    const content = (isEn && post.content_en) ? post.content_en : (post.content || '');
+    const title = isEn ? (post.title_en || post.title || '') : (post.title || '');
+    const excerpt = isEn ? (post.excerpt_en || post.summary_en || post.excerpt || post.summary || '') : (post.excerpt || post.summary || '');
+    const content = isEn ? (post.content_en || post.content || '') : (post.content || '');
     
     const matchesSearch = title.toLowerCase().includes(searchTerm.toLowerCase()) || 
                           excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -134,8 +135,10 @@ const News = () => {
           {filteredNews.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
               {filteredNews.map((post) => {
-                const postTitle = (isEn && post.title_en) ? post.title_en : post.title;
-                const postExcerpt = (isEn && (post.excerpt_en || post.summary_en)) ? (post.excerpt_en || post.summary_en) : (post.excerpt || post.summary);
+                const postTitle = isEn ? (post.title_en || post.title) : post.title;
+                const postExcerpt = isEn ? (post.excerpt_en || post.summary_en || post.excerpt || post.summary) : (post.excerpt || post.summary);
+                const postImg = post.img || post.cover_image || '/assets/img/banners/banner_news.jpg';
+                const postSlug = post.slug || post.id;
 
                 return (
                   <article 
@@ -143,9 +146,9 @@ const News = () => {
                     className="group bg-surface border border-muted rounded-sm shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col overflow-hidden"
                   >
                     {/* Thumbnail */}
-                    <Link to={`/news/${post.id}`} className="aspect-[16/10] overflow-hidden relative block">
+                    <Link to={`/news/${postSlug}`} className="aspect-[16/10] overflow-hidden relative block">
                       <img 
-                        src={post.img} 
+                        src={postImg} 
                         alt={postTitle} 
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       />
@@ -166,7 +169,7 @@ const News = () => {
                         </div>
 
                         {/* Title */}
-                        <Link to={`/news/${post.id}`} className="block mb-3">
+                        <Link to={`/news/${postSlug}`} className="block mb-3">
                           <h3 className="text-xl font-heading font-bold text-primary group-hover:text-accent transition-colors line-clamp-2">
                             {postTitle}
                           </h3>
@@ -184,7 +187,7 @@ const News = () => {
                           <User size={10} /> {post.author || 'HT STONE'}
                         </span>
                         <Link 
-                          to={`/news/${post.id}`}
+                          to={`/news/${postSlug}`}
                           className="inline-flex items-center gap-1 text-accent font-body uppercase tracking-wider text-[10px] font-bold hover:text-primary transition-colors"
                         >
                           {isEn ? 'Read more' : 'Đọc tiếp'} <MoveRight size={10} />

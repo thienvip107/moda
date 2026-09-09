@@ -87,44 +87,21 @@ const Contact = () => {
             {/* Contact Details (Left) */}
             <div className="lg:col-span-5 space-y-12">
               <div>
-                <span className="font-body uppercase tracking-widest text-accent text-xs font-bold">Thông Tin Liên Hệ</span>
+                <span className="font-body uppercase tracking-widest text-accent text-xs font-bold">
+                  {isEn ? 'Contact Information' : 'Thông Tin Liên Hệ'}
+                </span>
                 <h2 className="text-3xl md:text-4xl font-heading font-light text-primary mt-2 mb-6">
-                  Văn Phòng & <br />
-                  <span className="font-bold">Hệ Thống Mỏ Đá</span>
+                  {isEn ? 'Headquarters &' : 'Văn Phòng &' } <br />
+                  <span className="font-bold">{isEn ? 'Quarry Network' : 'Hệ Thống Mỏ Đá'}</span>
                 </h2>
                 <p className="font-body text-secondary text-sm leading-relaxed">
-                  Quý khách hàng, chủ đầu tư, kiến trúc sư có nhu cầu mua hàng, nhận mẫu thử hoặc tìm hiểu chính sách đại lý xin vui lòng liên hệ theo thông tin bên dưới hoặc gửi yêu cầu qua form biểu mẫu.
+                  {isEn 
+                    ? 'Valued clients, developers, and architects wishing to order stone, request free samples, or inquire about distribution policies, please contact us below or submit your project details via the inquiry form.'
+                    : 'Quý khách hàng, chủ đầu tư, kiến trúc sư có nhu cầu mua hàng, nhận mẫu thử hoặc tìm hiểu chính sách đại lý xin vui lòng liên hệ theo thông tin bên dưới hoặc gửi yêu cầu qua form biểu mẫu.'}
                 </p>
               </div>
 
               <div className="space-y-6 font-body">
-                {/* Hanoi Showroom */}
-                <div className="flex gap-4 p-4 rounded-xl bg-surface border border-muted/70 shadow-xs hover:border-accent/50 transition-colors">
-                  <div className="w-12 h-12 rounded-full border border-accent/25 flex items-center justify-center text-accent shrink-0 bg-background shadow-xs">
-                    <MapPin size={20} />
-                  </div>
-                  <div className="flex-1">
-                    <h4 className="text-sm font-semibold uppercase tracking-wider text-primary mb-1">HT STONE – Showroom Hà Nội</h4>
-                    <p className="text-sm text-secondary/90 leading-relaxed">
-                      Số 8 ngõ 42 Trần Cung, Hà Nội
-                    </p>
-                    <div className="flex flex-wrap items-center gap-4 mt-2">
-                      <a href="tel:0909168587" className="text-xs font-bold text-accent hover:underline flex items-center gap-1">
-                        <Phone size={12} /> ĐT: 0909168587
-                      </a>
-                      <a 
-                        href="https://maps.app.goo.gl/G9J7XpJqBqSg9NgZ7" 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
-                        className="inline-flex items-center gap-1 text-xs font-semibold text-primary/80 hover:text-accent hover:underline bg-muted/30 px-2.5 py-1 rounded-md transition-colors"
-                      >
-                        <span>Chỉ đường trên Google Maps</span>
-                        <ExternalLink size={11} />
-                      </a>
-                    </div>
-                  </div>
-                </div>
-
                 {/* Lai Chau Office */}
                 <div className="flex gap-4 p-4 rounded-xl bg-surface border border-muted/70 shadow-xs hover:border-accent/50 transition-colors">
                   <div className="w-12 h-12 rounded-full border border-accent/25 flex items-center justify-center text-accent shrink-0 bg-background shadow-xs">
@@ -210,8 +187,12 @@ const Contact = () => {
             {/* Contact Form (Right) */}
             <div className="lg:col-span-7 bg-surface border border-muted p-8 md:p-10 rounded-sm shadow-xl relative">
               <div className="mb-8">
-                <h3 className="text-2xl font-heading font-bold mb-2">Gửi Yêu Cầu Cho Chúng Tôi</h3>
-                <p className="font-body text-xs text-secondary/80">Chúng tôi thường phản hồi trong vòng 2 giờ làm việc.</p>
+                <h3 className="text-2xl font-heading font-bold mb-2">
+                  {isEn ? 'Send Us An Inquiry' : 'Gửi Yêu Cầu Cho Chúng Tôi'}
+                </h3>
+                <p className="font-body text-xs text-secondary/80">
+                  {isEn ? 'We typically respond within 2 business hours.' : 'Chúng tôi thường phản hồi trong vòng 2 giờ làm việc.'}
+                </p>
               </div>
 
               {submitted ? (
@@ -219,22 +200,28 @@ const Contact = () => {
                   <div className="w-16 h-16 bg-accent/10 text-accent rounded-full flex items-center justify-center mx-auto mb-4">
                     <Send size={28} />
                   </div>
-                  <h4 className="text-2xl font-heading font-bold text-primary">Gửi thành công!</h4>
+                  <h4 className="text-2xl font-heading font-bold text-primary">
+                    {isEn ? 'Successfully Sent!' : 'Gửi thành công!'}
+                  </h4>
                   <p className="font-body text-sm text-secondary max-w-sm mx-auto leading-relaxed">
-                    Cảm ơn bạn đã liên hệ với HT STONE. Chúng tôi đã nhận được yêu cầu và chuyên viên sẽ chủ động liên hệ lại sớm nhất.
+                    {isEn 
+                      ? 'Thank you for reaching out to HT STONE. We have received your request and our specialists will contact you shortly.' 
+                      : 'Cảm ơn bạn đã liên hệ với HT STONE. Chúng tôi đã nhận được yêu cầu và chuyên viên sẽ chủ động liên hệ lại sớm nhất.'}
                   </p>
                   <button 
                     onClick={() => setSubmitted(false)}
                     className="font-body text-xs uppercase tracking-wider text-accent border-b border-accent hover:text-primary hover:border-primary pt-4 pb-1 transition-colors"
                   >
-                    Gửi thêm yêu cầu mới
+                    {isEn ? 'Send another inquiry' : 'Gửi thêm yêu cầu mới'}
                   </button>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6 font-body text-sm">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label htmlFor="name" className="text-xs uppercase tracking-wider font-semibold text-secondary">Họ và tên *</label>
+                      <label htmlFor="name" className="text-xs uppercase tracking-wider font-semibold text-secondary">
+                        {isEn ? 'Full Name *' : 'Họ và tên *'}
+                      </label>
                       <input 
                         type="text" 
                         id="name" 
@@ -243,11 +230,13 @@ const Contact = () => {
                         value={formData.name}
                         onChange={handleChange}
                         className="w-full bg-background border border-muted/80 rounded-xs py-3 px-4 focus:outline-none focus:border-accent text-primary transition-colors"
-                        placeholder="Nguyễn Văn A"
+                        placeholder={isEn ? "John Doe" : "Nguyễn Văn A"}
                       />
                     </div>
                     <div className="space-y-2">
-                      <label htmlFor="phone" className="text-xs uppercase tracking-wider font-semibold text-secondary">Số điện thoại *</label>
+                      <label htmlFor="phone" className="text-xs uppercase tracking-wider font-semibold text-secondary">
+                        {isEn ? 'Phone Number *' : 'Số điện thoại *'}
+                      </label>
                       <input 
                         type="tel" 
                         id="phone" 
@@ -262,7 +251,9 @@ const Contact = () => {
                   </div>
 
                   <div className="space-y-2">
-                    <label htmlFor="email" className="text-xs uppercase tracking-wider font-semibold text-secondary">Địa chỉ Email</label>
+                    <label htmlFor="email" className="text-xs uppercase tracking-wider font-semibold text-secondary">
+                      {isEn ? 'Email Address' : 'Địa chỉ Email'}
+                    </label>
                     <input 
                       type="email" 
                       id="email" 
@@ -275,7 +266,9 @@ const Contact = () => {
                   </div>
 
                   <div className="space-y-2">
-                    <label htmlFor="subject" className="text-xs uppercase tracking-wider font-semibold text-secondary">Hạng mục quan tâm</label>
+                    <label htmlFor="subject" className="text-xs uppercase tracking-wider font-semibold text-secondary">
+                      {isEn ? 'Category of Interest' : 'Hạng mục quan tâm'}
+                    </label>
                     <select 
                       id="subject" 
                       name="subject" 
@@ -283,17 +276,19 @@ const Contact = () => {
                       onChange={handleChange}
                       className="w-full bg-background border border-muted/80 rounded-xs py-3 px-4 focus:outline-none focus:border-accent text-primary transition-colors appearance-none"
                     >
-                      <option value="">-- Chọn hạng mục cần tư vấn --</option>
-                      <option value="roofing">Đá lợp mái Lai Châu</option>
-                      <option value="wall">Đá ốp tường mặt tiền / trang trí</option>
-                      <option value="paving">Đá lát sân vườn / lối đi bộ</option>
-                      <option value="sample">Đăng ký nhận mẫu đá thực tế</option>
-                      <option value="partner">Hợp tác làm đại lý phân phối</option>
+                      <option value="">{isEn ? '-- Select consultation category --' : '-- Chọn hạng mục cần tư vấn --'}</option>
+                      <option value="roofing">{isEn ? 'Lai Chau Slate Roofing' : 'Đá lợp mái Lai Châu'}</option>
+                      <option value="wall">{isEn ? 'Wall Cladding / Facades' : 'Đá ốp tường mặt tiền / trang trí'}</option>
+                      <option value="paving">{isEn ? 'Garden Paving / Walkways' : 'Đá lát sân vườn / lối đi bộ'}</option>
+                      <option value="sample">{isEn ? 'Request Real Stone Samples' : 'Đăng ký nhận mẫu đá thực tế'}</option>
+                      <option value="partner">{isEn ? 'Distribution / Dealership Partnership' : 'Hợp tác làm đại lý phân phối'}</option>
                     </select>
                   </div>
 
                   <div className="space-y-2">
-                    <label htmlFor="message" className="text-xs uppercase tracking-wider font-semibold text-secondary">Nội dung chi tiết yêu cầu *</label>
+                    <label htmlFor="message" className="text-xs uppercase tracking-wider font-semibold text-secondary">
+                      {isEn ? 'Detailed Inquiry *' : 'Nội dung chi tiết yêu cầu *'}
+                    </label>
                     <textarea 
                       id="message" 
                       name="message" 
@@ -302,7 +297,7 @@ const Contact = () => {
                       value={formData.message}
                       onChange={handleChange}
                       className="w-full bg-background border border-muted/80 rounded-xs py-3 px-4 focus:outline-none focus:border-accent text-primary transition-colors resize-none"
-                      placeholder="Mô tả dự án, kích thước, độ dày cần tư vấn báo giá..."
+                      placeholder={isEn ? "Describe your project, desired dimensions, thickness, and estimated quantity..." : "Mô tả dự án, kích thước, độ dày cần tư vấn báo giá..."}
                     ></textarea>
                   </div>
 
@@ -312,7 +307,9 @@ const Contact = () => {
                       disabled={isSubmitting}
                       className={`w-full bg-accent text-surface py-4 font-body uppercase tracking-wider text-xs font-bold transition-all duration-400 flex items-center justify-center gap-2 ${isSubmitting ? 'opacity-70 cursor-not-allowed' : 'hover:bg-primary'}`}
                     >
-                      {isSubmitting ? 'Đang gửi...' : 'Gửi Thông Tin Yêu Cầu'} {!isSubmitting && <Send size={14} />}
+                      {isSubmitting 
+                        ? (isEn ? 'Sending...' : 'Đang gửi...') 
+                        : (isEn ? 'Submit Inquiry' : 'Gửi Thông Tin Yêu Cầu')} {!isSubmitting && <Send size={14} />}
                     </button>
                   </div>
                 </form>

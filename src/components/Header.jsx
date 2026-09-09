@@ -17,8 +17,11 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const isEn = Boolean(i18n?.language && i18n.language.toLowerCase().startsWith('en'));
+
   const toggleLanguage = () => {
-    const newLang = i18n.language === 'vi' ? 'en' : 'vi';
+    const current = (i18n?.language || 'vi').toLowerCase();
+    const newLang = current.startsWith('en') ? 'vi' : 'en';
     i18n.changeLanguage(newLang);
   };
 
@@ -70,9 +73,10 @@ const Header = () => {
             <button 
               onClick={toggleLanguage}
               className={`flex items-center gap-1 font-body text-sm font-semibold transition-colors hover:text-accent ${showSolidHeader ? 'text-primary' : 'text-white'}`}
+              title={isEn ? 'Chuyển sang Tiếng Việt' : 'Switch to English'}
             >
               <Globe size={18} />
-              {i18n.language.toUpperCase()}
+              <span>{isEn ? 'EN' : 'VI'}</span>
             </button>
             
             <Link to="/contact" className={`hidden md:inline-flex items-center justify-center px-6 py-2.5 border font-body text-sm uppercase tracking-wider font-bold transition-all duration-300 ${showSolidHeader ? 'border-accent text-accent hover:bg-accent hover:text-surface' : 'border-white/80 text-white hover:bg-white hover:text-primary'}`}>
@@ -112,7 +116,7 @@ const Header = () => {
                   className="flex items-center gap-1 font-body text-sm font-semibold text-primary hover:text-accent"
                 >
                   <Globe size={18} />
-                  {i18n.language.toUpperCase()}
+                  <span>{isEn ? 'EN' : 'VI'}</span>
                 </button>
                 <button 
                   className="p-2 text-primary hover:text-accent"

@@ -189,7 +189,7 @@ const Capabilities = () => {
         <div className="container mx-auto px-4 max-w-2xl">
           <h2 className="text-3xl font-heading font-bold mb-4">Bạn Cần Nhà Cung Cấp Đá Uy Tín Cho Dự Án Lớn?</h2>
           <p className="font-body text-secondary text-sm leading-relaxed mb-8">
-            HT STONE luôn sẵn sàng cung cấp hồ sơ năng lực (Profile), mẫu đá thực tế miễn phí tại văn phòng Hà Nội và Lai Châu để quý khách kiểm chứng chất lượng.
+            HT STONE luôn sẵn sàng cung cấp hồ sơ năng lực (Profile), mẫu đá thực tế miễn phí tại văn phòng Lai Châu và hỗ trợ gửi mẫu tận nơi toàn quốc để quý khách kiểm chứng chất lượng.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link to="/contact" className="bg-accent text-surface px-8 py-3.5 font-body uppercase tracking-wider text-xs font-bold hover:bg-primary transition-all duration-400">

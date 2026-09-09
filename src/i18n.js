@@ -43,15 +43,31 @@ const resources = {
   }
 };
 
+const getInitialLanguage = () => {
+  if (typeof window !== 'undefined') {
+    const saved = localStorage.getItem('i18nextLng');
+    if (saved && (saved.startsWith('en') || saved === 'en')) return 'en';
+    if (saved && (saved.startsWith('vi') || saved === 'vi')) return 'vi';
+  }
+  return 'vi';
+};
+
 i18n
-  .use(initReactI18next) // passes i18n down to react-i18next
+  .use(initReactI18next)
   .init({
     resources,
-    lng: "vi", // default language
+    lng: getInitialLanguage(),
     fallbackLng: "vi",
     interpolation: {
-      escapeValue: false // react already safes from xss
+      escapeValue: false
     }
   });
+
+if (typeof window !== 'undefined') {
+  i18n.on('languageChanged', (lng) => {
+    const cleanLng = (lng && lng.toLowerCase().startsWith('en')) ? 'en' : 'vi';
+    localStorage.setItem('i18nextLng', cleanLng);
+  });
+}
 
 export default i18n;
