@@ -3,6 +3,7 @@ import { Phone, Mail, MapPin, Save, CheckCircle2, Loader2, Globe, Settings } fro
 import { getSiteSettings, saveSiteSettings } from '../../services/api';
 
 export default function SettingsManager() {
+  const [langTab, setLangTab] = useState('vi');
   const [settings, setSettings] = useState({
     hotline: '',
     zalo: '',
@@ -11,19 +12,25 @@ export default function SettingsManager() {
     showroom_hanoi_phone: '',
     showroom_hanoi_map: '',
     office_laichau: '',
+    office_laichau_en: '',
     office_laichau_phone: '',
     office_laichau_map: '',
     quarry_namho: '',
+    quarry_namho_en: '',
     quarry_namho_phone: '',
     quarry_namho_map: '',
     quarry_phiengen: '',
+    quarry_phiengen_en: '',
     address_headquarters: '',
     address_factory: '',
     facebook_url: '',
     instagram_url: '',
     home_intro_title: '',
+    home_intro_title_en: '',
     home_intro_desc: '',
-    footer_about: ''
+    home_intro_desc_en: '',
+    footer_about: '',
+    footer_about_en: ''
   });
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -37,7 +44,7 @@ export default function SettingsManager() {
     setLoading(true);
     try {
       const data = await getSiteSettings();
-      setSettings(data);
+      setSettings(prev => ({ ...prev, ...data }));
     } catch (err) {
       console.error(err);
     } finally {
@@ -68,10 +75,39 @@ export default function SettingsManager() {
           <Settings className="w-7 h-7 text-[#D4AF37]" />
           <span>Quản Lý Cấu Hình Liên Hệ & Footer</span>
         </h1>
-        <p className="text-xs text-stone-500 mt-1">Thay đổi Hotline, Zalo, Email, địa chỉ mỏ đá & showroom công ty trên toàn bộ trang web</p>
+        <p className="text-xs text-stone-500 mt-1">Thay đổi Hotline, Zalo, Email, địa chỉ mỏ đá & showroom công ty trên toàn bộ trang web song ngữ (Việt - Anh)</p>
       </div>
 
       <div className="bg-white border border-stone-200/90 rounded-3xl p-6 md:p-8 shadow-sm space-y-6">
+        {/* Language Tabs */}
+        <div className="flex items-center gap-2 border-b border-stone-200 pb-3">
+          <button
+            type="button"
+            onClick={() => setLangTab('vi')}
+            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
+              langTab === 'vi' 
+                ? 'bg-[#171717] text-[#D4AF37] shadow-sm' 
+                : 'bg-stone-100 text-stone-600 hover:bg-stone-200'
+            }`}
+          >
+            <span>🇻🇳 Tiếng Việt (Nội dung chính)</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setLangTab('en')}
+            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 ${
+              langTab === 'en' 
+                ? 'bg-[#171717] text-[#D4AF37] shadow-sm' 
+                : 'bg-stone-100 text-stone-600 hover:bg-stone-200'
+            }`}
+          >
+            <span>🇬🇧 English Content</span>
+            {(settings.home_intro_title_en || settings.home_intro_desc_en || settings.office_laichau_en) && (
+              <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+            )}
+          </button>
+        </div>
+
         {loading ? (
           <p className="text-xs text-stone-500">Đang nạp cấu hình...</p>
         ) : (
@@ -126,25 +162,35 @@ export default function SettingsManager() {
               </div>
             </div>
 
-            {/* Địa chỉ trụ sở & nhà máy */}
             {/* Địa chỉ showroom, văn phòng & mỏ đá */}
             <div className="space-y-6 pt-2">
               <h2 className="text-xs font-extrabold text-[#171717] uppercase tracking-wider flex items-center space-x-2 border-b border-stone-200 pb-3">
                 <MapPin className="w-4 h-4 text-[#D4AF37]" />
-                <span>Địa Chỉ Showroom, Văn Phòng & Mỏ Đá (Kèm Link Google Maps)</span>
+                <span>
+                  {langTab === 'vi' 
+                    ? 'Địa Chỉ Showroom, Văn Phòng & Mỏ Đá (Tiếng Việt)' 
+                    : 'Showroom, Office & Quarry Addresses (English)'}
+                </span>
               </h2>
 
               {/* Văn phòng Lai Châu */}
               <div className="p-4 rounded-2xl bg-stone-50 border border-stone-200/80 space-y-4">
-                <h3 className="text-xs font-bold text-[#171717] uppercase tracking-wider">1. Văn phòng Lai Châu</h3>
+                <h3 className="text-xs font-bold text-[#171717] uppercase tracking-wider">
+                  {langTab === 'vi' ? '1. Văn phòng Lai Châu' : '1. Lai Chau Representative Office'}
+                </h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div className="md:col-span-1">
-                    <label className="block text-[10px] font-extrabold text-[#171717] uppercase tracking-wider mb-1">Địa chỉ</label>
+                    <label className="block text-[10px] font-extrabold text-[#171717] uppercase tracking-wider mb-1">
+                      {langTab === 'vi' ? 'Địa chỉ (Tiếng Việt)' : 'Address (English)'}
+                    </label>
                     <input
                       type="text"
-                      value={settings.office_laichau}
-                      onChange={e => setSettings({ ...settings, office_laichau: e.target.value })}
-                      placeholder="Số nhà 206 Trần Hưng Đạo, phường Đoàn Kết, tỉnh Lai Châu"
+                      value={langTab === 'vi' ? settings.office_laichau : (settings.office_laichau_en || '')}
+                      onChange={e => setSettings({ 
+                        ...settings, 
+                        [langTab === 'vi' ? 'office_laichau' : 'office_laichau_en']: e.target.value 
+                      })}
+                      placeholder={langTab === 'vi' ? "Số nhà 206 Trần Hưng Đạo, phường Đoàn Kết..." : "206 Tran Hung Dao Street, Doan Ket Ward..."}
                       className="w-full bg-white border border-stone-200 rounded-xl px-3.5 py-2.5 text-xs text-[#171717] focus:border-[#171717] focus:outline-none transition-all font-medium"
                     />
                   </div>
@@ -173,15 +219,22 @@ export default function SettingsManager() {
 
               {/* Mỏ đá Đen Nậm Ho & Mỏ Đa Sắc */}
               <div className="p-4 rounded-2xl bg-stone-50 border border-stone-200/80 space-y-4">
-                <h3 className="text-xs font-bold text-[#171717] uppercase tracking-wider">2. Hệ Thống Mỏ Đá Lai Châu</h3>
+                <h3 className="text-xs font-bold text-[#171717] uppercase tracking-wider">
+                  {langTab === 'vi' ? '2. Hệ Thống Mỏ Đá Lai Châu' : '2. Lai Chau Slate Stone Quarries'}
+                </h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div>
-                    <label className="block text-[10px] font-extrabold text-[#171717] uppercase tracking-wider mb-1">Mỏ đá Đen Nậm Ho</label>
+                    <label className="block text-[10px] font-extrabold text-[#171717] uppercase tracking-wider mb-1">
+                      {langTab === 'vi' ? 'Mỏ đá Đen Nậm Ho' : 'Nam Ho Black Slate Quarry'}
+                    </label>
                     <input
                       type="text"
-                      value={settings.quarry_namho}
-                      onChange={e => setSettings({ ...settings, quarry_namho: e.target.value })}
-                      placeholder="Xã Pa Tần, Tỉnh Lai Châu"
+                      value={langTab === 'vi' ? settings.quarry_namho : (settings.quarry_namho_en || '')}
+                      onChange={e => setSettings({ 
+                        ...settings, 
+                        [langTab === 'vi' ? 'quarry_namho' : 'quarry_namho_en']: e.target.value 
+                      })}
+                      placeholder={langTab === 'vi' ? "Xã Pa Tần, Tỉnh Lai Châu" : "Pa Tan Commune, Lai Chau Province"}
                       className="w-full bg-white border border-stone-200 rounded-xl px-3.5 py-2.5 text-xs text-[#171717] focus:border-[#171717] focus:outline-none transition-all font-medium"
                     />
                   </div>
@@ -208,12 +261,17 @@ export default function SettingsManager() {
                 </div>
 
                 <div className="pt-2 border-t border-stone-200/60">
-                  <label className="block text-[10px] font-extrabold text-[#171717] uppercase tracking-wider mb-1">Mỏ đá Đa Sắc Phiêng Én</label>
+                  <label className="block text-[10px] font-extrabold text-[#171717] uppercase tracking-wider mb-1">
+                    {langTab === 'vi' ? 'Mỏ đá Đa Sắc Phiêng Én' : 'Phieng En Multicolor Slate Quarry'}
+                  </label>
                   <input
                     type="text"
-                    value={settings.quarry_phiengen}
-                    onChange={e => setSettings({ ...settings, quarry_phiengen: e.target.value })}
-                    placeholder="Xã Lê Lợi, Tỉnh Lai Châu"
+                    value={langTab === 'vi' ? settings.quarry_phiengen : (settings.quarry_phiengen_en || '')}
+                    onChange={e => setSettings({ 
+                      ...settings, 
+                      [langTab === 'vi' ? 'quarry_phiengen' : 'quarry_phiengen_en']: e.target.value 
+                    })}
+                    placeholder={langTab === 'vi' ? "Xã Lê Lợi, Tỉnh Lai Châu" : "Le Loi Commune, Lai Chau Province"}
                     className="w-full bg-white border border-stone-200 rounded-xl px-3.5 py-2.5 text-xs text-[#171717] focus:border-[#171717] focus:outline-none transition-all font-medium"
                   />
                 </div>
@@ -256,43 +314,82 @@ export default function SettingsManager() {
             <div className="space-y-4 pt-2">
               <h2 className="text-xs font-extrabold text-[#171717] uppercase tracking-wider flex items-center space-x-2 border-b border-stone-200 pb-3">
                 <Globe className="w-4 h-4 text-[#D4AF37]" />
-                <span>Nội Dung Tĩnh (Trang Chủ & Footer)</span>
+                <span>
+                  {langTab === 'vi' ? 'Nội Dung Tĩnh Trang Chủ & Footer (Tiếng Việt)' : 'Static Content for Home & Footer (English)'}
+                </span>
               </h2>
 
-              <div className="space-y-5">
-                <div>
-                  <label className="block text-[11px] font-extrabold text-[#171717] uppercase tracking-wider mb-2">Tiêu đề Giới thiệu Trang Chủ</label>
-                  <input
-                    type="text"
-                    value={settings.home_intro_title}
-                    onChange={e => setSettings({ ...settings, home_intro_title: e.target.value })}
-                    placeholder="Làm Chủ Nguồn Đá Slate Tự Nhiên Từ Lai Châu"
-                    className="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3 text-sm text-[#171717] focus:border-[#171717] focus:outline-none transition-all font-medium"
-                  />
-                </div>
+              {langTab === 'vi' ? (
+                <div className="space-y-5">
+                  <div>
+                    <label className="block text-[11px] font-extrabold text-[#171717] uppercase tracking-wider mb-2">Tiêu đề Giới thiệu Trang Chủ (Tiếng Việt)</label>
+                    <input
+                      type="text"
+                      value={settings.home_intro_title}
+                      onChange={e => setSettings({ ...settings, home_intro_title: e.target.value })}
+                      placeholder="Làm Chủ Nguồn Đá Slate Tự Nhiên Từ Lai Châu"
+                      className="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3 text-sm text-[#171717] focus:border-[#171717] focus:outline-none transition-all font-medium"
+                    />
+                  </div>
 
-                <div>
-                  <label className="block text-[11px] font-extrabold text-[#171717] uppercase tracking-wider mb-2">Nội dung Giới thiệu Trang Chủ</label>
-                  <textarea
-                    rows={4}
-                    value={settings.home_intro_desc}
-                    onChange={e => setSettings({ ...settings, home_intro_desc: e.target.value })}
-                    placeholder="HT STONE sở hữu mỏ đá Slate tự nhiên tại Lai Châu..."
-                    className="w-full bg-stone-50 border border-stone-200 rounded-xl p-4 text-sm text-[#171717] focus:border-[#171717] focus:outline-none transition-all font-medium"
-                  />
-                </div>
+                  <div>
+                    <label className="block text-[11px] font-extrabold text-[#171717] uppercase tracking-wider mb-2">Nội dung Giới thiệu Trang Chủ (Tiếng Việt)</label>
+                    <textarea
+                      rows={4}
+                      value={settings.home_intro_desc}
+                      onChange={e => setSettings({ ...settings, home_intro_desc: e.target.value })}
+                      placeholder="HT STONE sở hữu mỏ đá Slate tự nhiên tại Lai Châu..."
+                      className="w-full bg-stone-50 border border-stone-200 rounded-xl p-4 text-sm text-[#171717] focus:border-[#171717] focus:outline-none transition-all font-medium"
+                    />
+                  </div>
 
-                <div>
-                  <label className="block text-[11px] font-extrabold text-[#171717] uppercase tracking-wider mb-2">Đoạn mô tả Footer</label>
-                  <textarea
-                    rows={2}
-                    value={settings.footer_about}
-                    onChange={e => setSettings({ ...settings, footer_about: e.target.value })}
-                    placeholder="HT STONE là thương hiệu đá tự nhiên thuộc Công ty..."
-                    className="w-full bg-stone-50 border border-stone-200 rounded-xl p-4 text-sm text-[#171717] focus:border-[#171717] focus:outline-none transition-all font-medium"
-                  />
+                  <div>
+                    <label className="block text-[11px] font-extrabold text-[#171717] uppercase tracking-wider mb-2">Đoạn mô tả Footer (Tiếng Việt)</label>
+                    <textarea
+                      rows={2}
+                      value={settings.footer_about}
+                      onChange={e => setSettings({ ...settings, footer_about: e.target.value })}
+                      placeholder="HT STONE là thương hiệu đá tự nhiên thuộc Công ty..."
+                      className="w-full bg-stone-50 border border-stone-200 rounded-xl p-4 text-sm text-[#171717] focus:border-[#171717] focus:outline-none transition-all font-medium"
+                    />
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <div className="space-y-5">
+                  <div>
+                    <label className="block text-[11px] font-extrabold text-[#171717] uppercase tracking-wider mb-2">Home Intro Title (English)</label>
+                    <input
+                      type="text"
+                      value={settings.home_intro_title_en || ''}
+                      onChange={e => setSettings({ ...settings, home_intro_title_en: e.target.value })}
+                      placeholder="Owning the Finest Lai Chau Slate at the Source..."
+                      className="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3 text-sm text-[#171717] focus:border-[#171717] focus:outline-none transition-all font-medium"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-[11px] font-extrabold text-[#171717] uppercase tracking-wider mb-2">Home Intro Description (English)</label>
+                    <textarea
+                      rows={4}
+                      value={settings.home_intro_desc_en || ''}
+                      onChange={e => setSettings({ ...settings, home_intro_desc_en: e.target.value })}
+                      placeholder="HT STONE owns and operates natural Slate quarries in Lai Chau..."
+                      className="w-full bg-stone-50 border border-stone-200 rounded-xl p-4 text-sm text-[#171717] focus:border-[#171717] focus:outline-none transition-all font-medium"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-[11px] font-extrabold text-[#171717] uppercase tracking-wider mb-2">Footer Description (English)</label>
+                    <textarea
+                      rows={2}
+                      value={settings.footer_about_en || ''}
+                      onChange={e => setSettings({ ...settings, footer_about_en: e.target.value })}
+                      placeholder="HT STONE is the natural stone brand of Hien Tai Trading & Construction One Member Co., Ltd..."
+                      className="w-full bg-stone-50 border border-stone-200 rounded-xl p-4 text-sm text-[#171717] focus:border-[#171717] focus:outline-none transition-all font-medium"
+                    />
+                  </div>
+                </div>
+              )}
             </div>
 
             <button

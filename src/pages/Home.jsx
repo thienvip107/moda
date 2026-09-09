@@ -139,12 +139,14 @@ const Home = () => {
               </div>
               
               <h2 className="text-3xl md:text-4xl font-heading font-light text-primary leading-tight">
-                {isEn ? 'Owning the Finest Lai Chau Slate at the Source' : (settings?.home_intro_title || 'Làm Chủ Nguồn Đá Slate Tự Nhiên Từ Lai Châu')}
+                {isEn 
+                  ? (settings?.home_intro_title_en || 'Owning the Finest Lai Chau Slate at the Source') 
+                  : (settings?.home_intro_title || 'Làm Chủ Nguồn Đá Slate Tự Nhiên Từ Lai Châu')}
               </h2>
               
               <p className="font-body text-sm md:text-base text-secondary leading-relaxed whitespace-pre-wrap">
                 {isEn 
-                  ? 'HT STONE owns and operates natural Slate quarries in Lai Chau, supplying two signature collections: Black Slate and Multicolor Slate. By controlling the stone at its source, we ensure consistent quality, reliable supply, and complete quality control from quarrying onward. With exceptionally low water absorption, outstanding durability, and the authentic beauty of natural stone, Lai Chau Slate is an ideal choice for roofing, wall cladding, and paving applications. From quarrying and processing to supply and installation, HT STONE delivers complete natural stone solutions for projects of every scale.'
+                  ? (settings?.home_intro_desc_en || 'HT STONE owns and operates natural Slate quarries in Lai Chau, supplying two signature collections: Black Slate and Multicolor Slate. By controlling the stone at its source, we ensure consistent quality, reliable supply, and complete quality control from quarrying onward. With exceptionally low water absorption, outstanding durability, and the authentic beauty of natural stone, Lai Chau Slate is an ideal choice for roofing, wall cladding, and paving applications. From quarrying and processing to supply and installation, HT STONE delivers complete natural stone solutions for projects of every scale.')
                   : (settings?.home_intro_desc || 'HT STONE sở hữu mỏ đá Slate tự nhiên tại Lai Châu, cung cấp hai dòng sản phẩm chính là đá Slate đen và đá Slate đa sắc. Việc làm chủ nguồn đá giúp chúng tôi kiểm soát chất lượng ngay từ khâu khai thác và đảm bảo nguồn cung ổn định cho các dự án. Với độ hút nước thấp, kết cấu bền chắc và vẻ đẹp nguyên bản của đá tự nhiên, Slate Lai Châu là lựa chọn phù hợp cho các hạng mục lợp mái, ốp tường và lát nền. HT STONE đồng hành cùng khách hàng từ khai thác – sản xuất – phân phối – thi công, mang đến giải pháp đá tự nhiên trọn gói.')}
               </p>
 

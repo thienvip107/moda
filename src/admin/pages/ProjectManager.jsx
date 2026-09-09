@@ -335,10 +335,17 @@ export default function ProjectManager() {
                 <div className="p-5 flex-1 flex flex-col justify-between">
                   <div>
                     <h3 className="font-extrabold text-[#171717] text-base line-clamp-1">{item.title}</h3>
-                    <p className="text-xs text-stone-500 mt-1 flex items-center space-x-1">
-                      <MapPin className="w-3.5 h-3.5 text-[#D4AF37] flex-shrink-0" />
-                      <span className="truncate">{item.location}</span>
-                    </p>
+                    <div className="flex items-center gap-2 mt-1">
+                      <p className="text-xs text-stone-500 flex items-center space-x-1">
+                        <MapPin className="w-3.5 h-3.5 text-[#D4AF37] flex-shrink-0" />
+                        <span className="truncate">{item.location}</span>
+                      </p>
+                      {item.title_en ? (
+                        <span className="text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full text-[10px] font-bold">🇬🇧 Có EN</span>
+                      ) : (
+                        <span className="text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full text-[10px] font-bold">⚠️ Chưa EN</span>
+                      )}
+                    </div>
                     <p className="text-xs text-stone-500 line-clamp-2 mt-2 leading-relaxed">{item.desc || item.description}</p>
                   </div>
 

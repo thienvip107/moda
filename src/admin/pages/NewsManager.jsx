@@ -451,9 +451,18 @@ export default function NewsManager() {
                   </div>
                   <div>
                     <h3 className="font-bold text-[#171717] text-sm group-hover:text-[#D4AF37] transition-colors line-clamp-1">{item.title}</h3>
-                    <div className="flex items-center space-x-3 text-xs text-stone-500 mt-1">
+                    <div className="flex items-center flex-wrap gap-2 text-xs text-stone-500 mt-1">
                       <span className="text-[#171717] bg-stone-100 px-2.5 py-0.5 rounded font-bold uppercase text-[10px]">{item.category}</span>
                       <span>• {item.date || 'Gần đây'}</span>
+                      {item.title_en ? (
+                        <span className="text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full text-[10px] font-bold flex items-center gap-1">
+                          🇬🇧 Đã có EN
+                        </span>
+                      ) : (
+                        <span className="text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full text-[10px] font-bold flex items-center gap-1">
+                          ⚠️ Chưa có EN
+                        </span>
+                      )}
                     </div>
                   </div>
                 </div>

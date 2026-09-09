@@ -643,7 +643,14 @@ export default function ProductManager() {
                 <div className="p-4 flex-1 flex flex-col justify-between">
                   <div>
                     <h3 className="font-extrabold text-[#171717] text-sm line-clamp-1">{prod.name || prod.title}</h3>
-                    <p className="text-xs text-amber-800 font-bold mt-1">{prod.price}</p>
+                    <div className="flex items-center gap-2 mt-1">
+                      <p className="text-xs text-amber-800 font-bold">{prod.price}</p>
+                      {prod.name_en ? (
+                        <span className="text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full text-[10px] font-bold">🇬🇧 Có EN</span>
+                      ) : (
+                        <span className="text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full text-[10px] font-bold">⚠️ Chưa EN</span>
+                      )}
+                    </div>
                     
                     {prod.specs && (
                       <div className="mt-2 text-[11px] text-stone-600 bg-white p-2 rounded-lg border border-stone-200 space-y-0.5">

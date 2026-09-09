@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { MapPin, Phone, Mail, Send, ExternalLink } from 'lucide-react';
+import { MapPin, Phone, Mail, ExternalLink } from 'lucide-react';
 import { FaFacebook, FaInstagram } from 'react-icons/fa';
 import { getSiteSettings } from '../services/api';
 
 const Footer = () => {
   const { t, i18n } = useTranslation();
-  const isEn = i18n.language === 'en';
+  const isEn = Boolean(i18n?.language && i18n.language.toLowerCase().startsWith('en'));
   const [settings, setSettings] = useState({
-    hotline: '0909168587',
+    hotline: '0338693555',
     email: 'info@htstone.vn',
     office_laichau: '206 Trần Hưng Đạo, phường Đoàn Kết, tỉnh Lai Châu',
+    office_laichau_en: '206 Tran Hung Dao Street, Doan Ket Ward, Lai Chau Province, Vietnam',
     quarry_namho: 'Xã Pa Tần, Tỉnh Lai Châu',
+    quarry_namho_en: 'Pa Tan Commune, Lai Chau Province, Vietnam',
     quarry_phiengen: 'Xã Lê Lợi, Tỉnh Lai Châu',
+    quarry_phiengen_en: 'Le Loi Commune, Lai Chau Province, Vietnam',
     company_full_name: 'HT STONE là thương hiệu đá tự nhiên thuộc Công ty TNHH MTV Thương mại và Xây dựng Hiền Tài',
     company_full_name_en: 'HT STONE is the natural stone brand of Hien Tai Trading & Construction One Member Co., Ltd.',
     facebook_url: '#',
@@ -35,7 +38,7 @@ const Footer = () => {
   return (
     <footer className="bg-muted/30 text-secondary pt-16 pb-8 border-t border-muted">
       <div className="container mx-auto px-4 md:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-16 text-left">
           
           {/* Brand Info */}
           <div className="space-y-4">
@@ -48,7 +51,7 @@ const Footer = () => {
             </Link>
             <p className="font-body text-xs font-medium leading-relaxed text-secondary/90">
               {isEn 
-                ? (settings.company_full_name_en || 'HT STONE is the natural stone brand of Hien Tai Trading & Construction One Member Co., Ltd.') 
+                ? (settings.footer_about_en || settings.company_full_name_en || 'HT STONE is the natural stone brand of Hien Tai Trading & Construction One Member Co., Ltd.') 
                 : (settings.footer_about || settings.company_full_name || 'HT STONE là thương hiệu đá tự nhiên thuộc Công ty TNHH MTV Thương mại và Xây dựng Hiền Tài')}
             </p>
             <div className="flex gap-3 pt-2">
@@ -75,32 +78,34 @@ const Footer = () => {
 
           {/* Contact Info (Google Sheet Detailed Specs) */}
           <div className="lg:col-span-2">
-            <h4 className="text-primary font-heading font-semibold text-sm mb-4 uppercase tracking-wider">{isEn ? 'CONTACT & QUARRY LOCATIONS' : 'VĂN PHÒNG & MỎ ĐÁ HT STONE'}</h4>
+            <h4 className="text-primary font-heading font-semibold text-sm mb-4 uppercase tracking-wider">{isEn ? 'HEADQUARTERS & QUARRIES' : 'VĂN PHÒNG & MỎ ĐÁ HT STONE'}</h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 font-body text-xs leading-relaxed">
               {/* Lai Chau Office */}
               <div className="space-y-1.5 bg-surface/80 p-3.5 rounded-lg border border-muted/70 hover:border-accent/40 transition-colors">
                 <div className="flex items-center justify-between">
                   <p className="font-bold text-primary flex items-center gap-1.5">
                     <MapPin size={14} className="text-accent shrink-0" />
-                    <span>HT STONE – VP Lai Châu</span>
+                    <span>{isEn ? 'HT STONE – Lai Chau Office' : 'HT STONE – VP Lai Châu'}</span>
                   </p>
                   <a 
                     href="https://maps.app.goo.gl/7Shh2TsFGunCtt6A7" 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    title="Mở Google Maps"
+                    title="Google Maps"
                     className="text-accent hover:text-primary transition-colors p-1"
                   >
                     <ExternalLink size={13} />
                   </a>
                 </div>
-                <p className="text-secondary/80 pl-5">Số nhà 206 Trần Hưng Đạo, P. Đoàn Kết, Lai Châu</p>
+                <p className="text-secondary/80 pl-5">
+                  {isEn ? '206 Tran Hung Dao Street, Doan Ket Ward, Lai Chau' : 'Số nhà 206 Trần Hưng Đạo, P. Đoàn Kết, Lai Châu'}
+                </p>
                 <div className="pl-5 flex items-center justify-between pt-0.5">
                   <a href="tel:0338693555" className="text-accent font-semibold hover:underline flex items-center gap-1">
-                    <Phone size={11} /> ĐT: 0338.693.555
+                    <Phone size={11} /> {isEn ? 'Tel: 0338.693.555' : 'ĐT: 0338.693.555'}
                   </a>
                   <a href="https://maps.app.goo.gl/7Shh2TsFGunCtt6A7" target="_blank" rel="noopener noreferrer" className="text-[10px] font-bold text-secondary/70 hover:text-accent hover:underline">
-                    Chỉ đường &rarr;
+                    {isEn ? 'Directions →' : 'Chỉ đường →'}
                   </a>
                 </div>
               </div>
@@ -110,25 +115,27 @@ const Footer = () => {
                 <div className="flex items-center justify-between">
                   <p className="font-bold text-primary flex items-center gap-1.5">
                     <MapPin size={14} className="text-accent shrink-0" />
-                    <span>HT STONE – Mỏ Đen Nậm Ho</span>
+                    <span>{isEn ? 'HT STONE – Nam Ho Quarry' : 'HT STONE – Mỏ Đen Nậm Ho'}</span>
                   </p>
                   <a 
                     href="https://maps.app.goo.gl/hyjSR6VSaarHiCb87" 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    title="Mở Google Maps"
+                    title="Google Maps"
                     className="text-accent hover:text-primary transition-colors p-1"
                   >
                     <ExternalLink size={13} />
                   </a>
                 </div>
-                <p className="text-secondary/80 pl-5">Xã Pa Tần, Tỉnh Lai Châu</p>
+                <p className="text-secondary/80 pl-5">
+                  {isEn ? 'Pa Tan Commune, Lai Chau Province' : 'Xã Pa Tần, Tỉnh Lai Châu'}
+                </p>
                 <div className="pl-5 flex items-center justify-between pt-0.5">
                   <a href="tel:0968005321" className="text-accent font-semibold hover:underline flex items-center gap-1">
-                    <Phone size={11} /> ĐT: 0968005321
+                    <Phone size={11} /> {isEn ? 'Tel: 0968005321' : 'ĐT: 0968005321'}
                   </a>
                   <a href="https://maps.app.goo.gl/hyjSR6VSaarHiCb87" target="_blank" rel="noopener noreferrer" className="text-[10px] font-bold text-secondary/70 hover:text-accent hover:underline">
-                    Chỉ đường &rarr;
+                    {isEn ? 'Directions →' : 'Chỉ đường →'}
                   </a>
                 </div>
               </div>
@@ -137,10 +144,14 @@ const Footer = () => {
               <div className="space-y-1.5 bg-surface/80 p-3.5 rounded-lg border border-muted/70 hover:border-accent/40 transition-colors">
                 <p className="font-bold text-primary flex items-center gap-1.5">
                   <MapPin size={14} className="text-accent shrink-0" />
-                  <span>HT STONE – Mỏ Đa Sắc Phiêng Én</span>
+                  <span>{isEn ? 'HT STONE – Phieng En Quarry' : 'HT STONE – Mỏ Đa Sắc Phiêng Én'}</span>
                 </p>
-                <p className="text-secondary/80 pl-5">Xã Lê Lợi, Tỉnh Lai Châu</p>
-                <p className="text-[10px] text-secondary/60 pl-5">Khai thác đá đa sắc tự nhiên</p>
+                <p className="text-secondary/80 pl-5">
+                  {isEn ? 'Le Loi Commune, Lai Chau Province' : 'Xã Lê Lợi, Tỉnh Lai Châu'}
+                </p>
+                <p className="text-[10px] text-secondary/60 pl-5">
+                  {isEn ? 'Natural Multicolor Slate Extraction' : 'Khai thác đá đa sắc tự nhiên'}
+                </p>
               </div>
             </div>
           </div>

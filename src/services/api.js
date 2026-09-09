@@ -78,6 +78,7 @@ const defaultProjects = [
     slug: 'nha-hat-lon-ha-noi',
     category: 'iconic',
     desc: 'Kiến trúc biểu tượng - Hạng mục lợp mái ngói đá tự nhiên nguyên bản.',
+    desc_en: 'Iconic heritage architecture – Roofing with authentic natural Slate stone tiles.',
     location: 'Hoàn Kiếm, Hà Nội',
     img: 'https://res.cloudinary.com/ydxroi9a/image/upload/w_800,f_auto,q_auto/v1784694428/adpht1zwuubd1lddxbtq.jpg',
     year: '2024',
@@ -90,6 +91,7 @@ const defaultProjects = [
     slug: 'waldorf-astoria-hanoi',
     category: 'hotel',
     desc: 'Khách sạn sang trọng - Ốp vách nghệ thuật và lát đá tự nhiên đẳng cấp thượng lưu.',
+    desc_en: 'Luxury hotel – Feature art cladding and ultra-premium natural stone paving.',
     location: 'Hà Nội',
     img: 'https://res.cloudinary.com/ydxroi9a/image/upload/w_800,f_auto,q_auto/v1784694425/p3mrfgfx1g0v5vihwj5i.jpg',
     year: '2024',
@@ -102,6 +104,7 @@ const defaultProjects = [
     slug: 'pacific-place-hanoi',
     category: 'urban',
     desc: 'Kiến trúc đô thị hiện đại - Hạng mục đá lát sảnh và cảnh quan thương mại.',
+    desc_en: 'Modern urban architecture – Lobby stone paving and commercial landscape.',
     location: 'Hà Nội',
     img: 'https://res.cloudinary.com/ydxroi9a/image/upload/w_800,f_auto,q_auto/v1784694423/kcnmsxbnasrbezglaqmy.jpg',
     year: '2023',
@@ -114,6 +117,7 @@ const defaultProjects = [
     slug: 'alluvia-city',
     category: 'urban',
     desc: 'Kiến trúc đô thị hiện đại - Cung cấp và thi công đá đường dạo sân vườn khu đô thị.',
+    desc_en: 'Modern urban complex – Supply and installation of natural stone garden walkways.',
     location: 'Văn Giang, Hưng Yên',
     img: 'https://res.cloudinary.com/ydxroi9a/image/upload/w_800,f_auto,q_auto/v1784694459/cbxamzsfpfvto5g5hi4q.jpg',
     year: '2024',
@@ -126,6 +130,7 @@ const defaultProjects = [
     slug: 'dai-su-quan-anh',
     category: 'public',
     desc: 'Công trình công cộng - Cung cấp đá tự nhiên bảo đảm tiêu chuẩn kiến trúc ngoại giao.',
+    desc_en: 'Public landmark – Premium natural slate fulfilling strict diplomatic architectural standards.',
     location: 'Hà Nội',
     img: 'https://res.cloudinary.com/ydxroi9a/image/upload/w_800,f_auto,q_auto/v1784694419/khg9fw7wkqnqssrksraj.jpg',
     year: '2023',
@@ -138,6 +143,7 @@ const defaultProjects = [
     slug: 'sun-spa-resort',
     category: 'resort',
     desc: 'Nghỉ dưỡng ven biển - Lát hồ bơi vô cực và đường dạo bungalow bằng đá Slate chống trơn.',
+    desc_en: 'Coastal luxury resort – Infinity pool paving and bungalow paths with slip-resistant slate.',
     location: 'Quảng Bình',
     img: 'https://res.cloudinary.com/ydxroi9a/image/upload/w_800,f_auto,q_auto/v1784694425/p3mrfgfx1g0v5vihwj5i.jpg',
     year: '2023',
@@ -150,6 +156,7 @@ const defaultProjects = [
     slug: 'lake-view-hotel',
     category: 'hotel',
     desc: 'Khách sạn sang trọng - Hệ thống đá đen ốp sảnh đón khách và vách sảnh thang máy.',
+    desc_en: 'Luxury boutique hotel – Black slate reception lobby cladding and elevator lobbies.',
     location: 'Hà Nội',
     img: 'https://res.cloudinary.com/ydxroi9a/image/upload/w_800,f_auto,q_auto/v1784694413/eacdckyeft9xsvbfszpb.jpg',
     year: '2023',
@@ -162,6 +169,7 @@ const defaultProjects = [
     slug: 'biethu-vuon-dao-ciputra',
     category: 'villa',
     desc: 'Biệt thự cao cấp - Lợp mái đá vảy cá đen tuyền kết hợp đá chẻ ốp tường rào biệt thự.',
+    desc_en: 'Luxury residential villas – Solid fish scale black slate roofing and split stone fencing.',
     location: 'Tây Hồ, Hà Nội',
     img: 'https://res.cloudinary.com/ydxroi9a/image/upload/w_800,f_auto,q_auto/v1784694423/kcnmsxbnasrbezglaqmy.jpg',
     year: '2024',
@@ -174,6 +182,7 @@ const defaultProjects = [
     slug: 'eco-retreat-long-an',
     category: 'resort',
     desc: 'Không gian resort sinh thái - Cung cấp đá chẻ tự nhiên hòa quyện cảnh quan thiên nhiên.',
+    desc_en: 'Eco-resort sanctuary – Natural split slate harmoniously integrated into tropical landscape.',
     location: 'Long An',
     img: 'https://res.cloudinary.com/ydxroi9a/image/upload/w_800,f_auto,q_auto/v1784694444/cap5xlp4lzlzh5ca8zv2.jpg',
     year: '2024',
@@ -497,14 +506,24 @@ export async function getProductsList() {
     if (!finalSpecs.surface || !String(finalSpecs.surface).trim() || finalSpecs.surface === 'Liên hệ') finalSpecs.surface = defaultSpecs.surface;
     if (!finalSpecs.origin || !String(finalSpecs.origin).trim()) finalSpecs.origin = defaultSpecs.origin;
 
+    const localMatch = Array.isArray(initialProducts) ? initialProducts.find(ip => ip.id === p.id || ip.slug === p.slug || ip.title === p.name || ip.title === p.title) : null;
+    const fallbackNameEn = (p.name || '').includes('DOL01') ? 'BLACK SLATE SQUARE PAVING - CODE DOL01'
+      : (p.name || '').includes('DOL02') ? 'BLACK SLATE RECTANGULAR PAVING - CODE DOL02'
+      : (p.name || '').includes('DOL03') ? 'BLACK SLATE SQUARE PAVING - CODE DOL03'
+      : (p.name || '').includes('DOL04') ? 'BLACK SLATE SQUARE PAVING - CODE DOL04'
+      : (p.name || '').includes('DOL05') ? 'BLACK SLATE RECTANGULAR PAVING - CODE DOL05'
+      : (p.name || '').toLowerCase().includes('đa sắc') ? 'MULTICOLOR SLATE CLADDING & PAVING'
+      : '';
+    const resolvedNameEn = p.name_en || p.title_en || p.engTitle || localMatch?.engTitle || localMatch?.name_en || fallbackNameEn;
+
     return {
       ...p,
       title: p.name || p.title,
       name: p.name || p.title,
-      name_en: p.name_en || p.title_en || p.engTitle || '',
+      name_en: resolvedNameEn,
       desc: p.description || p.desc,
       description: p.description || p.desc,
-      description_en: p.description_en || p.desc_en || '',
+      description_en: p.description_en || p.desc_en || localMatch?.desc_en || '',
       img: mainImg,
       image_url: mainImg,
       gallery: gal,
@@ -793,11 +812,17 @@ export async function getProjectsList() {
       if (!error && data?.length) {
         return data
           .filter(p => !isTestProject(p))
-          .map(p => ({
-            ...p,
-            img: optimizeCloudinaryUrl(p.image_url || p.img, 800),
-            desc: p.description || p.desc
-          }));
+          .map(p => {
+            const dp = defaultProjects.find(d => d.slug === p.slug || d.id === p.id || (d.title && p.title && d.title.toLowerCase() === p.title.toLowerCase()) || (p.title && d.title && p.title.toLowerCase().includes(d.title.toLowerCase())));
+            return {
+              ...p,
+              title_en: p.title_en || dp?.title_en || p.title,
+              img: optimizeCloudinaryUrl(p.image_url || p.img || dp?.img, 800),
+              desc: p.description || p.desc || dp?.desc,
+              desc_en: p.description_en || p.desc_en || dp?.desc_en || '',
+              description_en: p.description_en || p.desc_en || dp?.desc_en || ''
+            };
+          });
       }
     } catch (e) {
       console.warn('Supabase fetch projects failed, falling back:', e);
@@ -808,7 +833,10 @@ export async function getProjectsList() {
     .filter(p => !isTestProject(p))
     .map(p => ({
       ...p,
-      img: optimizeCloudinaryUrl(p.img || p.image_url, 800)
+      img: optimizeCloudinaryUrl(p.img || p.image_url, 800),
+      desc: p.description || p.desc,
+      desc_en: p.description_en || p.desc_en || '',
+      description_en: p.description_en || p.desc_en || ''
     }));
 }
 
@@ -886,8 +914,14 @@ const defaultSettings = {
   facebook_url: 'https://facebook.com',
   instagram_url: 'https://instagram.com',
   home_intro_title: 'Làm Chủ Nguồn Đá Slate Tự Nhiên Từ Lai Châu',
+  home_intro_title_en: 'Owning the Finest Lai Chau Slate at the Source',
   home_intro_desc: 'HT STONE sở hữu mỏ đá Slate tự nhiên tại Lai Châu, cung cấp hai dòng sản phẩm chính là đá Slate đen và đá Slate đa sắc. Việc làm chủ nguồn đá giúp chúng tôi kiểm soát chất lượng ngay từ khâu khai thác và đảm bảo nguồn cung ổn định cho các dự án. Với độ hút nước thấp, kết cấu bền chắc và vẻ đẹp nguyên bản của đá tự nhiên, Slate Lai Châu là lựa chọn phù hợp cho các hạng mục lợp mái, ốp tường và lát nền. HT STONE đồng hành cùng khách hàng từ khai thác – sản xuất – phân phối – thi công, mang đến giải pháp đá tự nhiên trọn gói.',
-  footer_about: 'HT STONE là thương hiệu đá tự nhiên thuộc Công ty TNHH MTV Thương mại và Xây dựng Hiền Tài'
+  home_intro_desc_en: 'HT STONE owns and operates natural Slate quarries in Lai Chau, supplying two signature collections: Black Slate and Multicolor Slate. By controlling the stone at its source, we ensure consistent quality, reliable supply, and complete quality control from quarrying onward. With exceptionally low water absorption, outstanding durability, and the authentic beauty of natural stone, Lai Chau Slate is an ideal choice for roofing, wall cladding, and paving applications. From quarrying and processing to supply and installation, HT STONE delivers complete natural stone solutions for projects of every scale.',
+  footer_about: 'HT STONE là thương hiệu đá tự nhiên thuộc Công ty TNHH MTV Thương mại và Xây dựng Hiền Tài',
+  footer_about_en: 'HT STONE is the natural stone brand of Hien Tai Trading & Construction One Member Co., Ltd.',
+  office_laichau_en: '206 Tran Hung Dao Street, Doan Ket Ward, Lai Chau Province, Vietnam',
+  quarry_namho_en: 'Pa Tan Commune, Lai Chau Province, Vietnam',
+  quarry_phiengen_en: 'Le Loi Commune, Lai Chau Province, Vietnam'
 };
 
 export async function getSiteSettings() {

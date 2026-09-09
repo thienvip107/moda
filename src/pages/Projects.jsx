@@ -125,7 +125,7 @@ const Projects = () => {
                       </h3>
                     </Link>
                     <p className="font-body text-xs text-secondary/80 line-clamp-2">
-                      {proj.desc || proj.scale || proj.location}
+                      {isEn ? (proj.description_en || proj.desc_en || proj.desc || proj.scale || proj.location) : (proj.desc || proj.scale || proj.location)}
                     </p>
                   </div>
                 </div>

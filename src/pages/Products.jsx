@@ -8,14 +8,16 @@ import SEO from '../components/SEO';
 
 const Products = () => {
   const { t, i18n } = useTranslation();
-  const isEn = i18n.language === 'en';
+  const isEn = Boolean(i18n?.language && i18n.language.toLowerCase().startsWith('en'));
   const location = useLocation();
   const [activeFilter, setActiveFilter] = useState('all');
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    document.title = "Sản phẩm | HT STONE - Đá Tự Nhiên Lai Châu";
+    document.title = isEn 
+      ? "Products & Catalog | HT STONE - Lai Chau Natural Slate" 
+      : "Sản phẩm | HT STONE - Đá Tự Nhiên Lai Châu";
     if (location.state && location.state.filter) {
       setActiveFilter(location.state.filter);
     }
@@ -30,14 +32,57 @@ const Products = () => {
       }
     }
     fetchProducts();
-  }, [location.state]);
+  }, [isEn, location.state]);
 
   const filteredProducts = activeFilter === 'all'
     ? products
     : products.filter(p => normalizeProductCategory(p.category) === activeFilter);
 
-
   const getSeoData = () => {
+    if (isEn) {
+      switch (activeFilter) {
+        case 'da-den-lop-mai':
+        case 'roofing':
+          return {
+            title: "Lai Chau Black Slate Roofing - Fish Scale & Rectangular Tiles | HT STONE",
+            description: "Direct quarry supply of Lai Chau natural Black Slate roofing tiles. Ultra-low water absorption, 100+ year durability for villas and luxury resorts.",
+            keywords: "slate roofing, black slate roofing, lai chau slate roofing, fish scale slate, villa roofing"
+          };
+        case 'da-den-op-lat':
+        case 'wall':
+          return {
+            title: "Black Slate Cladding & Paving - Premium Lai Chau Stone | HT STONE",
+            description: "Natural Black Slate tiles for wall cladding, exterior facades, courtyards, and garden pathways. Direct quarry production, moss-resistant.",
+            keywords: "slate wall cladding, black slate paving, stone facade, natural slate tiles"
+          };
+        case 'da-da-sac-lop-mai':
+          return {
+            title: "Multicolor Slate Roofing - Bespoke Natural Stone Tiles | HT STONE",
+            description: "Bespoke Multicolor Slate roofing tiles for luxury villas and estates, crafted from Lai Chau quarries.",
+            keywords: "multicolor slate roofing, natural slate tiles, bespoke roofing"
+          };
+        case 'da-da-sac-op-lat':
+        case 'flooring':
+          return {
+            title: "Multicolor Slate Cladding & Paving - Heavy-Duty Natural Stone | HT STONE",
+            description: "Multicolor Slate paving for garden landscapes, pedestrian paths, and exterior walls. Slip-resistant and durable.",
+            keywords: "multicolor slate paving, garden stone, slate cladding, lai chau slate"
+          };
+        case 'da-trang-tri':
+          return {
+            title: "Natural Random Slate - Rustic Hand-Split Stone | HT STONE",
+            description: "Hand-split natural Random Slate for landscape retaining walls, pond edges, and architectural feature walls.",
+            keywords: "random slate, natural flagstone, rustic slate, garden slate"
+          };
+        default:
+          return {
+            title: "Natural Slate Products Catalog - Black & Multicolor Slate | HT STONE",
+            description: "Complete catalog of premium natural Lai Chau Slate products directly from the quarry: roofing, cladding, and paving.",
+            keywords: "slate quarry, black slate, lai chau slate, natural stone, slate roofing, slate cladding"
+          };
+      }
+    }
+
     switch (activeFilter) {
       case 'da-den-lop-mai':
       case 'roofing':
@@ -83,6 +128,17 @@ const Products = () => {
 
   const seoInfo = getSeoData();
 
+  const getTranslatedSurface = (surface) => {
+    if (!surface) return isEn ? 'Hand-split / Natural' : 'Chẻ tự nhiên / Mài thô';
+    if (!isEn) return surface;
+    return surface
+      .replace('Xén cạnh thủ công hoặc Cắt phẳng bằng máy', 'Hand-split edge or Machine-cut')
+      .replace('Chẻ tự nhiên / Mài thô', 'Hand-split / Natural')
+      .replace('Chẻ thô tự nhiên chống trơn', 'Rough hand-split slip-resistant')
+      .replace('Chẻ tay tự nhiên', 'Natural hand-split')
+      .replace('Chẻ tay thủ công', 'Hand-split craftsmanship');
+  };
+
   return (
     <main className="min-h-screen bg-background text-primary">
       <SEO 
@@ -116,18 +172,18 @@ const Products = () => {
       {/* 2. Catalog Filters */}
       <section className="py-8 md:py-12 bg-background border-b border-muted/50">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
-          <div className="flex flex-wrap items-center justify-center gap-4 md:gap-8">
+          <div className="flex flex-wrap items-center justify-center gap-3 md:gap-6">
             {filters.map((f) => (
               <button
                 key={f.key}
                 onClick={() => setActiveFilter(f.key)}
-                className={`font-body text-sm uppercase tracking-wider font-semibold py-2 px-4 border-b-2 transition-all duration-300 ${
+                className={`font-body text-xs md:text-sm uppercase tracking-wider font-semibold py-2 px-4 border-b-2 transition-all duration-300 ${
                   activeFilter === f.key
                     ? 'border-accent text-accent'
                     : 'border-transparent text-secondary hover:text-primary hover:border-muted'
                 }`}
               >
-                {f.name}
+                {isEn ? (f.name_en || f.name) : f.name}
               </button>
             ))}
           </div>
@@ -138,93 +194,94 @@ const Products = () => {
       <section className="py-16 md:py-20 lg:py-28 bg-background">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-8">
-            {filteredProducts.map((product) => (
-              <div 
-                key={product.id} 
-                className="group bg-surface border border-muted p-5 rounded-sm shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col justify-between"
-              >
-                <div>
-                  {/* Image Showcase */}
-                  <Link to={`/products/${product.id}`} className="aspect-square overflow-hidden rounded-xs border border-muted/50 relative mb-5 block">
-                    <img 
-                      src={product.img} 
-                      alt={product.title} 
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  </Link>
- 
-                  {/* Info */}
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-1.5 text-accent text-xs font-body uppercase tracking-wider font-semibold">
-                      <Sparkles size={12} />
-                      <span>
-                        {normalizeProductCategory(product.category) === 'da-den-lop-mai' && (isEn ? 'Black Slate Roofing' : 'Đá đen lợp mái')}
-                        {normalizeProductCategory(product.category) === 'da-den-op-lat' && (isEn ? 'Black Slate Cladding & Paving' : 'Đá đen ốp lát')}
-                        {normalizeProductCategory(product.category) === 'da-da-sac-lop-mai' && (isEn ? 'Multicolor Slate Roofing' : 'Đá đa sắc lợp mái')}
-                        {normalizeProductCategory(product.category) === 'da-da-sac-op-lat' && (isEn ? 'Multicolor Slate Cladding & Paving' : 'Đá đa sắc ốp lát')}
-                        {normalizeProductCategory(product.category) === 'da-trang-tri' && (isEn ? 'Natural Random Slate' : 'Đá rối tự nhiên')}
-                      </span>
+            {filteredProducts.map((product) => {
+              const displayTitle = isEn ? (product.name_en || product.engTitle || product.title) : product.title;
+              return (
+                <div 
+                  key={product.id} 
+                  className="group bg-surface border border-muted p-5 rounded-sm shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col justify-between"
+                >
+                  <div>
+                    {/* Image Showcase */}
+                    <Link to={`/products/${product.id}`} className="aspect-square overflow-hidden rounded-xs border border-muted/50 relative mb-5 block">
+                      <img 
+                        src={product.img || product.image_url} 
+                        alt={displayTitle} 
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    </Link>
+   
+                    {/* Info */}
+                    <div className="space-y-3 text-left">
+                      <div className="flex items-center gap-1.5 text-accent text-xs font-body uppercase tracking-wider font-semibold">
+                        <Sparkles size={12} />
+                        <span>
+                          {normalizeProductCategory(product.category) === 'da-den-lop-mai' && (isEn ? 'Black Slate Roofing' : 'Đá đen lợp mái')}
+                          {normalizeProductCategory(product.category) === 'da-den-op-lat' && (isEn ? 'Black Slate Cladding & Paving' : 'Đá đen ốp lát')}
+                          {normalizeProductCategory(product.category) === 'da-da-sac-lop-mai' && (isEn ? 'Multicolor Slate Roofing' : 'Đá đa sắc lợp mái')}
+                          {normalizeProductCategory(product.category) === 'da-da-sac-op-lat' && (isEn ? 'Multicolor Slate Cladding & Paving' : 'Đá đa sắc ốp lát')}
+                          {normalizeProductCategory(product.category) === 'da-trang-tri' && (isEn ? 'Natural Random Slate' : 'Đá rối tự nhiên')}
+                        </span>
+                      </div>
+                      <Link to={`/products/${product.id}`} className="block group/title">
+                        <h3 className="text-base md:text-lg font-heading font-bold text-[#171717] group-hover/title:text-accent transition-colors line-clamp-2 min-h-[3.25rem] flex items-center">
+                          {displayTitle}
+                        </h3>
+                      </Link>
                     </div>
-                    <Link to={`/products/${product.id}`} className="block group/title">
-                      <h3 className="text-base md:text-lg font-heading font-bold text-[#171717] group-hover/title:text-accent transition-colors line-clamp-2 min-h-[3.25rem] flex items-center">
-                        {product.title}
-                      </h3>
+   
+                    {/* Technical Specs Table */}
+                    <div className="mt-5 pt-4 border-t border-muted/70 space-y-2.5 font-body text-sm text-secondary">
+                      <div className="flex justify-between gap-2">
+                        <span className="font-medium text-secondary/70">{t('specs_sizes')}</span>
+                        <span className="font-semibold text-primary text-right">{product.specs?.sizes || '30x30, 30x60, 40x40 cm'}</span>
+                      </div>
+                      <div className="flex justify-between gap-2">
+                        <span className="font-medium text-secondary/70">{t('specs_thickness')}</span>
+                        <span className="font-semibold text-primary text-right">{product.specs?.thickness || '1.0 - 1.5 cm'}</span>
+                      </div>
+                      <div className="flex justify-between gap-2">
+                        <span className="font-medium text-secondary/70">{t('specs_surface')}</span>
+                        <span className="font-semibold text-primary text-right">{getTranslatedSurface(product.specs?.surface)}</span>
+                      </div>
+                    </div>
+   
+                  </div>
+   
+                  {/* Actions */}
+                  <div className="mt-6 pt-4 border-t border-muted/50 flex items-center justify-between gap-2">
+                    <Link 
+                      to={`/products/${product.id}`} 
+                      className="inline-flex items-center gap-1.5 text-accent font-body uppercase tracking-wider text-xs font-bold hover:text-primary transition-colors border-b border-transparent hover:border-primary pb-0.5"
+                    >
+                      {t('view_details')} <MoveRight size={14} />
+                    </Link>
+                    <Link 
+                      to="/contact" 
+                      state={{ subject: isEn ? `Quotation Request: ${displayTitle}` : `Yêu cầu báo giá: ${displayTitle}` }}
+                      className="inline-flex items-center gap-1 font-body text-xs font-semibold text-secondary hover:text-accent transition-colors"
+                    >
+                      {t('get_quote')}
                     </Link>
                   </div>
- 
-                  {/* Technical Specs Table */}
-                  <div className="mt-5 pt-4 border-t border-muted/70 space-y-2.5 font-body text-sm text-secondary">
-                    <div className="flex justify-between gap-2">
-                      <span className="font-medium text-secondary/70">Kích thước:</span>
-                      <span className="font-semibold text-primary text-right">{product.specs?.sizes || '30x30, 30x60, 40x40 cm'}</span>
-                    </div>
-                    <div className="flex justify-between gap-2">
-                      <span className="font-medium text-secondary/70">Độ dày:</span>
-                      <span className="font-semibold text-primary text-right">{product.specs?.thickness || '1.0 - 1.5 cm'}</span>
-                    </div>
-                    <div className="flex justify-between gap-2">
-                      <span className="font-medium text-secondary/70">Cạnh viền:</span>
-                      <span className="font-semibold text-primary text-right">{product.specs?.surface || 'Chẻ tự nhiên / Mài thô'}</span>
-                    </div>
-                  </div>
- 
                 </div>
- 
-                {/* Actions */}
-                <div className="mt-6 pt-4 border-t border-muted/50 flex items-center justify-between gap-2">
-                  <Link 
-                    to={`/products/${product.id}`} 
-                    className="inline-flex items-center gap-1.5 text-accent font-body uppercase tracking-wider text-sm font-bold hover:text-primary transition-colors border-b border-transparent hover:border-primary pb-0.5"
-                  >
-                    Xem chi tiết <MoveRight size={14} />
-                  </Link>
-                  <Link 
-                    to="/contact" 
-                    state={{ subject: `Yêu cầu báo giá: ${product.title}` }}
-                    className="inline-flex items-center gap-1 font-body text-sm font-semibold text-secondary hover:text-accent transition-colors"
-                  >
-                    Báo giá
-                  </Link>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* 4. Quality Guarantee */}
+      {/* 4. Quality Guarantee (Sheet 3) */}
       <section className="py-16 md:py-20 lg:py-28 bg-muted/20 border-t border-muted">
         <div className="container mx-auto px-4 md:px-6 lg:px-8 text-center max-w-3xl">
           <Shield className="text-accent mx-auto mb-6" size={48} strokeWidth={1.5} />
-          <h2 className="text-3xl font-heading font-bold mb-4">{isEn ? 'HT STONE Quality Commitment' : 'Cam Kết Chất Lượng HT STONE'}</h2>
+          <h2 className="text-3xl font-heading font-bold mb-4">{t('quality_commitment')}</h2>
           <p className="font-body text-secondary text-base leading-relaxed mb-8">
-            {isEn 
-              ? 'We prioritize quality at every stage—from quarrying and processing to final inspection—ensuring every stone preserves its authentic natural beauty and lasting value.'
-              : 'Chúng tôi đặt chất lượng lên hàng đầu, từ khâu khai thác, gia công đến hoàn thiện, để mỗi phiến đá đều giữ trọn vẻ đẹp tự nhiên và giá trị lâu dài.'}
+            {t('quality_commitment_desc')}
           </p>
           <Link to="/contact" className="inline-flex items-center gap-2 bg-accent text-surface px-8 py-3.5 font-body uppercase tracking-wider text-xs font-bold hover:bg-primary transition-all duration-400">
-            <PhoneCall size={16} /> {isEn ? 'REQUEST A QUOTATION' : 'LIÊN HỆ NHẬN BÁO GIÁ'}
+            <PhoneCall size={16} /> {t('quality_commitment_cta')}
           </Link>
         </div>
       </section>

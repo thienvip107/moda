@@ -6,11 +6,14 @@ import { submitContactForm } from '../services/api';
 
 const Contact = () => {
   const { t, i18n } = useTranslation();
-  const isEn = i18n?.language === 'en';
+  const isEn = Boolean(i18n?.language && i18n.language.toLowerCase().startsWith('en'));
 
   React.useEffect(() => {
-    document.title = isEn ? "Contact & Quotation | HT STONE - Lai Chau Slate" : "Liên hệ & báo giá | HT STONE";
+    document.title = isEn 
+      ? "Contact & Direct Quarry Quotation | HT STONE - Lai Chau Slate" 
+      : "Liên hệ & báo giá | HT STONE - Mỏ Đá Lai Châu";
   }, [isEn]);
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -19,13 +22,12 @@ const Contact = () => {
     message: ''
   });
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -42,7 +44,7 @@ const Contact = () => {
       });
     } catch (error) {
       console.error('Lỗi khi gửi liên hệ:', error);
-      alert('Có lỗi xảy ra khi gửi yêu cầu. Vui lòng thử lại sau.');
+      alert(isEn ? 'An error occurred while submitting your inquiry. Please try again.' : 'Có lỗi xảy ra khi gửi yêu cầu. Vui lòng thử lại sau.');
     } finally {
       setIsSubmitting(false);
     }
@@ -51,8 +53,8 @@ const Contact = () => {
   return (
     <main className="min-h-screen bg-background text-primary">
       <SEO 
-        title="Liên Hệ Báo Giá Đá Đen & Đá Đa Sắc Lai Châu Tận Mỏ | HT STONE"
-        description="Liên hệ HT STONE để nhận báo giá đá Slate Lai Châu lợp mái, ốp tường, lát sân vườn trực tiếp tại mỏ. Tư vấn kỹ thuật và gửi mẫu đá miễn phí toàn quốc."
+        title={isEn ? "Contact HT STONE - Direct Lai Chau Slate Quarry Quotation & Technical Support" : "Liên Hệ Báo Giá Đá Đen & Đá Đa Sắc Lai Châu Tận Mỏ | HT STONE"}
+        description={isEn ? "Contact HT STONE for direct quarry pricing on Lai Chau natural slate roofing, wall cladding, and paving. Free sample kits delivered nationwide." : "Liên hệ HT STONE để nhận báo giá đá Slate Lai Châu lợp mái, ốp tường, lát sân vườn trực tiếp tại mỏ. Tư vấn kỹ thuật và gửi mẫu đá miễn phí toàn quốc."}
         keywords="báo giá đá lai châu, báo giá đá đen, báo giá mỏ đá lai châu, liên hệ ht stone, tư vấn lợp mái đá"
         canonical="/contact"
       />
@@ -85,10 +87,10 @@ const Contact = () => {
           <div className="grid lg:grid-cols-12 gap-10 lg:gap-24">
             
             {/* Contact Details (Left) */}
-            <div className="lg:col-span-5 space-y-12">
+            <div className="lg:col-span-5 space-y-12 text-left">
               <div>
                 <span className="font-body uppercase tracking-widest text-accent text-xs font-bold">
-                  {isEn ? 'Contact Information' : 'Thông Tin Liên Hệ'}
+                  {t('contact_title')}
                 </span>
                 <h2 className="text-3xl md:text-4xl font-heading font-light text-primary mt-2 mb-6">
                   {isEn ? 'Headquarters &' : 'Văn Phòng &' } <br />
@@ -96,25 +98,27 @@ const Contact = () => {
                 </h2>
                 <p className="font-body text-secondary text-sm leading-relaxed">
                   {isEn 
-                    ? 'Valued clients, developers, and architects wishing to order stone, request free samples, or inquire about distribution policies, please contact us below or submit your project details via the inquiry form.'
+                    ? 'Valued clients, developers, and architects wishing to order stone, request free physical samples, or inquire about dealership policies, please contact us below or submit your project details via the inquiry form.'
                     : 'Quý khách hàng, chủ đầu tư, kiến trúc sư có nhu cầu mua hàng, nhận mẫu thử hoặc tìm hiểu chính sách đại lý xin vui lòng liên hệ theo thông tin bên dưới hoặc gửi yêu cầu qua form biểu mẫu.'}
                 </p>
               </div>
 
               <div className="space-y-6 font-body">
-                {/* Lai Chau Office */}
+                {/* Lai Chau Office (Sheet 6) */}
                 <div className="flex gap-4 p-4 rounded-xl bg-surface border border-muted/70 shadow-xs hover:border-accent/50 transition-colors">
                   <div className="w-12 h-12 rounded-full border border-accent/25 flex items-center justify-center text-accent shrink-0 bg-background shadow-xs">
                     <MapPin size={20} />
                   </div>
                   <div className="flex-1">
-                    <h4 className="text-sm font-semibold uppercase tracking-wider text-primary mb-1">HT STONE – Văn phòng Lai Châu</h4>
+                    <h4 className="text-sm font-semibold uppercase tracking-wider text-primary mb-1">
+                      {isEn ? 'HT STONE – Lai Chau Office' : 'HT STONE – Văn phòng Lai Châu'}
+                    </h4>
                     <p className="text-sm text-secondary/90 leading-relaxed">
-                      Số nhà 206 Trần Hưng Đạo, phường Đoàn Kết, tỉnh Lai Châu
+                      {isEn ? '206 Tran Hung Dao Street, Doan Ket Ward, Lai Chau Province, Vietnam' : 'Số nhà 206 Trần Hưng Đạo, phường Đoàn Kết, tỉnh Lai Châu'}
                     </p>
                     <div className="flex flex-wrap items-center gap-4 mt-2">
                       <a href="tel:0338693555" className="text-xs font-bold text-accent hover:underline flex items-center gap-1">
-                        <Phone size={12} /> ĐT: 0338.693.555
+                        <Phone size={12} /> {isEn ? 'Tel: 0338.693.555' : 'ĐT: 0338.693.555'}
                       </a>
                       <a 
                         href="https://maps.app.goo.gl/7Shh2TsFGunCtt6A7" 
@@ -122,26 +126,28 @@ const Contact = () => {
                         rel="noopener noreferrer" 
                         className="inline-flex items-center gap-1 text-xs font-semibold text-primary/80 hover:text-accent hover:underline bg-muted/30 px-2.5 py-1 rounded-md transition-colors"
                       >
-                        <span>Chỉ đường trên Google Maps</span>
+                        <span>{isEn ? 'Directions on Google Maps' : 'Chỉ đường trên Google Maps'}</span>
                         <ExternalLink size={11} />
                       </a>
                     </div>
                   </div>
                 </div>
 
-                {/* Nam Ho Black Slate Quarry */}
+                {/* Nam Ho Black Slate Quarry (Sheet 6) */}
                 <div className="flex gap-4 p-4 rounded-xl bg-surface border border-muted/70 shadow-xs hover:border-accent/50 transition-colors">
                   <div className="w-12 h-12 rounded-full border border-accent/25 flex items-center justify-center text-accent shrink-0 bg-background shadow-xs">
                     <MapPin size={20} />
                   </div>
                   <div className="flex-1">
-                    <h4 className="text-sm font-semibold uppercase tracking-wider text-primary mb-1">HT STONE – Mỏ đá Đen Nậm Ho</h4>
+                    <h4 className="text-sm font-semibold uppercase tracking-wider text-primary mb-1">
+                      {isEn ? 'HT STONE – Nam Ho Black Slate Quarry' : 'HT STONE – Mỏ đá Đen Nậm Ho'}
+                    </h4>
                     <p className="text-sm text-secondary/90 leading-relaxed">
-                      Xã Pa Tần, Tỉnh Lai Châu
+                      {isEn ? 'Pa Tan Commune, Lai Chau Province, Vietnam' : 'Xã Pa Tần, Tỉnh Lai Châu'}
                     </p>
                     <div className="flex flex-wrap items-center gap-4 mt-2">
                       <a href="tel:0968005321" className="text-xs font-bold text-accent hover:underline flex items-center gap-1">
-                        <Phone size={12} /> ĐT: 0968005321
+                        <Phone size={12} /> {isEn ? 'Tel: 0968005321' : 'ĐT: 0968005321'}
                       </a>
                       <a 
                         href="https://maps.app.goo.gl/hyjSR6VSaarHiCb87" 
@@ -149,22 +155,24 @@ const Contact = () => {
                         rel="noopener noreferrer" 
                         className="inline-flex items-center gap-1 text-xs font-semibold text-primary/80 hover:text-accent hover:underline bg-muted/30 px-2.5 py-1 rounded-md transition-colors"
                       >
-                        <span>Chỉ đường trên Google Maps</span>
+                        <span>{isEn ? 'Directions on Google Maps' : 'Chỉ đường trên Google Maps'}</span>
                         <ExternalLink size={11} />
                       </a>
                     </div>
                   </div>
                 </div>
 
-                {/* Phieng En Multicolor Slate Quarry */}
+                {/* Phieng En Multicolor Slate Quarry (Sheet 6) */}
                 <div className="flex gap-4 p-4 rounded-xl bg-surface border border-muted/70 shadow-xs hover:border-accent/50 transition-colors">
                   <div className="w-12 h-12 rounded-full border border-accent/25 flex items-center justify-center text-accent shrink-0 bg-background shadow-xs">
                     <MapPin size={20} />
                   </div>
                   <div className="flex-1">
-                    <h4 className="text-sm font-semibold uppercase tracking-wider text-primary mb-1">HT STONE – Mỏ đá Đa Sắc Phiêng Én</h4>
+                    <h4 className="text-sm font-semibold uppercase tracking-wider text-primary mb-1">
+                      {isEn ? 'HT STONE – Phieng En Multicolor Slate Quarry' : 'HT STONE – Mỏ đá Đa Sắc Phiêng Én'}
+                    </h4>
                     <p className="text-sm text-secondary/90 leading-relaxed">
-                      Xã Lê Lợi, Tỉnh Lai Châu
+                      {isEn ? 'Le Loi Commune, Lai Chau Province, Vietnam' : 'Xã Lê Lợi, Tỉnh Lai Châu'}
                     </p>
                   </div>
                 </div>
@@ -175,7 +183,9 @@ const Contact = () => {
                     <Mail size={20} />
                   </div>
                   <div>
-                    <h4 className="text-sm font-semibold uppercase tracking-wider text-primary mb-1">Hòm Thư Điện Tử</h4>
+                    <h4 className="text-sm font-semibold uppercase tracking-wider text-primary mb-1">
+                      {isEn ? 'Official Email' : 'Hòm Thư Điện Tử'}
+                    </h4>
                     <p className="text-sm text-secondary hover:text-accent font-medium">
                       <a href="mailto:info@htstone.vn">info@htstone.vn</a>
                     </p>
@@ -185,7 +195,7 @@ const Contact = () => {
             </div>
 
             {/* Contact Form (Right) */}
-            <div className="lg:col-span-7 bg-surface border border-muted p-8 md:p-10 rounded-sm shadow-xl relative">
+            <div className="lg:col-span-7 bg-surface border border-muted p-8 md:p-10 rounded-sm shadow-xl relative text-left">
               <div className="mb-8">
                 <h3 className="text-2xl font-heading font-bold mb-2">
                   {isEn ? 'Send Us An Inquiry' : 'Gửi Yêu Cầu Cho Chúng Tôi'}
@@ -201,12 +211,10 @@ const Contact = () => {
                     <Send size={28} />
                   </div>
                   <h4 className="text-2xl font-heading font-bold text-primary">
-                    {isEn ? 'Successfully Sent!' : 'Gửi thành công!'}
+                    {t('form_success_title')}
                   </h4>
                   <p className="font-body text-sm text-secondary max-w-sm mx-auto leading-relaxed">
-                    {isEn 
-                      ? 'Thank you for reaching out to HT STONE. We have received your request and our specialists will contact you shortly.' 
-                      : 'Cảm ơn bạn đã liên hệ với HT STONE. Chúng tôi đã nhận được yêu cầu và chuyên viên sẽ chủ động liên hệ lại sớm nhất.'}
+                    {t('form_success_desc')}
                   </p>
                   <button 
                     onClick={() => setSubmitted(false)}
@@ -220,7 +228,7 @@ const Contact = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <label htmlFor="name" className="text-xs uppercase tracking-wider font-semibold text-secondary">
-                        {isEn ? 'Full Name *' : 'Họ và tên *'}
+                        {t('form_name')}
                       </label>
                       <input 
                         type="text" 
@@ -235,7 +243,7 @@ const Contact = () => {
                     </div>
                     <div className="space-y-2">
                       <label htmlFor="phone" className="text-xs uppercase tracking-wider font-semibold text-secondary">
-                        {isEn ? 'Phone Number *' : 'Số điện thoại *'}
+                        {t('form_phone')}
                       </label>
                       <input 
                         type="tel" 
@@ -252,7 +260,7 @@ const Contact = () => {
 
                   <div className="space-y-2">
                     <label htmlFor="email" className="text-xs uppercase tracking-wider font-semibold text-secondary">
-                      {isEn ? 'Email Address' : 'Địa chỉ Email'}
+                      {t('form_email')}
                     </label>
                     <input 
                       type="email" 
@@ -287,7 +295,7 @@ const Contact = () => {
 
                   <div className="space-y-2">
                     <label htmlFor="message" className="text-xs uppercase tracking-wider font-semibold text-secondary">
-                      {isEn ? 'Detailed Inquiry *' : 'Nội dung chi tiết yêu cầu *'}
+                      {t('form_message')}
                     </label>
                     <textarea 
                       id="message" 
@@ -308,8 +316,8 @@ const Contact = () => {
                       className={`w-full bg-accent text-surface py-4 font-body uppercase tracking-wider text-xs font-bold transition-all duration-400 flex items-center justify-center gap-2 ${isSubmitting ? 'opacity-70 cursor-not-allowed' : 'hover:bg-primary'}`}
                     >
                       {isSubmitting 
-                        ? (isEn ? 'Sending...' : 'Đang gửi...') 
-                        : (isEn ? 'Submit Inquiry' : 'Gửi Thông Tin Yêu Cầu')} {!isSubmitting && <Send size={14} />}
+                        ? t('form_sending') 
+                        : (isEn ? 'SUBMIT QUOTATION REQUEST' : t('form_send'))} {!isSubmitting && <Send size={14} />}
                     </button>
                   </div>
                 </form>
@@ -324,19 +332,29 @@ const Contact = () => {
       <section className="py-16 md:py-20 lg:py-28 bg-muted/20 border-t border-muted">
         <div className="container mx-auto px-4 max-w-3xl text-center">
           <HelpCircle className="text-accent mx-auto mb-6" size={40} strokeWidth={1.5} />
-          <h3 className="text-2xl font-heading font-bold mb-4">Các Câu Hỏi Thường Gặp</h3>
+          <h3 className="text-2xl font-heading font-bold mb-4">
+            {isEn ? 'Frequently Asked Questions' : 'Các Câu Hỏi Thường Gặp'}
+          </h3>
           
           <div className="space-y-6 text-left mt-10 font-body text-sm text-secondary">
             <div>
-              <h5 className="font-semibold text-primary text-base mb-2">Tôi có thể nhận mẫu thử (sample block) ở xa không?</h5>
+              <h5 className="font-semibold text-primary text-base mb-2">
+                {isEn ? 'Can I receive physical sample blocks remotely?' : 'Tôi có thể nhận mẫu thử (sample block) ở xa không?'}
+              </h5>
               <p className="leading-relaxed">
-                Hoàn toàn được. HT STONE gửi mẫu đá thực tế miễn phí đến mọi tỉnh thành qua đường chuyển phát nhanh. Quý khách chỉ thanh toán cước vận chuyển COD thông thường cho đơn vị vận chuyển.
+                {isEn 
+                  ? 'Absolutely. HT STONE delivers real stone sample kits nationwide via express courier. You only need to pay standard shipping costs upon receipt.'
+                  : 'Hoàn toàn được. HT STONE gửi mẫu đá thực tế miễn phí đến mọi tỉnh thành qua đường chuyển phát nhanh. Quý khách chỉ thanh toán cước vận chuyển COD thông thường cho đơn vị vận chuyển.'}
               </p>
             </div>
             <div className="border-t border-muted/50 pt-6">
-              <h5 className="font-semibold text-primary text-base mb-2">Đá Slate Lai Châu có bị rêu mốc trơn trượt sau thời gian dài không?</h5>
+              <h5 className="font-semibold text-primary text-base mb-2">
+                {isEn ? 'Does Lai Chau Slate develop moss or become slippery over time?' : 'Đá Slate Lai Châu có bị rêu mốc trơn trượt sau thời gian dài không?'}
+              </h5>
               <p className="leading-relaxed">
-                Độ hút nước của đá Slate Lai Châu gần như bằng không (dưới 0.1%), cấu trúc thớ đá mịn khít giúp loại bỏ nguy cơ phát triển rêu mốc. Bề mặt chẻ thô có độ ma sát tự nhiên cao, chống trơn trượt rất tốt.
+                {isEn 
+                  ? 'Lai Chau Slate has near-zero water absorption (< 0.08%), and its fine, dense crystalline structure prevents moss or mold growth. The hand-split textured surface offers high natural friction, providing excellent slip resistance.'
+                  : 'Độ hút nước của đá Slate Lai Châu gần như bằng không (dưới 0.08%), cấu trúc thớ đá mịn khít giúp loại bỏ nguy cơ phát triển rêu mốc. Bề mặt chẻ thô có độ ma sát tự nhiên cao, chống trơn trượt rất tốt.'}
               </p>
             </div>
           </div>
