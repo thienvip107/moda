@@ -57,7 +57,6 @@ const Projects = () => {
             alt="HT STONE Projects Portfolio" 
             className="w-full h-full object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-black/30 z-10"></div>
         </div>
         <div className="container mx-auto px-4 md:px-6 lg:px-8 text-center relative z-20 max-w-4xl animate-fade-in-up">
           <div className="flex items-center justify-center gap-3 mb-3">
@@ -65,7 +64,7 @@ const Projects = () => {
             <span className="font-body uppercase tracking-[0.2em] text-accent text-xs font-bold">{t('projects')}</span>
             <div className="w-10 h-[1px] bg-accent"></div>
           </div>
-          <h1 className="text-3xl md:text-5xl lg:text-6xl font-heading font-light text-white leading-tight drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-light text-white leading-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]">
             {isEn ? 'PORTFOLIO' : 'DANH SÁCH DỰ ÁN'} <br />
             <span className="font-bold">{isEn ? 'Architectural Masterpieces' : 'Công Trình Tiêu Biểu'}</span>
           </h1>

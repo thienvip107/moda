@@ -24,7 +24,7 @@ const About = () => {
   }, [isEn]);
 
   return (
-    <main className="min-h-screen bg-background text-primary pt-24">
+    <main className="min-h-screen bg-background text-primary">
       <SEO 
         title={isEn ? "About HT STONE - Lai Chau Natural Slate Quarry & Craftsmanship" : "Về HT STONE - Đơn Vị Khai Thác Mỏ Đá Slate Lai Châu Cao Cấp"}
         description={isEn ? "HT STONE owns and operates natural Slate quarries in Lai Chau, Vietnam. Delivering black and multicolor slate solutions." : "HT STONE là thương hiệu sản xuất, khai thác mỏ đá Lai Châu và thi công các dòng đá đen, đá đa sắc tự nhiên hàng đầu Việt Nam."}
@@ -39,7 +39,6 @@ const About = () => {
             alt="About HT STONE - Lai Chau Slate Quarries" 
             className="w-full h-full object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-black/30 z-10"></div>
         </div>
         <div className="container mx-auto px-4 md:px-6 lg:px-8 text-center relative z-20 max-w-4xl animate-fade-in-up">
           <div className="flex items-center justify-center gap-3 mb-3">
@@ -47,8 +46,9 @@ const About = () => {
             <span className="font-body uppercase tracking-[0.2em] text-accent text-xs font-bold">{t('about')}</span>
             <div className="w-10 h-[1px] bg-accent"></div>
           </div>
-          <h1 className="text-3xl md:text-5xl lg:text-6xl font-heading font-light text-white leading-tight drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]">
-            {isEn ? 'Timeless Stone. Timeless Architecture.' : 'Đá Trường Tồn - Kiến Trúc Trường Tồn'}
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-light text-white leading-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]">
+            {isEn ? 'TIMELESS STONE' : 'ĐÁ TRƯỜNG TỒN'} <br />
+            <span className="font-bold">{isEn ? 'Timeless Architecture' : 'Kiến Trúc Trường Tồn'}</span>
           </h1>
         </div>
       </section>

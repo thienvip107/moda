@@ -39,7 +39,7 @@ const Header = () => {
 
   return (
     <>
-      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${showSolidHeader ? 'bg-surface/95 backdrop-blur-md py-3 shadow-md border-b border-muted/50' : 'bg-gradient-to-b from-black/60 to-transparent py-4 md:py-5'}`}>
+      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${showSolidHeader ? 'bg-surface/95 backdrop-blur-md py-3 shadow-md border-b border-muted/50' : 'bg-gradient-to-b from-black/25 via-black/5 to-transparent py-4 md:py-5'}`}>
         <div className="container mx-auto px-4 md:px-6 lg:px-8 flex items-center justify-between">
           
           {/* Logo */}
@@ -47,7 +47,7 @@ const Header = () => {
             <img 
               src={showSolidHeader ? "/assets/img/logo-black.png" : "/assets/img/logo-white.png"} 
               alt="HT STONE" 
-              className="h-12 md:h-16 w-auto object-contain transition-all duration-300"
+              className="h-12 md:h-16 w-auto object-contain transition-all duration-300 drop-shadow-[0_1px_3px_rgba(0,0,0,0.5)]"
             />
           </Link>
 
@@ -60,7 +60,7 @@ const Header = () => {
                 className={`font-body text-sm uppercase tracking-wider font-semibold transition-colors duration-300 hover:text-accent ${
                   location.pathname === link.path 
                     ? 'text-accent' 
-                    : showSolidHeader ? 'text-primary/80' : 'text-white/90'
+                    : showSolidHeader ? 'text-primary/80' : 'text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]'
                 }`}
               >
                 {link.name}
@@ -72,20 +72,20 @@ const Header = () => {
           <div className="flex items-center gap-4">
             <button 
               onClick={toggleLanguage}
-              className={`flex items-center gap-1 font-body text-sm font-semibold transition-colors hover:text-accent ${showSolidHeader ? 'text-primary' : 'text-white'}`}
+              className={`flex items-center gap-1 font-body text-sm font-semibold transition-colors hover:text-accent ${showSolidHeader ? 'text-primary' : 'text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]'}`}
               title={isEn ? 'Chuyển sang Tiếng Việt' : 'Switch to English'}
             >
               <Globe size={18} />
               <span>{isEn ? 'EN' : 'VI'}</span>
             </button>
             
-            <Link to="/contact" className={`hidden md:inline-flex items-center justify-center px-6 py-2.5 border font-body text-sm uppercase tracking-wider font-bold transition-all duration-300 ${showSolidHeader ? 'border-accent text-accent hover:bg-accent hover:text-surface' : 'border-white/80 text-white hover:bg-white hover:text-primary'}`}>
+            <Link to="/contact" className={`hidden md:inline-flex items-center justify-center px-6 py-2.5 border font-body text-sm uppercase tracking-wider font-bold transition-all duration-300 ${showSolidHeader ? 'border-accent text-accent hover:bg-accent hover:text-surface' : 'border-white text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)] hover:bg-white hover:text-primary'}`}>
               {t('contact')}
             </Link>
 
             {/* Mobile Menu Toggle */}
             <button 
-              className={`lg:hidden p-2 transition-colors ${showSolidHeader ? 'text-primary' : 'text-white'}`}
+              className={`lg:hidden p-2 transition-colors ${showSolidHeader ? 'text-primary' : 'text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]'}`}
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}

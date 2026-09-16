@@ -156,13 +156,13 @@ const Products = () => {
             className="w-full h-full object-cover object-center"
           />
         </div>
-        <div className="container mx-auto px-4 md:px-6 lg:px-8 text-center relative z-20 max-w-xl animate-fade-in-up">
+        <div className="container mx-auto px-4 md:px-6 lg:px-8 text-center relative z-20 max-w-4xl animate-fade-in-up">
           <div className="flex items-center justify-center gap-3 mb-3">
             <div className="w-10 h-[1px] bg-accent"></div>
             <span className="font-body uppercase tracking-[0.2em] text-accent text-xs font-bold">{t('products')}</span>
             <div className="w-10 h-[1px] bg-accent"></div>
           </div>
-          <h1 className="text-3xl md:text-5xl lg:text-6xl font-heading font-light text-stone-900 leading-tight">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-light text-stone-900 leading-tight">
             {isEn ? 'ARCHITECTURAL MASTERPIECES' : 'TUYỆT TÁC KIẾN TRÚC'} <br />
             <span className="font-bold text-stone-950">{isEn ? 'Premium Natural Slate' : 'Đá Tự Nhiên Cao Cấp'}</span>
           </h1>

@@ -287,6 +287,98 @@ export async function deleteBanner(id) {
 // ==========================================
 // 2. NEWS & ARTICLES API
 // ==========================================
+const NEWS_TRANSLATION_MAP = {
+  '61988462-767d-4c5f-9a04-718b533f1e0f': {
+    title_en: 'Can Lai Chau Slate Be Used for Gardens and Landscaping?',
+    summary_en: 'Explore popular outdoor applications of Lai Chau natural slate for gardens, courtyards, swimming pool decks, retaining walls, and scenic pathways – blending seamlessly with natural flora and water.'
+  },
+  '-lai-ch-u-c-th-s-d-ng-cho-s-n-v-n-v-c-nh-quan-kh-ng-': {
+    title_en: 'Can Lai Chau Slate Be Used for Gardens and Landscaping?',
+    summary_en: 'Explore popular outdoor applications of Lai Chau natural slate for gardens, courtyards, swimming pool decks, retaining walls, and scenic pathways – blending seamlessly with natural flora and water.'
+  },
+  '39afd208-7b4e-47ee-98a4-3abc0576ec39': {
+    title_en: 'Natural Stone Wall Cladding for Luxury Villas: 7 Design Ideas',
+    summary_en: '7 inspiring natural stone wall cladding ideas for luxury villas – from grand entrance facades and double-height living room feature walls to serene landscape courtyards.'
+  },
+  '-p-t-ng-t-nhi-n-cho-bi-t-th-7-t-ng-ng-d-ng': {
+    title_en: 'Natural Stone Wall Cladding for Luxury Villas: 7 Design Ideas',
+    summary_en: '7 inspiring natural stone wall cladding ideas for luxury villas – from grand entrance facades and double-height living room feature walls to serene landscape courtyards.'
+  },
+  'a47fab6e-5480-4050-a54f-6b142a677c04': {
+    title_en: '5 Reasons Lai Chau Stone Is Increasingly Chosen for High-End Projects',
+    summary_en: 'Why is Lai Chau natural slate the top material choice for luxury villas, 5-star resorts, and iconic buildings? Explore the 5 decisive architectural advantages.'
+  },
+  '5-l-do-lai-ch-u-ng-y-c-ng-c-a-chu-ng-trong-c-ng-tr-nh-cao-c-p': {
+    title_en: '5 Reasons Lai Chau Stone Is Increasingly Chosen for High-End Projects',
+    summary_en: 'Why is Lai Chau natural slate the top material choice for luxury villas, 5-star resorts, and iconic buildings? Explore the 5 decisive architectural advantages.'
+  },
+  '94f85e69-41d1-481b-9a24-e975f8b57747': {
+    title_en: 'The Journey of a Stone: From Deep Mountain Quarry to Completed Architecture',
+    summary_en: 'Follow the meticulous journey of Lai Chau slate stone from extraction on rugged mountain peaks to artisan hand splitting, precision cutting, and architectural installation.'
+  },
+  'h-nh-tr-nh-c-a-m-t-vi-n-t-m-n-c-ng-tr-nh': {
+    title_en: 'The Journey of a Stone: From Deep Mountain Quarry to Completed Architecture',
+    summary_en: 'Follow the meticulous journey of Lai Chau slate stone from extraction on rugged mountain peaks to artisan hand splitting, precision cutting, and architectural installation.'
+  },
+  '74fbbaf1-4fe8-484c-b338-5deb893f7d08': {
+    title_en: 'Extraction & Craftsmanship Process at Lai Chau Slate Quarry',
+    summary_en: 'From deep mountain deposits to finished architectural tiles: discover how HT STONE sustainably quarries, hand-splits, and rigorously inspects natural slate in Lai Chau, Vietnam.'
+  },
+  'quy-trinh-khai-thac-che-tac': {
+    title_en: 'Extraction & Craftsmanship Process at Lai Chau Slate Quarry',
+    summary_en: 'From deep mountain deposits to finished architectural tiles: discover how HT STONE sustainably quarries, hand-splits, and rigorously inspects natural slate in Lai Chau, Vietnam.'
+  },
+  'cf2c87b3-bd0d-4679-b732-683388df3e9b': {
+    title_en: 'Technical Installation Guide for Lai Chau Slate Roofing',
+    summary_en: 'Comprehensive step-by-step installation instructions for Lai Chau slate roofing tiles: battens layout, roof pitch calculation, copper nail fastening, and overlapping techniques for lifetime durability.'
+  },
+  'huong-dan-thi-cong-lop-mai': {
+    title_en: 'Technical Installation Guide for Lai Chau Slate Roofing',
+    summary_en: 'Comprehensive step-by-step installation instructions for Lai Chau slate roofing tiles: battens layout, roof pitch calculation, copper nail fastening, and overlapping techniques for lifetime durability.'
+  },
+  'uu-diem-da-den-lai-chau': {
+    title_en: 'Outstanding Advantages of Lai Chau Black Slate in Modern Architecture',
+    summary_en: 'Discover why Lai Chau Black Slate is increasingly specified by leading architects: zero water absorption, 100-year durability, natural thermal insulation, and an understated luxury aesthetic.'
+  },
+  'm-t-ng-y-m-ht-stone': {
+    title_en: 'A Day at the HT STONE Quarry: The Pulse of Mountain Heritage & Craftsmanship',
+    summary_en: 'An intimate look into a typical working day at the HT STONE Lai Chau Slate quarries, following the skilled miners and master stone splitters who shape timeless architectural materials.'
+  }
+};
+
+function getSanitizedEnglishNews(item) {
+  if (!item) return null;
+  const key = item.id || item.slug;
+  if (NEWS_TRANSLATION_MAP[key]) return NEWS_TRANSLATION_MAP[key];
+
+  const titleUpper = (item.title || '').toUpperCase();
+  if (titleUpper.includes('SÂN VƯỜN VÀ CẢNH QUAN') || titleUpper.includes('SÂN VƯỜN')) {
+    return NEWS_TRANSLATION_MAP['-lai-ch-u-c-th-s-d-ng-cho-s-n-v-n-v-c-nh-quan-kh-ng-'];
+  }
+  if (titleUpper.includes('7 Ý TƯỞNG')) {
+    return NEWS_TRANSLATION_MAP['-p-t-ng-t-nhi-n-cho-bi-t-th-7-t-ng-ng-d-ng'];
+  }
+  if (titleUpper.includes('5 LÝ DO')) {
+    return NEWS_TRANSLATION_MAP['5-l-do-lai-ch-u-ng-y-c-ng-c-a-chu-ng-trong-c-ng-tr-nh-cao-c-p'];
+  }
+  if (titleUpper.includes('HÀNH TRÌNH CỦA MỘT VIÊN ĐÁ')) {
+    return NEWS_TRANSLATION_MAP['h-nh-tr-nh-c-a-m-t-vi-n-t-m-n-c-ng-tr-nh'];
+  }
+  if (titleUpper.includes('QUY TRÌNH KHAI THÁC VÀ CHẾ TÁC')) {
+    return NEWS_TRANSLATION_MAP['quy-trinh-khai-thac-che-tac'];
+  }
+  if (titleUpper.includes('HƯỚNG DẪN THI CÔNG LỢP MÁI')) {
+    return NEWS_TRANSLATION_MAP['huong-dan-thi-cong-lop-mai'];
+  }
+  if (titleUpper.includes('ƯU ĐIỂM VƯỢT TRỘI')) {
+    return NEWS_TRANSLATION_MAP['uu-diem-da-den-lai-chau'];
+  }
+  if (titleUpper.includes('MỘT NGÀY Ở MỎ ĐÁ')) {
+    return NEWS_TRANSLATION_MAP['m-t-ng-y-m-ht-stone'];
+  }
+  return null;
+}
+
 export async function getNewsList() {
   const mapNewsData = (item) => {
     let gal = [];
@@ -304,22 +396,45 @@ export async function getNewsList() {
     if (cover && !gal.includes(cover)) {
       gal.unshift(cover);
     }
+
+    const sanitizedEn = getSanitizedEnglishNews(item);
+    const rawTitleEn = (item.title_en || '').trim();
+    const hasVnDiacritics = /[àáảãạăắằẳẵặâấầẩẫậđèéẻẽẹêếềểễệìíỉĩịòóỏõọôốồổỗộơớờởỡợùúủũụưứừửữựỳýỷỹỵ]/i.test(rawTitleEn);
+    const isCorrupted = rawTitleEn.length > 150 || hasVnDiacritics || rawTitleEn === (item.title || '').trim();
+
+    let finalTitleEn = rawTitleEn;
+    let finalSummaryEn = item.summary_en || item.excerpt_en || '';
+    let finalContentEn = item.content_en || '';
+
+    if ((!finalTitleEn || isCorrupted) && sanitizedEn) {
+      finalTitleEn = sanitizedEn.title_en;
+      if (!finalSummaryEn || isCorrupted || sanitizedEn.summary_en) {
+        finalSummaryEn = sanitizedEn.summary_en;
+      }
+      if (sanitizedEn.content_en) {
+        finalContentEn = sanitizedEn.content_en;
+      }
+    }
+
     return {
       ...item,
       img: cover,
       cover_image: cover,
       gallery: gal,
       title: item.title || '',
-      title_en: item.title_en || '',
+      title_en: finalTitleEn || item.title || '',
       summary: item.summary || item.excerpt || '',
-      summary_en: item.summary_en || item.excerpt_en || '',
+      summary_en: finalSummaryEn || item.summary || '',
       excerpt: item.summary || item.excerpt || 'Thông tin bài viết kỹ thuật thi công đá tự nhiên...',
-      excerpt_en: item.summary_en || item.excerpt_en || '',
+      excerpt_en: finalSummaryEn || item.summary || item.excerpt || '',
       content: item.content || '',
-      content_en: item.content_en || '',
+      content_en: finalContentEn || item.content || '',
       date: item.created_at ? new Date(item.created_at).toLocaleDateString('vi-VN') : (item.date || 'Gần đây')
     };
   };
+
+  const localNews = getLocalData('news', []);
+  const localMap = new Map((localNews || []).map(n => [String(n.id || n.slug), n]));
 
   if (isSupabaseConfigured) {
     try {
@@ -328,7 +443,20 @@ export async function getNewsList() {
         .select('*')
         .order('created_at', { ascending: false });
       if (!error && data) {
-        return data.map(mapNewsData);
+        const mergedData = data.map(dbItem => {
+          const localItem = localMap.get(String(dbItem.id)) || localMap.get(String(dbItem.slug));
+          if (localItem) {
+            return {
+              ...dbItem,
+              ...localItem,
+              title_en: localItem.title_en || dbItem.title_en,
+              summary_en: localItem.summary_en || localItem.excerpt_en || dbItem.summary_en,
+              content_en: localItem.content_en || dbItem.content_en
+            };
+          }
+          return dbItem;
+        });
+        return mergedData.map(mapNewsData);
       }
     } catch (e) {
       console.warn('Supabase fetch news failed, falling back:', e);
