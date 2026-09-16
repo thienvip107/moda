@@ -162,7 +162,7 @@ const Products = () => {
             <span className="font-body uppercase tracking-[0.2em] text-accent text-xs font-bold">{t('products')}</span>
             <div className="w-10 h-[1px] bg-accent"></div>
           </div>
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-light text-stone-900 leading-tight">
+          <h1 className={`font-heading font-light text-stone-900 leading-tight ${isEn ? 'text-xl sm:text-2xl md:text-3xl lg:text-[2.15rem]' : 'text-2xl sm:text-3xl md:text-4xl lg:text-5xl'}`}>
             {isEn ? 'ARCHITECTURAL MASTERPIECES' : 'TUYỆT TÁC KIẾN TRÚC'} <br />
             <span className="font-bold text-stone-950">{isEn ? 'Premium Natural Slate' : 'Đá Tự Nhiên Cao Cấp'}</span>
           </h1>
