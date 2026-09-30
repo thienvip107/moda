@@ -194,8 +194,9 @@ const About = () => {
             <div className="order-1 lg:order-2">
               <div className="aspect-[4/3] overflow-hidden border border-muted/50 rounded-sm shadow-xl">
                 <img 
-                  src="https://lh3.googleusercontent.com/gg/ACRwjavnJkWuLXX-uPkNNJPgsMGI1IxoVday62lqWMeJnLhLFdwt915fiYYfUKe_1Eri17wlArh0a9oJXyKN7hjugLKBUDlYLYme3cTpUwRZbMf6DGEJIoSbTh9xPX9UZWiItpfoKBQbOD4NW0xi6jbCTAAaPpeHwQPyuyufSi4LdS5ydjoDMDo=s1024-rj" 
+                  src="/assets/img/project_1.jpg" 
                   alt="Nhà xưởng đóng gói palet đá Slate Lai Châu" 
+                  onError={(e) => { e.currentTarget.src = '/assets/img/about_stone.jpg'; }}
                   className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                 />
               </div>

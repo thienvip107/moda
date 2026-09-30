@@ -10,7 +10,7 @@ const Footer = () => {
   const isEn = Boolean(i18n?.language && i18n.language.toLowerCase().startsWith('en'));
   const [settings, setSettings] = useState({
     hotline: '0338693555',
-    email: 'info@htstone.vn',
+    email: 'lienhe.htstone@gmail.com',
     office_laichau: '206 Trần Hưng Đạo, phường Đoàn Kết, tỉnh Lai Châu',
     office_laichau_en: '206 Tran Hung Dao Street, Doan Ket Ward, Lai Chau Province, Vietnam',
     quarry_namho: 'Xã Pa Tần, Tỉnh Lai Châu',
@@ -54,6 +54,27 @@ const Footer = () => {
                 ? (settings.footer_about_en || settings.company_full_name_en || 'HT STONE is the natural stone brand of Hien Tai Trading & Construction One Member Co., Ltd.') 
                 : (settings.footer_about || settings.company_full_name || 'HT STONE là thương hiệu đá tự nhiên thuộc Công ty TNHH MTV Thương mại và Xây dựng Hiền Tài')}
             </p>
+
+            {/* Hotline & Email Box */}
+            <div className="pt-2 space-y-2">
+              <a 
+                href="tel:0338693555" 
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-accent/15 border border-accent/40 text-primary font-bold text-xs hover:bg-accent hover:text-white transition-all duration-300 shadow-xs group"
+              >
+                <div className="w-5 h-5 rounded-full bg-accent text-white flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                  <Phone size={11} />
+                </div>
+                <span>Hotline: 0338.693.555</span>
+              </a>
+
+              <div className="flex items-center gap-2 text-xs text-secondary/90 pt-0.5">
+                <Mail size={13} className="text-accent shrink-0" />
+                <a href={`mailto:${settings.email || 'lienhe.htstone@gmail.com'}`} className="hover:text-accent hover:underline">
+                  {settings.email || 'lienhe.htstone@gmail.com'}
+                </a>
+              </div>
+            </div>
+
             <div className="flex gap-3 pt-2">
               <a href={settings.facebook_url || '#'} target="_blank" rel="noreferrer" className="w-9 h-9 rounded-full border border-muted flex items-center justify-center text-primary/70 hover:bg-accent hover:text-surface hover:border-accent transition-all duration-300">
                 <FaFacebook size={16} />

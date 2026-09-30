@@ -160,6 +160,7 @@ const NewsDetail = () => {
           <img 
             src={postImg} 
             alt={postTitle} 
+            onError={(e) => { e.currentTarget.src = '/assets/img/banners/banner_news.jpg'; }}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
           />
           <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
@@ -197,7 +198,7 @@ const NewsDetail = () => {
         </div>
 
         {/* 4.5 Article Photo Gallery (Bộ Ảnh Tư Liệu & Công Trình) */}
-        {post.gallery && post.gallery.length > 0 && (
+        {post.gallery && post.gallery.length > 1 && (
           <div className="mb-16 space-y-4 border-t border-muted/50 pt-8 text-left">
             <div className="flex items-center justify-between">
               <div>
@@ -224,6 +225,7 @@ const NewsDetail = () => {
                   <img 
                     src={imgUrl} 
                     alt={`Gallery ${gIdx + 1}`} 
+                    onError={(e) => { e.currentTarget.src = '/assets/img/banners/banner_news.jpg'; }}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
                   />
                   <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">

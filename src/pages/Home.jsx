@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ArrowRight, Download, ChevronRight, ChevronLeft, Send, CheckCircle2 } from 'lucide-react';
-import { getBanners, defaultBanners, getPolicy, getProjectsList, getSiteSettings, submitContactForm } from '../services/api';
+import { getBanners, defaultBanners, getPolicy, getProjectsList, getSiteSettings, submitContactForm, getProductsList, normalizeProductCategory } from '../services/api';
 import SEO from '../components/SEO';
 
 const Home = () => {
@@ -10,6 +10,7 @@ const Home = () => {
   const isEn = i18n.language === 'en';
   const [banners, setBanners] = useState(defaultBanners);
   const [projects, setProjects] = useState([]);
+  const [products, setProducts] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [settings, setSettings] = useState(null);
   const [contactForm, setContactForm] = useState({ name: '', phone: '', email: '', message: '' });
@@ -20,14 +21,20 @@ const Home = () => {
     document.title = isEn ? "HT STONE - Lai Chau Natural Slate Quarries" : "HT STONE - Đá Tự Nhiên Lai Châu Cao Cấp";
     async function fetchHomeData() {
       try {
-        const data = await getBanners();
-        if (data && data.length > 0) {
-          setBanners(data);
+        const [bannerData, projData, siteSettings, prodData] = await Promise.all([
+          getBanners(),
+          getProjectsList(),
+          getSiteSettings(),
+          getProductsList()
+        ]);
+        if (bannerData && bannerData.length > 0) {
+          setBanners(bannerData);
         }
-        const projData = await getProjectsList();
-        setProjects(projData);
-        const siteSettings = await getSiteSettings();
+        setProjects(projData || []);
         setSettings(siteSettings);
+        if (prodData && prodData.length > 0) {
+          setProducts(prodData);
+        }
       } catch (err) {
         console.error(err);
       }
@@ -182,7 +189,7 @@ const Home = () => {
             <div className="lg:col-span-6 relative">
               <div className="aspect-[4/3] overflow-hidden border border-muted/50 rounded-sm shadow-2xl">
                 <img 
-                  src="https://lh3.googleusercontent.com/d/1HD4UUmbwXj7leUWx7ZoDi59JdaWsLatR" 
+                  src="/assets/img/about_stone.jpg" 
                   alt="Mỏ đá Lai Châu kết cấu địa chất cận mỏ" 
                   className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                 />
@@ -218,25 +225,25 @@ const Home = () => {
               {
                 title: isEn ? "1. Black Slate Roofing" : "1. Đá Slate Đen Lợp Mái",
                 desc: isEn ? "Natural Black Slate in rectangular, fish scale, hexagonal profiles. Low water absorption & lasting color stability." : "Đá Slate đen tự nhiên với nhiều kiểu dáng như chữ nhật, vảy cá, lục giác... Độ hút nước thấp, bền màu và phù hợp cho mái biệt thự, resort.",
-                img: "https://lh3.googleusercontent.com/d/17tv9H60Li5XAnosx790hGgFhcmybICK9",
+                img: "/assets/img/roofing_slate.jpg",
                 filter: "da-den-lop-mai"
               },
               {
                 title: isEn ? "2. Black Slate Cladding & Paving" : "2. Đá Slate Đen Ốp Lát",
                 desc: isEn ? "Suitable for wall cladding, courtyards, pathways. Slip-resistant surface balancing rustic charm with sophistication." : "Đá Slate đen dùng cho ốp tường, lát sân và lối đi. Bề mặt tự nhiên, chống trơn trượt, chịu thời tiết tốt và mang vẻ đẹp sang trọng.",
-                img: "https://lh3.googleusercontent.com/d/11uG-qJlTo5FvBu8jn0aWr5DaFu7jpk7v",
+                img: "/assets/img/wall_cladding.jpg",
                 filter: "da-den-op-lat"
               },
               {
                 title: isEn ? "3. Multicolor Slate Roofing" : "3. Đá Slate Đa Sắc Lợp Mái",
                 desc: isEn ? "A harmonious blend of natural colors creating one-of-a-kind slate roofs celebrating authentic architecture." : "Sự hòa quyện của những gam màu tự nhiên tạo nên mái đá độc bản, tôn vinh vẻ đẹp tự nhiên, là dấu ấn riêng cho từng công trình.",
-                img: "https://res.cloudinary.com/ydxroi9a/image/upload/w_800,f_auto,q_auto/v1786936942/o31d4gsbiblvqwxvbkx2.png",
+                img: "/assets/img/multicolor_slate.jpg",
                 filter: "da-da-sac-lop-mai"
               },
               {
                 title: isEn ? "4. Multicolor Slate Cladding & Paving" : "4. Đá Slate Đa Sắc Ốp Lát",
                 desc: isEn ? "Designed for wall cladding, paving, and landscape applications with naturally balanced warm tones." : "Đá Slate đa sắc dùng cho ốp tường, lát sân và cảnh quan. Màu sắc tự nhiên hài hòa, bền chắc cho cả nội và ngoại thất.",
-                img: "https://lh3.googleusercontent.com/gg/ACRwjauW4EDMKWOXKSNqJMRNF8aypP2Ri7SrHhLoBHRM-C-9G1arHJl7n3ZDSLa2Triyn2ZI5HxdXy9S67BYWglsAA_GUsK1rTzAf2Vfhwl0qoyujIrHiSPiJM2X0OJT86fStpz4z89m_XjaYC6pjHSFqe6L-IzD_y7twh0CO_cwH55_GAayUJaO=s1024-rj",
+                img: "/assets/img/paving_slate.jpg",
                 filter: "da-da-sac-op-lat"
               },
               {
@@ -245,33 +252,38 @@ const Home = () => {
                 img: "/assets/img/damoimage.png",
                 filter: "da-trang-tri"
               }
-            ].map((cat, idx) => (
-              <Link 
-                key={idx} 
-                to="/products"
-                state={{ filter: cat.filter }}
-                className="group bg-surface border border-muted p-4 rounded-sm shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col justify-between"
-              >
-                <div>
-                  <div className="aspect-[4/3] overflow-hidden mb-4 rounded-xs border border-muted/50">
-                    <img 
-                      src={cat.img} 
-                      alt={cat.title} 
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
+            ].map((cat, idx) => {
+              const matchedProduct = products.find(p => normalizeProductCategory(p.category) === cat.filter);
+              const categoryImage = (matchedProduct && (matchedProduct.image_url || matchedProduct.img)) || cat.img;
+
+              return (
+                <Link 
+                  key={idx} 
+                  to="/products"
+                  state={{ filter: cat.filter }}
+                  className="group bg-surface border border-muted p-4 rounded-sm shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col justify-between"
+                >
+                  <div>
+                    <div className="aspect-[4/3] overflow-hidden mb-4 rounded-xs border border-muted/50">
+                      <img 
+                        src={categoryImage} 
+                        alt={cat.title} 
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                    </div>
+                    <h3 className="text-base font-heading font-bold text-primary mb-2 group-hover:text-accent transition-colors line-clamp-2">
+                      {cat.title}
+                    </h3>
+                    <p className="font-body text-xs text-secondary/80 leading-relaxed line-clamp-3 mb-4">
+                      {cat.desc}
+                    </p>
                   </div>
-                  <h3 className="text-base font-heading font-bold text-primary mb-2 group-hover:text-accent transition-colors line-clamp-2">
-                    {cat.title}
-                  </h3>
-                  <p className="font-body text-xs text-secondary/80 leading-relaxed line-clamp-3 mb-4">
-                    {cat.desc}
-                  </p>
-                </div>
-                <span className="inline-flex items-center gap-1 text-accent font-body uppercase tracking-wider text-[11px] font-bold border-b border-transparent group-hover:border-accent pb-0.5 w-fit">
-                  {isEn ? 'View Category' : 'Xem danh mục'} <ChevronRight size={14} />
-                </span>
-              </Link>
-            ))}
+                  <span className="inline-flex items-center gap-1 text-accent font-body uppercase tracking-wider text-[11px] font-bold border-b border-transparent group-hover:border-accent pb-0.5 w-fit">
+                    {isEn ? 'View Category' : 'Xem danh mục'} <ChevronRight size={14} />
+                  </span>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -297,17 +309,17 @@ const Home = () => {
               {
                 title: isEn ? "Natural Slate Roofing" : "Mái Đá Tự Nhiên",
                 desc: isEn ? "Increasingly chosen for premium architectural projects, Lai Chau Slate roofing offers exceptional durability, timeless beauty, and an elegant finish." : "Ngày càng nhiều công trình cao cấp lựa chọn mái đá Slate Lai Châu là vật liệu không thể thay thế bởi độ bền bỉ, vẻ đẹp tự nhiên.",
-                img: "https://lh3.googleusercontent.com/d/17tv9H60Li5XAnosx790hGgFhcmybICK9"
+                img: "/assets/img/roofing_slate.jpg"
               },
               {
                 title: isEn ? "Facades & Feature Walls" : "Ốp Mặt Tiền & Vách Nghệ Thuật",
                 desc: isEn ? "Create architectural depth and visual impact with the authentic texture of natural Slate, bringing strength and sophistication." : "Tôn lên chiều sâu kiến trúc với bề mặt đá tự nhiên, mạnh mẽ, tinh tế và đầy dấu ấn.",
-                img: "https://lh3.googleusercontent.com/gg/ACRwjauW4EDMKWOXKSNqJMRNF8aypP2Ri7SrHhLoBHRM-C-9G1arHJl7n3ZDSLa2Triyn2ZI5HxdXy9S67BYWglsAA_GUsK1rTzAf2Vfhwl0qoyujIrHiSPiJM2X0OJT86fStpz4z89m_XjaYC6pjHSFqe6L-IzD_y7twh0CO_cwH55_GAayUJaO=s1024-rj"
+                img: "/assets/img/wall_cladding.jpg"
               },
               {
                 title: isEn ? "Paving & Pathways" : "Lát Nền & Lối Đi",
                 desc: isEn ? "Complete outdoor living spaces with durable natural stone that combines safety, resilience, and harmony with the landscape." : "Hoàn thiện không gian ngoại thất bằng vật liệu tự nhiên bền chắc, an toàn và hài hòa với cảnh quan.",
-                img: "https://lh3.googleusercontent.com/d/11uG-qJlTo5FvBu8jn0aWr5DaFu7jpk7v"
+                img: "/assets/img/paving_slate.jpg"
               }
             ].map((app, idx) => (
               <div 
@@ -317,6 +329,7 @@ const Home = () => {
                 <img 
                   src={app.img} 
                   alt={app.title} 
+                  onError={(e) => { e.currentTarget.src = '/assets/img/roofing_slate.jpg'; }}
                   className="w-full h-full object-cover opacity-85 transition-all duration-700 group-hover:scale-105 group-hover:opacity-70"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10"></div>

@@ -1025,9 +1025,9 @@ export async function deleteProject(id) {
 // 7. SITE SETTINGS (HOTLINE, FOOTER, ADDRESS) API
 // ==========================================
 const defaultSettings = {
-  hotline: '0909168587',
-  zalo: '0909168587',
-  email: 'info@htstone.vn',
+  hotline: '0338.693.555',
+  zalo: '0338693555',
+  email: 'lienhe.htstone@gmail.com',
   office_laichau: 'Số nhà 206 Trần Hưng Đạo, phường Đoàn Kết, tỉnh Lai Châu',
   office_laichau_phone: '0338.693.555',
   office_laichau_map: 'https://maps.app.goo.gl/7Shh2TsFGunCtt6A7',

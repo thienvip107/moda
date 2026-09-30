@@ -65,8 +65,10 @@ const Projects = () => {
             <div className="w-10 h-[1px] bg-accent"></div>
           </div>
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-light text-white leading-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]">
-            {isEn ? 'PORTFOLIO' : 'DANH SÁCH DỰ ÁN'} <br />
-            <span className="font-bold">{isEn ? 'Architectural Masterpieces' : 'Công Trình Tiêu Biểu'}</span>
+            {isEn ? 'LAI CHAU SLATE STONE' : 'ĐÁ SLATE LAI CHÂU'} <br />
+            <span className="font-bold text-white">
+              {isEn ? 'Elevating Every Architecture' : 'Nâng Tầm Mọi Công Trình'}
+            </span>
           </h1>
         </div>
       </section>
@@ -107,6 +109,7 @@ const Projects = () => {
                     <img 
                       src={proj.img} 
                       alt={proj.title} 
+                      onError={(e) => { e.currentTarget.src = '/assets/img/project_1.jpg'; }}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center">

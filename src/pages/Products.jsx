@@ -207,6 +207,7 @@ const Products = () => {
                       <img 
                         src={product.img || product.image_url} 
                         alt={displayTitle} 
+                        onError={(e) => { e.currentTarget.src = '/assets/img/roofing_slate.jpg'; }}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       />
                       <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>

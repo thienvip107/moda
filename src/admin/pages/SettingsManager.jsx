@@ -155,7 +155,7 @@ export default function SettingsManager() {
                     type="email"
                     value={settings.email}
                     onChange={e => setSettings({ ...settings, email: e.target.value })}
-                    placeholder="info@htstone.vn"
+                    placeholder="lienhe.htstone@gmail.com"
                     className="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-3 text-sm text-[#171717] focus:border-[#171717] focus:outline-none transition-all font-medium"
                   />
                 </div>

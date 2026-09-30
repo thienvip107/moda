@@ -186,7 +186,7 @@ const Contact = () => {
                       {isEn ? 'Official Email' : 'Hòm Thư Điện Tử'}
                     </h4>
                     <p className="text-sm text-secondary hover:text-accent font-medium">
-                      <a href="mailto:info@htstone.vn">info@htstone.vn</a>
+                      <a href="mailto:lienhe.htstone@gmail.com">lienhe.htstone@gmail.com</a>
                     </p>
                   </div>
                 </div>

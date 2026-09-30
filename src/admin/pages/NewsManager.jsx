@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Plus, Trash2, Edit3, UploadCloud, Loader2, Newspaper, Sparkles } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Plus, Trash2, Edit3, UploadCloud, Loader2, Newspaper, Sparkles, ImagePlus } from 'lucide-react';
 import { getNewsList, saveNews, deleteNews } from '../../services/api';
 import { uploadToCloudinary } from '../../services/cloudinary';
 
@@ -9,6 +9,7 @@ export default function NewsManager() {
   const [uploading, setUploading] = useState(false);
   const [editing, setEditing] = useState(false);
   const [langTab, setLangTab] = useState('vi');
+  const fileInputRef = useRef(null);
   const [form, setForm] = useState({
     id: null,
     title: '',
@@ -59,7 +60,8 @@ export default function NewsManager() {
   };
 
   const handleMultipleFileChange = async (e) => {
-    const files = Array.from(e.target.files);
+    const inputEl = e.target;
+    const files = Array.from(inputEl?.files || []);
     if (files.length === 0) return;
 
     setUploading(true);
@@ -70,7 +72,7 @@ export default function NewsManager() {
       setForm(prev => {
         const currentGallery = Array.isArray(prev.gallery) ? [...prev.gallery] : [];
         uploadedUrls.forEach(url => {
-          if (!currentGallery.includes(url)) {
+          if (url && !currentGallery.includes(url)) {
             currentGallery.push(url);
           }
         });
@@ -85,7 +87,7 @@ export default function NewsManager() {
       alert('Upload ảnh thất bại: ' + err.message);
     } finally {
       setUploading(false);
-      e.target.value = '';
+      if (inputEl) inputEl.value = '';
     }
   };
 
@@ -324,69 +326,119 @@ export default function NewsManager() {
             </div>
 
           {/* Upload Dropzone: Multi-image Gallery */}
-          <div className="space-y-4 pt-2 border-t border-stone-200">
-            <div className="flex items-center justify-between">
-              <label className="block text-[11px] font-extrabold text-[#171717] uppercase tracking-wider">
-                BỘ ẢNH BÀI VIẾT / GALLERY (CÓ THỂ UPLOAD NHIỀU ẢNH VÀO 1 BÀI)
-              </label>
-              <div className="flex items-center space-x-3">
-                <span className="text-[10px] text-stone-500 font-medium">Đã chọn: {form.gallery?.length || 0} hình ảnh</span>
+          <div className="space-y-4 pt-4 border-t border-stone-200">
+            <input 
+              ref={fileInputRef}
+              type="file" 
+              multiple 
+              accept="image/*" 
+              className="hidden" 
+              onChange={handleMultipleFileChange}
+              disabled={uploading}
+            />
+
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <label className="block text-[11px] font-extrabold text-[#171717] uppercase tracking-wider">
+                  BỘ ẢNH BÀI VIẾT / GALLERY (CÓ THỂ UPLOAD NHIỀU LẦN)
+                </label>
+                <p className="text-[11px] text-stone-500 font-medium">
+                  Hiện có: <strong className="text-[#D4AF37] font-bold">{form.gallery?.length || 0} ảnh</strong> trong bài viết
+                </p>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => fileInputRef.current?.click()}
+                  disabled={uploading}
+                  className="px-3.5 py-1.5 text-xs font-bold bg-[#171717] hover:bg-stone-800 text-white rounded-xl transition-all shadow-xs flex items-center gap-1.5 disabled:opacity-50"
+                >
+                  {uploading ? <Loader2 className="w-3.5 h-3.5 animate-spin text-[#D4AF37]" /> : <ImagePlus className="w-3.5 h-3.5 text-[#D4AF37]" />}
+                  <span>+ Tải Thêm Ảnh Từ Máy Tính</span>
+                </button>
+
                 <button
                   type="button"
                   onClick={handleAddImageUrl}
-                  className="px-2.5 py-1 text-[10px] font-bold bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-lg transition-colors border border-stone-300"
+                  className="px-3 py-1.5 text-xs font-bold bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-xl transition-colors border border-stone-300"
                 >
                   + Thêm URL Ảnh
                 </button>
               </div>
             </div>
 
-            <div className="p-6 rounded-2xl border-2 border-dashed border-stone-300 bg-stone-50 hover:bg-stone-100/80 transition-all text-center relative cursor-pointer">
-              <input 
-                type="file" 
-                multiple
-                accept="image/*" 
-                className="absolute inset-0 opacity-0 cursor-pointer w-full h-full z-10" 
-                onChange={handleMultipleFileChange}
-                disabled={uploading}
-              />
+            {/* Note banner */}
+            <div className="p-3 bg-amber-50/70 border border-amber-200/80 rounded-xl text-[11px] text-amber-900 flex items-start gap-2">
+              <Sparkles className="w-4 h-4 text-[#D4AF37] shrink-0 mt-0.5" />
+              <span>
+                <strong>Hỗ trợ tải nhiều lần:</strong> Bạn có thể bấm <em>"+ Tải Thêm Ảnh Từ Máy Tính"</em> hoặc kéo thả ảnh vào khung bên dưới bao nhiêu lần tuỳ thích. Tất cả các ảnh tải thêm sẽ được <strong>tự động cộng dồn</strong> vào bài viết!
+              </span>
+            </div>
+
+            {/* Drag & drop zone */}
+            <div 
+              onClick={() => fileInputRef.current?.click()}
+              className="p-6 rounded-2xl border-2 border-dashed border-stone-300 bg-stone-50 hover:bg-stone-100/80 hover:border-[#D4AF37] transition-all text-center cursor-pointer group"
+            >
               <div className="space-y-2 pointer-events-none">
-                <div className="w-10 h-10 rounded-xl bg-white border border-stone-200 text-[#D4AF37] flex items-center justify-center mx-auto shadow-sm">
+                <div className="w-11 h-11 rounded-xl bg-white border border-stone-200 text-[#D4AF37] flex items-center justify-center mx-auto shadow-sm group-hover:scale-105 transition-transform">
                   {uploading ? <Loader2 className="w-5 h-5 animate-spin" /> : <UploadCloud className="w-5 h-5" />}
                 </div>
                 <div>
                   <p className="text-xs font-bold text-[#171717]">
-                    {uploading ? 'Đang Upload Các Ảnh...' : 'Click hoặc Kéo Thả Nhiều Ảnh Vào Đây'}
+                    {uploading ? 'Đang Upload Các Ảnh...' : 'Click hoặc Kéo Thả Thêm Ảnh Vào Đây (Có thể chọn nhiều ảnh cùng lúc)'}
                   </p>
-                  <p className="text-[10px] text-stone-500 font-medium mt-0.5">Tự động tối ưu dung lượng & chuyển đổi định dạng WebP qua Cloudinary CDN</p>
+                  <p className="text-[10px] text-stone-500 font-medium mt-0.5">Tự động tối ưu dung lượng & chuyển đổi sang WebP chuẩn CDN Cloudinary</p>
                 </div>
               </div>
             </div>
 
             {/* Gallery Thumbnails List */}
             {form.gallery && form.gallery.length > 0 && (
-              <div className="space-y-2">
-                <p className="text-[10px] font-extrabold text-[#171717] uppercase tracking-wider">Danh Sách Ảnh Trong Bài Viết (Bấm ngôi sao để chọn Ảnh Bìa chính)</p>
-                <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
+              <div className="space-y-3 pt-2">
+                <div className="flex items-center justify-between">
+                  <p className="text-[10px] font-extrabold text-[#171717] uppercase tracking-wider">
+                    Danh Sách {form.gallery.length} Ảnh Đã Tải (Bấm ngôi sao để chọn Ảnh Bìa chính)
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (window.confirm('Bạn có chắc muốn xóa tất cả ảnh trong bài này?')) {
+                        setForm(prev => ({ ...prev, gallery: [], img: '' }));
+                      }
+                    }}
+                    className="text-[10px] font-bold text-rose-600 hover:underline"
+                  >
+                    Xóa tất cả ảnh
+                  </button>
+                </div>
+
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
                   {form.gallery.map((url, idx) => {
                     const isMain = form.img === url;
                     return (
                       <div key={idx} className={`relative group aspect-square rounded-xl overflow-hidden border-2 transition-all ${isMain ? 'border-[#D4AF37] ring-2 ring-[#D4AF37]/30 shadow-md' : 'border-stone-200'}`}>
-                        <img src={url} alt={`Gallery ${idx}`} className="w-full h-full object-cover" />
+                        <img src={url} alt={`Gallery ${idx + 1}`} className="w-full h-full object-cover" />
                         
+                        {/* Index badge */}
+                        <span className="absolute bottom-1 left-1 bg-black/60 backdrop-blur-xs text-white text-[9px] font-bold px-1.5 py-0.5 rounded">
+                          #{idx + 1}
+                        </span>
+
                         <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-1.5 p-1">
                           <button
                             type="button"
                             onClick={() => handleSetMainImage(url)}
-                            title="Đặt làm ảnh đại diện chính"
-                            className={`p-1.5 rounded-lg transition-colors ${isMain ? 'bg-[#D4AF37] text-white' : 'bg-white/80 text-stone-800 hover:bg-white'}`}
+                            title="Đặt làm ảnh bìa chính"
+                            className={`p-1.5 rounded-lg transition-colors ${isMain ? 'bg-[#D4AF37] text-white' : 'bg-white/90 text-stone-800 hover:bg-white'}`}
                           >
                             <Sparkles className="w-3.5 h-3.5" />
                           </button>
                           <button
                             type="button"
                             onClick={() => handleRemoveGalleryImage(url)}
-                            title="Xóa ảnh này"
+                            title="Xóa ảnh này khỏi bài"
                             className="p-1.5 rounded-lg bg-rose-600/90 text-white hover:bg-rose-600 transition-colors"
                           >
                             <Trash2 className="w-3.5 h-3.5" />

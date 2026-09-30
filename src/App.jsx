@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, Outlet, Navigate } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import FloatingContact from './components/FloatingContact';
 import Home from './pages/Home';
 import About from './pages/About';
 import Products from './pages/Products';
@@ -41,12 +42,13 @@ const ScrollToTop = () => {
   return null;
 };
 
-// Layout cho trang Public (có Header & Footer)
+// Layout cho trang Public (có Header & Footer & Hotline nổi)
 const PublicLayout = () => (
   <>
     <Header />
     <Outlet />
     <Footer />
+    <FloatingContact />
   </>
 );
 
