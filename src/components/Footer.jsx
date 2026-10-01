@@ -17,6 +17,8 @@ const Footer = () => {
     quarry_namho_en: 'Pa Tan Commune, Lai Chau Province, Vietnam',
     quarry_phiengen: 'Xã Lê Lợi, Tỉnh Lai Châu',
     quarry_phiengen_en: 'Le Loi Commune, Lai Chau Province, Vietnam',
+    quarry_phiengen_phone: '0338.693.555',
+    quarry_phiengen_map: 'https://www.google.com/maps/search/?api=1&query=22.07027244567871,103.2158203125',
     company_full_name: 'HT STONE là thương hiệu đá tự nhiên thuộc Công ty TNHH MTV Thương mại và Xây dựng Hiền Tài',
     company_full_name_en: 'HT STONE is the natural stone brand of Hien Tai Trading & Construction One Member Co., Ltd.',
     facebook_url: '#',
@@ -163,16 +165,37 @@ const Footer = () => {
 
               {/* Phieng En Quarry */}
               <div className="space-y-1.5 bg-surface/80 p-3.5 rounded-lg border border-muted/70 hover:border-accent/40 transition-colors">
-                <p className="font-bold text-primary flex items-center gap-1.5">
-                  <MapPin size={14} className="text-accent shrink-0" />
-                  <span>{isEn ? 'HT STONE – Phieng En Quarry' : 'HT STONE – Mỏ Đa Sắc Phiêng Én'}</span>
-                </p>
+                <div className="flex items-center justify-between">
+                  <p className="font-bold text-primary flex items-center gap-1.5">
+                    <MapPin size={14} className="text-accent shrink-0" />
+                    <span>{isEn ? 'HT STONE – Phieng En Quarry' : 'HT STONE – Mỏ Đa Sắc Phiêng Én'}</span>
+                  </p>
+                  <a 
+                    href={settings.quarry_phiengen_map || "https://www.google.com/maps/search/?api=1&query=22.07027244567871,103.2158203125"} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    title="Google Maps"
+                    className="text-accent hover:text-primary transition-colors p-1"
+                  >
+                    <ExternalLink size={13} />
+                  </a>
+                </div>
                 <p className="text-secondary/80 pl-5">
-                  {isEn ? 'Le Loi Commune, Lai Chau Province' : 'Xã Lê Lợi, Tỉnh Lai Châu'}
+                  {isEn ? (settings.quarry_phiengen_en || 'Le Loi Commune, Lai Chau Province') : (settings.quarry_phiengen || 'Xã Lê Lợi, Tỉnh Lai Châu')}
                 </p>
-                <p className="text-[10px] text-secondary/60 pl-5">
-                  {isEn ? 'Natural Multicolor Slate Extraction' : 'Khai thác đá đa sắc tự nhiên'}
-                </p>
+                <div className="pl-5 flex items-center justify-between pt-0.5">
+                  <a href={`tel:${settings.quarry_phiengen_phone || '0338693555'}`} className="text-accent font-semibold hover:underline flex items-center gap-1">
+                    <Phone size={11} /> {isEn ? `Tel: ${settings.quarry_phiengen_phone || '0338.693.555'}` : `ĐT: ${settings.quarry_phiengen_phone || '0338.693.555'}`}
+                  </a>
+                  <a 
+                    href={settings.quarry_phiengen_map || "https://www.google.com/maps/search/?api=1&query=22.07027244567871,103.2158203125"} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="text-[10px] font-bold text-secondary/70 hover:text-accent hover:underline"
+                  >
+                    {isEn ? 'Directions →' : 'Chỉ đường →'}
+                  </a>
+                </div>
               </div>
             </div>
           </div>

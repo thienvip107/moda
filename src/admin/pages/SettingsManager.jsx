@@ -21,6 +21,8 @@ export default function SettingsManager() {
     quarry_namho_map: '',
     quarry_phiengen: '',
     quarry_phiengen_en: '',
+    quarry_phiengen_phone: '',
+    quarry_phiengen_map: '',
     address_headquarters: '',
     address_factory: '',
     facebook_url: '',
@@ -261,19 +263,43 @@ export default function SettingsManager() {
                 </div>
 
                 <div className="pt-2 border-t border-stone-200/60">
-                  <label className="block text-[10px] font-extrabold text-[#171717] uppercase tracking-wider mb-1">
-                    {langTab === 'vi' ? 'Mỏ đá Đa Sắc Phiêng Én' : 'Phieng En Multicolor Slate Quarry'}
-                  </label>
-                  <input
-                    type="text"
-                    value={langTab === 'vi' ? settings.quarry_phiengen : (settings.quarry_phiengen_en || '')}
-                    onChange={e => setSettings({ 
-                      ...settings, 
-                      [langTab === 'vi' ? 'quarry_phiengen' : 'quarry_phiengen_en']: e.target.value 
-                    })}
-                    placeholder={langTab === 'vi' ? "Xã Lê Lợi, Tỉnh Lai Châu" : "Le Loi Commune, Lai Chau Province"}
-                    className="w-full bg-white border border-stone-200 rounded-xl px-3.5 py-2.5 text-xs text-[#171717] focus:border-[#171717] focus:outline-none transition-all font-medium"
-                  />
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                      <label className="block text-[10px] font-extrabold text-[#171717] uppercase tracking-wider mb-1">
+                        {langTab === 'vi' ? 'Mỏ đá Đa Sắc Phiêng Én' : 'Phieng En Multicolor Slate Quarry'}
+                      </label>
+                      <input
+                        type="text"
+                        value={langTab === 'vi' ? settings.quarry_phiengen : (settings.quarry_phiengen_en || '')}
+                        onChange={e => setSettings({ 
+                          ...settings, 
+                          [langTab === 'vi' ? 'quarry_phiengen' : 'quarry_phiengen_en']: e.target.value 
+                        })}
+                        placeholder={langTab === 'vi' ? "Xã Lê Lợi, Tỉnh Lai Châu" : "Le Loi Commune, Lai Chau Province"}
+                        className="w-full bg-white border border-stone-200 rounded-xl px-3.5 py-2.5 text-xs text-[#171717] focus:border-[#171717] focus:outline-none transition-all font-medium"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[10px] font-extrabold text-[#171717] uppercase tracking-wider mb-1">ĐT Mỏ Đa Sắc Phiêng Én</label>
+                      <input
+                        type="text"
+                        value={settings.quarry_phiengen_phone}
+                        onChange={e => setSettings({ ...settings, quarry_phiengen_phone: e.target.value })}
+                        placeholder="0338.693.555"
+                        className="w-full bg-white border border-stone-200 rounded-xl px-3.5 py-2.5 text-xs text-[#171717] focus:border-[#171717] focus:outline-none transition-all font-medium"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[10px] font-extrabold text-[#171717] uppercase tracking-wider mb-1">Link Google Maps Mỏ Phiêng Én</label>
+                      <input
+                        type="text"
+                        value={settings.quarry_phiengen_map}
+                        onChange={e => setSettings({ ...settings, quarry_phiengen_map: e.target.value })}
+                        placeholder="https://www.google.com/maps/..."
+                        className="w-full bg-white border border-stone-200 rounded-xl px-3.5 py-2.5 text-xs text-[#171717] focus:border-[#171717] focus:outline-none transition-all font-medium"
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

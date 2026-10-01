@@ -173,6 +173,20 @@ const Contact = () => {
                     <p className="text-sm text-secondary/90 leading-relaxed">
                       {isEn ? 'Le Loi Commune, Lai Chau Province, Vietnam' : 'Xã Lê Lợi, Tỉnh Lai Châu'}
                     </p>
+                    <div className="flex flex-wrap items-center gap-4 mt-2">
+                      <a href="tel:0338693555" className="text-xs font-bold text-accent hover:underline flex items-center gap-1">
+                        <Phone size={12} /> {isEn ? 'Tel: 0338.693.555' : 'ĐT: 0338.693.555'}
+                      </a>
+                      <a 
+                        href="https://www.google.com/maps/search/?api=1&query=22.07027244567871,103.2158203125" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="inline-flex items-center gap-1 text-xs font-semibold text-primary/80 hover:text-accent hover:underline bg-muted/30 px-2.5 py-1 rounded-md transition-colors"
+                      >
+                        <span>{isEn ? 'Directions on Google Maps' : 'Chỉ đường trên Google Maps'}</span>
+                        <ExternalLink size={11} />
+                      </a>
+                    </div>
                   </div>
                 </div>
 
